@@ -2,6 +2,7 @@ import {
   TOGGLE_SETTINGS,
   TOGGLE_LOADING_SCREEN,
   TOGGLE_SIDE_MENU,
+  SET_STAGE_DIMENSIONS,
 } from '../types';
 
 const toggleSettings = (showSettings) => (dispatch) =>
@@ -22,4 +23,16 @@ const toggleSideMenu = (showSideMenu) => (dispatch) =>
     payload: showSideMenu,
   });
 
-export { toggleSettings, toggleLoadingScreen, toggleSideMenu };
+const setStageDimensions = (payload) => (dispatch) => {
+  dispatch({
+    type: SET_STAGE_DIMENSIONS,
+    payload,
+  });
+};
+
+export {
+  toggleSettings,
+  toggleLoadingScreen,
+  toggleSideMenu,
+  setStageDimensions,
+};

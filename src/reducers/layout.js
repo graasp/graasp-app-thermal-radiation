@@ -2,12 +2,14 @@ import {
   TOGGLE_SETTINGS,
   TOGGLE_LOADING_SCREEN,
   TOGGLE_SIDE_MENU,
+  SET_STAGE_DIMENSIONS,
 } from '../types';
 
 const INITIAL_STATE = {
   settings: {
     open: false,
   },
+  lab: { stageDimensions: { width: 0, height: 0 } },
   showLoader: true,
   showSideMenu: true,
 };
@@ -32,6 +34,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         showSideMenu: payload,
       };
+    case SET_STAGE_DIMENSIONS: {
+      return { ...state, lab: { ...state.lab, stageDimensions: payload } };
+    }
     default:
       return state;
   }

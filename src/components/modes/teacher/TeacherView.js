@@ -4,14 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { withTranslation } from 'react-i18next';
-import { Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { toggleSettings } from '../../../actions';
 import Settings from './Settings';
 import Main from '../../common/Main';
-import { addQueryParamsToUrl } from '../../../utils/url';
-import { MODES } from '../../../config/settings';
 import { MAXIMUM_Z_INDEX } from '../../../config/constants';
+import Lab from '../../lab/Lab';
 
 const styles = (theme) => ({
   message: {
@@ -58,18 +56,7 @@ export class TeacherView extends Component {
           <SettingsIcon />
         </Fab>
 
-        <Paper className={classes.message}>
-          {t(
-            'This is the teacher view. Switch to the student view by clicking on the URL below.',
-          )}
-          <a href={addQueryParamsToUrl({ mode: MODES.STUDENT })}>
-            <pre>
-              {`${window.location.host}/${addQueryParamsToUrl({
-                mode: MODES.STUDENT,
-              })}`}
-            </pre>
-          </a>
-        </Paper>
+        <Lab />
       </Main>
     );
   }
