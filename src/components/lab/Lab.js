@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Stage, Layer } from 'react-konva';
+import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
 import { BACKGROUND_COLOR } from '../../config/constants';
 
@@ -26,8 +27,8 @@ class Lab extends Component {
     }).isRequired,
     dispatchSetStageDimensions: PropTypes.func.isRequired,
     stageDimensions: PropTypes.shape({
-      width: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired,
+      stageWidth: PropTypes.number.isRequired,
+      stageHeight: PropTypes.number.isRequired,
     }).isRequired,
   };
 
@@ -44,13 +45,14 @@ class Lab extends Component {
     const stageWidth = this.container?.offsetWidth;
     const stageHeight = this.container?.offsetHeight;
     dispatchSetStageDimensions({
-      width: stageWidth,
-      height: stageHeight,
+      stageWidth,
+      stageHeight,
     });
   };
 
   render() {
     const { classes, stageDimensions } = this.props;
+    const { stageWidth, stageHeight } = stageDimensions;
     return (
       <div
         className={classes.container}
@@ -61,10 +63,13 @@ class Lab extends Component {
       >
         <Stage
           className={classes.stage}
-          width={stageDimensions.width}
-          height={stageDimensions.height}
+          width={stageWidth}
+          height={stageHeight}
         >
-          <Layer />
+          <Layer>
+            {/* stageDimensions passed as props due to issues accessing redux store via useSelector in konva children */}
+            <Lattice stageDimensions={stageDimensions} />
+          </Layer>
         </Stage>
       </div>
     );

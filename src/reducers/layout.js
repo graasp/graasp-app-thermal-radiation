@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   settings: {
     open: false,
   },
-  lab: { stageDimensions: { width: 0, height: 0 } },
+  lab: { stageDimensions: { stageWidth: 0, stageHeight: 0 } },
   showLoader: true,
   showSideMenu: true,
 };

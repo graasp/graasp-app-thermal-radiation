@@ -41,13 +41,6 @@ const styles = (theme) => ({
     }),
     marginRight: DRAWER_WIDTH,
   },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
   fab: {
     right: theme.spacing(2),
     top: theme.spacing(2),
@@ -63,7 +56,6 @@ class Main extends Component {
       contentShift: PropTypes.string.isRequired,
       fab: PropTypes.string.isRequired,
       root: PropTypes.string.isRequired,
-      drawerHeader: PropTypes.string.isRequired,
     }).isRequired,
     showSideMenu: PropTypes.bool.isRequired,
     headerVisible: PropTypes.bool,
@@ -109,7 +101,6 @@ class Main extends Component {
             [classes.contentShift]: showSideMenu,
           })}
         >
-          {headerVisible && <div className={classes.drawerHeader} />}
           {children}
         </main>
       </div>
