@@ -6,6 +6,7 @@ import { Stage, Layer } from 'react-konva';
 import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
 import { BACKGROUND_COLOR } from '../../config/constants';
+import Thermometer from './Thermometer';
 
 const styles = () => ({
   container: {
@@ -71,6 +72,9 @@ class Lab extends Component {
               height={stageHeight}
             >
               <Provider store={store}>
+                <Layer>
+                  <Thermometer />
+                </Layer>
                 <Layer>
                   <Lattice stageDimensions={stageDimensions} />
                 </Layer>
