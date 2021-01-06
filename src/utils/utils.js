@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 // function expects a canvas with variable width, a fixed positive ion radius, and a fixed distance between two positive ions
-// it calculates the number of positive ions that can be placed in one row on the canvas 
+// it calculates the number of positive ions that can be placed in one row on the canvas
 export const calculateNumberOfPositiveIons = (
   stageWidth,
   positiveIonRadius,
@@ -15,27 +15,27 @@ export const calculateNumberOfPositiveIons = (
   }
 
   let numberOfPositiveIons = 1;
-  let horizontalLengthOfPositiveIons =
+  let widthOfPositiveIons =
     numberOfPositiveIons * positiveIonDiameter +
     (numberOfPositiveIons - 1) * distanceBetweenPositiveIons;
 
-  while (horizontalLengthOfPositiveIons < stageWidth) {
-    const currentLoopHorizontalLength =
+  while (widthOfPositiveIons < stageWidth) {
+    numberOfPositiveIons += 1;
+    const currentLoopWidth =
       numberOfPositiveIons * positiveIonDiameter +
       (numberOfPositiveIons - 1) * distanceBetweenPositiveIons;
-    if (currentLoopHorizontalLength === stageWidth) {
+    if (currentLoopWidth === stageWidth) {
       break;
-    } else if (currentLoopHorizontalLength > stageWidth) {
+    } else if (currentLoopWidth > stageWidth) {
       numberOfPositiveIons -= 1;
       break;
     } else {
-      numberOfPositiveIons += 1;
-      horizontalLengthOfPositiveIons = currentLoopHorizontalLength;
+      widthOfPositiveIons = currentLoopWidth;
     }
   }
 
   return {
     numberOfPositiveIons,
-    excessWidth: stageWidth - horizontalLengthOfPositiveIons,
+    excessWidth: stageWidth - widthOfPositiveIons,
   };
 };

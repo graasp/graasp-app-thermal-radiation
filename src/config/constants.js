@@ -16,8 +16,3 @@ export const POSITIVE_ION_SYMBOL_COLOR = 'white';
 export const NUMBER_OF_ROWS_IN_LATTICE = 3;
 export const VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS = 30;
 export const HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS = 20;
-
-// these are used to manually center the positive ion symbol (+) in its circle
-// if positive ion radius or symbol font size change, these will need to be adjusted
-export const POSITIVE_ION_SYMBOL_HORIZONTAL_ADJUSTMENT_FACTOR = 6;
-export const POSITIVE_ION_SYMBOL_VERTICAL_ADJUSTMENT_FACTOR = 9;
