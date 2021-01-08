@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { ReactReduxContext, Provider, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Stage, Layer } from 'react-konva';
@@ -61,16 +61,23 @@ class Lab extends Component {
           this.container = node;
         }}
       >
-        <Stage
-          className={classes.stage}
-          width={stageWidth}
-          height={stageHeight}
-        >
-          <Layer>
-            {/* stageDimensions passed as props due to issues accessing redux store via useSelector in konva children */}
-            <Lattice stageDimensions={stageDimensions} />
-          </Layer>
-        </Stage>
+        {/* below is necessary for redux store to be accessible by konva children */}
+        {/* see https://github.com/konvajs/react-konva/issues/311 */}
+        <ReactReduxContext.Consumer>
+          {({ store }) => (
+            <Stage
+              className={classes.stage}
+              width={stageWidth}
+              height={stageHeight}
+            >
+              <Provider store={store}>
+                <Layer>
+                  <Lattice stageDimensions={stageDimensions} />
+                </Layer>
+              </Provider>
+            </Stage>
+          )}
+        </ReactReduxContext.Consumer>
       </div>
     );
   }

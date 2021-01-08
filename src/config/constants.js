@@ -16,3 +16,10 @@ export const POSITIVE_ION_SYMBOL_COLOR = 'white';
 export const NUMBER_OF_ROWS_IN_LATTICE = 3;
 export const VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS = 30;
 export const HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS = 20;
+
+// constants used in the electrons between positive ions
+export const ELECTRON_RADIUS = 6;
+export const ELECTRON_COLOR = '#0000AF';
+export const ELECTRON_SYMBOL = "-";
+export const ELECTRON_SYMBOL_FONT_SIZE = 15;
+export const ELECTRON_SYMBOL_COLOR = 'white';

@@ -2,40 +2,29 @@
 
 // function expects a canvas with variable width, a fixed positive ion radius, and a fixed distance between two positive ions
 // it calculates the number of positive ions that can be placed in one row on the canvas
-export const calculateNumberOfPositiveIons = (
+// it returns an array of numbers, corresponding to the x position of each positive ion (a konva circle with an x={} prop)
+export const findXPositionsOfPositiveIons = (
   stageWidth,
   positiveIonRadius,
   distanceBetweenPositiveIons,
 ) => {
-  const positiveIonDiameter = positiveIonRadius * 2;
+  const widthOfPositiveIonWithPadding =
+    2 * positiveIonRadius + distanceBetweenPositiveIons;
 
-  // if width of canvas ('stageWidth') is smaller than one positive ion's diameter, then no positive ions can fit
-  if (stageWidth < positiveIonDiameter) {
-    return { numberOfPositiveIons: 0, excessWidth: stageWidth };
-  }
+  const numberOfPositiveIons = Math.floor(
+    stageWidth / widthOfPositiveIonWithPadding,
+  );
 
-  let numberOfPositiveIons = 1;
-  let widthOfPositiveIons =
-    numberOfPositiveIons * positiveIonDiameter +
-    (numberOfPositiveIons - 1) * distanceBetweenPositiveIons;
+  // since last ion will not have padding to its right
+  const totalWidthOfPositiveIons =
+    numberOfPositiveIons * widthOfPositiveIonWithPadding -
+    distanceBetweenPositiveIons;
 
-  while (widthOfPositiveIons < stageWidth) {
-    numberOfPositiveIons += 1;
-    const currentLoopWidth =
-      numberOfPositiveIons * positiveIonDiameter +
-      (numberOfPositiveIons - 1) * distanceBetweenPositiveIons;
-    if (currentLoopWidth === stageWidth) {
-      break;
-    } else if (currentLoopWidth > stageWidth) {
-      numberOfPositiveIons -= 1;
-      break;
-    } else {
-      widthOfPositiveIons = currentLoopWidth;
-    }
-  }
+  const excessWidth = stageWidth - totalWidthOfPositiveIons;
+  const leftIndent = excessWidth / 2;
 
-  return {
-    numberOfPositiveIons,
-    excessWidth: stageWidth - widthOfPositiveIons,
-  };
+  return [...Array(numberOfPositiveIons)].map(
+    (emptyElement, index) =>
+      leftIndent + positiveIonRadius + widthOfPositiveIonWithPadding * index,
+  );
 };

@@ -3,13 +3,14 @@ import {
   TOGGLE_LOADING_SCREEN,
   TOGGLE_SIDE_MENU,
   SET_STAGE_DIMENSIONS,
+  TOGGLE_ELECTRONS,
 } from '../types';
 
 const INITIAL_STATE = {
   settings: {
     open: false,
   },
-  lab: { stageDimensions: { stageWidth: 0, stageHeight: 0 } },
+  lab: { stageDimensions: { stageWidth: 0, stageHeight: 0 }, electrons: true },
   showLoader: true,
   showSideMenu: true,
 };
@@ -36,6 +37,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       };
     case SET_STAGE_DIMENSIONS: {
       return { ...state, lab: { ...state.lab, stageDimensions: payload } };
+    }
+    case TOGGLE_ELECTRONS: {
+      return { ...state, lab: { ...state.lab, electrons: payload } };
     }
     default:
       return state;
