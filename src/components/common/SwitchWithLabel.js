@@ -17,16 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomSwitch = ({ switchStatus, switchDispatch, switchLabel }) => {
+const SwitchWithLabel = ({ isChecked, onToggle, switchLabel }) => {
   const classes = useStyles();
 
   const onSwitchToggle = () => {
-    switchDispatch(!switchStatus);
+    onToggle(!isChecked);
   };
 
   const Control = (
     <Switch
-      checked={switchStatus}
+      checked={isChecked}
       onChange={onSwitchToggle}
       name={switchLabel}
       color="primary"
@@ -49,10 +49,10 @@ const CustomSwitch = ({ switchStatus, switchDispatch, switchLabel }) => {
   );
 };
 
-CustomSwitch.propTypes = {
-  switchStatus: PropTypes.bool.isRequired,
-  switchDispatch: PropTypes.func.isRequired,
+SwitchWithLabel.propTypes = {
+  isChecked: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
   switchLabel: PropTypes.string.isRequired,
 };
 
-export default CustomSwitch;
+export default SwitchWithLabel;

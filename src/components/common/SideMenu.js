@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { toggleSideMenu, toggleElectrons } from '../../actions';
-import CustomSwitch from './CustomSwitch';
+import SwitchWithLabel from './SwitchWithLabel';
 import { DRAWER_WIDTH, DEFAULT_THEME_DIRECTION } from '../../config/constants';
 
 const styles = (theme) => ({
@@ -99,10 +99,10 @@ class SideMenu extends React.Component {
           {this.renderDrawerHeader()}
           <div className={classes.contentWrapper}>
             <div className={classes.switchContainer}>
-              <CustomSwitch
+              <SwitchWithLabel
                 switchLabel={t('Electrons')}
-                switchStatus={electrons}
-                switchDispatch={dispatchToggleElectrons}
+                isChecked={electrons}
+                onToggle={dispatchToggleElectrons}
               />
             </div>
           </div>
