@@ -9,7 +9,8 @@ import { Divider, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { toggleSideMenu } from '../../actions';
+import { toggleSideMenu, toggleElectrons } from '../../actions';
+import SwitchWithLabel from './SwitchWithLabel';
 import { DRAWER_WIDTH, DEFAULT_THEME_DIRECTION } from '../../config/constants';
 
 const styles = (theme) => ({
@@ -26,6 +27,11 @@ const styles = (theme) => ({
   contentWrapper: {
     margin: theme.spacing(2),
   },
+  switchContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 
 class SideMenu extends React.Component {
@@ -34,6 +40,7 @@ class SideMenu extends React.Component {
       drawerHeader: PropTypes.string.isRequired,
       drawerPaper: PropTypes.string.isRequired,
       contentWrapper: PropTypes.string.isRequired,
+      switchContainer: PropTypes.string.isRequired,
     }).isRequired,
     theme: PropTypes.shape({
       direction: PropTypes.string.isRequired,
@@ -41,6 +48,8 @@ class SideMenu extends React.Component {
     t: PropTypes.func.isRequired,
     showSideMenu: PropTypes.bool.isRequired,
     dispatchToggleSideMenu: PropTypes.func.isRequired,
+    electrons: PropTypes.bool.isRequired,
+    dispatchToggleElectrons: PropTypes.func.isRequired,
   };
 
   handleToggleSideMenu = (open) => () => {
@@ -67,18 +76,14 @@ class SideMenu extends React.Component {
     );
   };
 
-  renderDescription = () => {
-    const { t } = this.props;
-    return (
-      <>
-        <Typography variant="h6">{t('Description')}</Typography>
-        {t('Welcome to the Graasp App Starter Lab Kit')}
-      </>
-    );
-  };
-
   render() {
-    const { classes, showSideMenu } = this.props;
+    const {
+      classes,
+      showSideMenu,
+      electrons,
+      dispatchToggleElectrons,
+      t,
+    } = this.props;
 
     return (
       <>
@@ -93,7 +98,13 @@ class SideMenu extends React.Component {
         >
           {this.renderDrawerHeader()}
           <div className={classes.contentWrapper}>
-            {this.renderDescription()}
+            <div className={classes.switchContainer}>
+              <SwitchWithLabel
+                switchLabel={t('Electrons')}
+                isChecked={electrons}
+                onToggle={dispatchToggleElectrons}
+              />
+            </div>
           </div>
         </Drawer>
       </>
@@ -103,10 +114,12 @@ class SideMenu extends React.Component {
 
 const mapStateToProps = ({ layout }) => ({
   showSideMenu: layout.showSideMenu,
+  electrons: layout.lab.electrons,
 });
 
 const mapDispatchToProps = {
   dispatchToggleSideMenu: toggleSideMenu,
+  dispatchToggleElectrons: toggleElectrons,
 };
 
 const ConnectedComponent = connect(
