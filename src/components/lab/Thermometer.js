@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Shape, Group, Text, Rect } from 'react-konva';
+import { Shape, Group, Text, Rect, RegularPolygon } from 'react-konva';
 import {
   THERMOMETER_RADIUS,
   THERMOMETER_HEIGHT,
@@ -17,7 +18,9 @@ import {
   THERMOMETER_STROKE_WIDTH,
   THERMOMETER_STROKE_COLOR,
   GRADUATION_MAX_NUMBER_TICKS,
+  SLIDER_FILL_COLOR,
 } from '../../config/constants';
+import { setTemperature } from '../../actions';
 
 const ThermometerShape = ({
   stroke,
@@ -66,7 +69,34 @@ const ThermometerShape = ({
   );
 };
 
-const Graduation = ({ from, to, currentTemperature }) => {
+const temperatureToHeight = ({ temperature, deltaHeight, step, from, to }) => {
+  let value = temperature;
+  if (value < from) {
+    value = from;
+  } else if (value > to) {
+    value = to;
+  }
+  return ((Math.abs(from) + value) * deltaHeight) / step;
+};
+
+const heightToTemperature = ({ height, deltaHeight, step, from, to }) => {
+  const newTemperature =
+    ((THERMOMETER_HEIGHT + THERMOMETER_POSITION_Y - height) * step) /
+      deltaHeight -
+    Math.abs(from);
+
+  // clamp value
+  let value = newTemperature;
+  if (value < from) {
+    value = from;
+  } else if (value > to) {
+    value = to;
+  }
+
+  return newTemperature;
+};
+
+const GraduationBase = ({ from, to, temperature, dispatchSetTemperature }) => {
   const x = THERMOMETER_POSITION_X + THERMOMETER_WIDTH;
 
   // compute ideal step distance between ticks
@@ -96,14 +126,15 @@ const Graduation = ({ from, to, currentTemperature }) => {
   const deltaHeight = THERMOMETER_HEIGHT / range.length;
 
   // compute fill height given current temperature value
-  let value = currentTemperature;
-  if (value < roundFrom) {
-    value = roundFrom;
-  } else if (value > roundTo) {
-    value = roundTo;
-  }
-  const fillValue = ((Math.abs(from) + value) * deltaHeight) / step;
+  const fillValue = temperatureToHeight({
+    deltaHeight,
+    temperature,
+    step,
+    from: roundFrom,
+    to: roundTo,
+  });
 
+  // draw graduation ticks
   const graduationComponents = range.map((text, idx) => {
     const y = THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT - idx * deltaHeight;
 
@@ -126,6 +157,16 @@ const Graduation = ({ from, to, currentTemperature }) => {
     );
   });
 
+  const sliderPositionX =
+    THERMOMETER_POSITION_X +
+    THERMOMETER_WIDTH +
+    GRADUATION_WIDTH +
+    GRADUATION_PADDING_LEFT +
+    GRADUATION_FONT_SIZE * 2;
+
+  const minThermometerHeight = THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT;
+  const maxThermomerterHeight =
+    minThermometerHeight - (range.length - 1) * deltaHeight;
   return (
     <>
       <Rect
@@ -136,16 +177,61 @@ const Graduation = ({ from, to, currentTemperature }) => {
         height={fillValue}
       />
       {graduationComponents}
+      <RegularPolygon
+        draggable
+        dragBoundFunc={(pos) => {
+          // clamp y position
+          let newPositionY = pos.y;
+          if (newPositionY > minThermometerHeight) {
+            newPositionY = minThermometerHeight;
+          } else if (newPositionY < maxThermomerterHeight) {
+            newPositionY = maxThermomerterHeight;
+          }
+          // compute temperature from slider y position
+          const newTemperature = heightToTemperature({
+            deltaHeight,
+            height: newPositionY,
+            step,
+            from: roundFrom,
+            to: roundTo,
+          });
+
+          dispatchSetTemperature(newTemperature);
+
+          return {
+            x: sliderPositionX,
+            y: newPositionY,
+          };
+        }}
+        x={sliderPositionX}
+        y={THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT - fillValue}
+        sides={3}
+        radius={8}
+        rotation={30}
+        fill={SLIDER_FILL_COLOR}
+      />
     </>
   );
 };
 
-Graduation.propTypes = {
+GraduationBase.propTypes = {
   from: PropTypes.number.isRequired,
   to: PropTypes.number.isRequired,
-  currentTemperature: PropTypes.number.isRequired,
+  dispatchSetTemperature: PropTypes.func.isRequired,
+  temperature: PropTypes.number.isRequired,
 };
 
+const mapStateToProps = ({ lab }) => ({
+  temperature: lab.temperature,
+});
+
+const mapDispatchToProps = {
+  dispatchSetTemperature: setTemperature,
+};
+
+const Graduation = connect(mapStateToProps, mapDispatchToProps)(GraduationBase);
+
+// eslint-disable-next-line react/prefer-stateless-function
 class Thermometer extends Component {
   static propTypes = {
     to: PropTypes.number,
@@ -154,17 +240,12 @@ class Thermometer extends Component {
 
   // todo: change these values to use predefined ranges
   static defaultProps = {
-    to: 10,
-    from: -4,
-  };
-
-  state = {
-    currentTemperature: 3.5, // todo: add slider to change this value
+    to: 500,
+    from: -100,
   };
 
   render() {
     const { from, to } = this.props;
-    const { currentTemperature } = this.state;
 
     // 1 - thermometer fill color
     // 2 - graduation and current value fill
@@ -172,11 +253,7 @@ class Thermometer extends Component {
     return (
       <Group>
         <ThermometerShape height={0} fill={THERMOMETER_COLOR} />
-        <Graduation
-          from={from}
-          to={to}
-          currentTemperature={currentTemperature}
-        />
+        <Graduation from={from} to={to} />
         <ThermometerShape
           stroke={THERMOMETER_STROKE_COLOR}
           strokeWidth={THERMOMETER_STROKE_WIDTH}

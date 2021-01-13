@@ -40,3 +40,5 @@ export const GRADUATION_LINE_HEIGHT = 1.5;
 export const GRADUATION_HEIGHT = 17;
 // the actual number of displayed ticks might vary
 export const GRADUATION_MAX_NUMBER_TICKS = 10;
+
+export const SLIDER_FILL_COLOR = 'black';
