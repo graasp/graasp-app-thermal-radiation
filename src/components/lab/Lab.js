@@ -7,6 +7,7 @@ import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
 import { BACKGROUND_COLOR } from '../../config/constants';
 import Thermometer from './Thermometer';
+import SpectrumBar from './SpectrumBar';
 
 const styles = () => ({
   container: {
@@ -73,7 +74,11 @@ class Lab extends Component {
             >
               <Provider store={store}>
                 <Layer>
-                  <Thermometer />
+                  <Thermometer
+                    stageWidth={stageWidth}
+                    stageHeight={stageHeight}
+                  />
+                  <SpectrumBar stageHeight={stageHeight} />
                 </Layer>
                 <Layer>
                   <Lattice stageDimensions={stageDimensions} />

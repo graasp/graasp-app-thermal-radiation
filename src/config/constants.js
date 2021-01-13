@@ -43,3 +43,39 @@ export const GRADUATION_MAX_NUMBER_TICKS = 10;
 
 export const SLIDER_FILL_COLOR = 'black';
 export const SET_INTERVAL_TIME = 10;
+
+// spectrum bar constants
+// note: infrared range: 1000-700nm; visible light: 700-400nm; ultraviolet: 400-100nm
+export const INFRARED_BAR_WIDTH = 80;
+export const VISIBLE_LIGHT_BAR_WIDTH = 80;
+export const ULTRAVIOLET_BAR_WIDTH = 80;
+export const TOTAL_SPECTRUM_BAR_WIDTH =
+  INFRARED_BAR_WIDTH + VISIBLE_LIGHT_BAR_WIDTH + ULTRAVIOLET_BAR_WIDTH;
+export const SPECTRUM_BAR_HEIGHT = 120;
+export const SPECTRUM_BAR_STROKE_COLOR = 'black';
+export const SPECTRUM_BAR_STROKE_WIDTH = 0.5;
+export const SPECTRUM_BAR_PADDING = 30;
+// css gradient, values from 0 to 1
+export const INFRARED_COLOR_RANGE = [0, 'darkred', 1, 'red'];
+export const VISIBLE_LIGHT_COLOR_RANGE = [
+  0,
+  'red',
+  1 / 6,
+  'orange',
+  2 / 6,
+  'yellow',
+  3 / 6,
+  'green',
+  4 / 6,
+  'blue',
+  5 / 6,
+  'indigo',
+  1,
+  'violet',
+];
+export const ULTRAVIOLET_COLOR_RANGE = [0, 'violet', 1, 'white'];
+export const SPECTRUM_BAR_LABELS_FONT_SIZE = 12;
+export const INFRARED_BAR_LABEL_COLOR = 'white';
+export const ULTRAVIOLET_BAR_LABEL_COLOR = 'black';
+export const WAVELENGTH_LABELS_X_AXIS_ADJUSTMENT_FACTOR = 10;
+export const WAVELENGTH_LABELS_Y_AXIS_ADJUSTMENT_FACTOR = 5;

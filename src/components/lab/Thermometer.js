@@ -7,7 +7,6 @@ import {
   THERMOMETER_RADIUS,
   THERMOMETER_HEIGHT,
   THERMOMETER_WIDTH,
-  THERMOMETER_POSITION_Y,
   THERMOMETER_POSITION_X,
   GRADUATION_HEIGHT,
   GRADUATION_FONT_SIZE,
@@ -26,30 +25,32 @@ const ThermometerShape = ({
   stroke,
   strokeWidth,
   fill,
+  thermometerHeight = THERMOMETER_HEIGHT,
   height = THERMOMETER_HEIGHT,
+  offsetY,
 }) => {
   // use trigonometry to get the exact angle matching
   // the circle and the rectangle
   const angle = Math.asin(THERMOMETER_WIDTH / 2 / THERMOMETER_RADIUS);
 
   const drawThermometerShape = (context, shape) => {
-    const yOffset = THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT - height;
+    const totalOffset = offsetY + thermometerHeight - height;
 
     context.beginPath();
-    context.lineTo(THERMOMETER_POSITION_X, yOffset);
-    context.lineTo(THERMOMETER_POSITION_X + THERMOMETER_WIDTH, yOffset);
+    context.lineTo(THERMOMETER_POSITION_X, totalOffset);
+    context.lineTo(THERMOMETER_POSITION_X + THERMOMETER_WIDTH, totalOffset);
     context.lineTo(
       THERMOMETER_POSITION_X + THERMOMETER_WIDTH,
-      yOffset + height,
+      totalOffset + height,
     );
     context.arc(
       THERMOMETER_POSITION_X + THERMOMETER_WIDTH / 2,
-      yOffset + height + THERMOMETER_RADIUS,
+      totalOffset + height + THERMOMETER_RADIUS,
       THERMOMETER_RADIUS,
       -Math.PI / 2 + angle,
       -angle + (3 / 2) * Math.PI,
     );
-    context.lineTo(THERMOMETER_POSITION_X, yOffset + height);
+    context.lineTo(THERMOMETER_POSITION_X, totalOffset + height);
     context.closePath();
     // (!) Konva specific method, it is very important
     context.fillStrokeShape(shape);
@@ -79,10 +80,17 @@ const temperatureToHeight = ({ temperature, deltaHeight, step, from, to }) => {
   return ((Math.abs(from) + value) * deltaHeight) / step;
 };
 
-const heightToTemperature = ({ height, deltaHeight, step, from, to }) => {
+const heightToTemperature = ({
+  height,
+  deltaHeight,
+  step,
+  from,
+  to,
+  offsetY,
+  thermometerHeight,
+}) => {
   const newTemperature =
-    ((THERMOMETER_HEIGHT + THERMOMETER_POSITION_Y - height) * step) /
-      deltaHeight -
+    ((thermometerHeight + offsetY - height) * step) / deltaHeight -
     Math.abs(from);
 
   // clamp value
@@ -100,6 +108,8 @@ const GraduationBase = ({
   temperature,
   dispatchSetTemperature,
   thermometer: { from, to },
+  height = THERMOMETER_HEIGHT,
+  offsetY,
 }) => {
   const x = THERMOMETER_POSITION_X + THERMOMETER_WIDTH;
 
@@ -120,14 +130,14 @@ const GraduationBase = ({
   );
 
   // select marks at most number of graduation we can display
-  const maxNbGraduation = Math.floor(THERMOMETER_HEIGHT / GRADUATION_HEIGHT);
+  const maxNbGraduation = Math.floor(height / GRADUATION_HEIGHT);
   const prop = Math.ceil(range.length / maxNbGraduation);
   if (prop > 1) {
     range = range.filter((_, i) => i % prop === 0);
   }
 
   // height between each tick
-  const deltaHeight = THERMOMETER_HEIGHT / range.length;
+  const deltaHeight = height / range.length;
 
   // compute fill height given current temperature value
   const fillValue = temperatureToHeight({
@@ -140,7 +150,7 @@ const GraduationBase = ({
 
   // draw graduation ticks
   const graduationComponents = range.map((text, idx) => {
-    const y = THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT - idx * deltaHeight;
+    const y = offsetY + height - idx * deltaHeight;
 
     return (
       <Group key={text}>
@@ -168,7 +178,7 @@ const GraduationBase = ({
     GRADUATION_PADDING_LEFT +
     GRADUATION_FONT_SIZE * 2;
 
-  const minThermometerHeight = THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT;
+  const minThermometerHeight = offsetY + height;
   const maxThermomerterHeight =
     minThermometerHeight - (range.length - 1) * deltaHeight;
   return (
@@ -176,7 +186,7 @@ const GraduationBase = ({
       <Rect
         fill={THERMOMETER_COLOR}
         x={THERMOMETER_POSITION_X}
-        y={THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT - fillValue}
+        y={offsetY + height - fillValue}
         width={THERMOMETER_WIDTH}
         height={fillValue}
       />
@@ -198,6 +208,8 @@ const GraduationBase = ({
             step,
             from: roundFrom,
             to: roundTo,
+            offsetY,
+            thermometerHeight: height,
           });
 
           dispatchSetTemperature(newTemperature);
@@ -208,7 +220,7 @@ const GraduationBase = ({
           };
         }}
         x={sliderPositionX}
-        y={THERMOMETER_POSITION_Y + THERMOMETER_HEIGHT - fillValue}
+        y={offsetY + height - fillValue}
         sides={3}
         radius={8}
         rotation={30}
@@ -240,17 +252,35 @@ const Graduation = connect(mapStateToProps, mapDispatchToProps)(GraduationBase);
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Thermometer extends Component {
+  static propTypes = {
+    stageWidth: PropTypes.number.isRequired,
+    stageHeight: PropTypes.number.isRequired,
+  };
+
   render() {
+    const { stageWidth, stageHeight } = this.props;
+
+    const thermometerHeight = stageHeight * 0.5;
+    const offsetY = stageHeight * 0.15;
     // 1 - thermometer fill color
     // 2 - graduation and current value fill
     // 3 - thermometer stroke
     return (
       <Group>
-        <ThermometerShape height={0} fill={THERMOMETER_COLOR} />
-        <Graduation />
         <ThermometerShape
+          stageWidth={stageWidth}
+          stageHeight={stageHeight}
+          height={0}
+          fill={THERMOMETER_COLOR}
+          thermometerHeight={thermometerHeight}
+          offsetY={offsetY}
+        />
+        <Graduation height={thermometerHeight} offsetY={offsetY} />
+        <ThermometerShape
+          thermometerHeight={thermometerHeight}
           stroke={THERMOMETER_STROKE_COLOR}
           strokeWidth={THERMOMETER_STROKE_WIDTH}
+          offsetY={offsetY}
         />
       </Group>
     );
