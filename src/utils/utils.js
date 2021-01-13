@@ -11,8 +11,10 @@ export const findXPositionsOfPositiveIons = (
   const widthOfPositiveIonWithPadding =
     2 * positiveIonRadius + distanceBetweenPositiveIons;
 
+  const width = stageWidth < 0 ? 0 : stageWidth;
+
   const numberOfPositiveIons = Math.floor(
-    stageWidth / widthOfPositiveIonWithPadding,
+    width / widthOfPositiveIonWithPadding,
   );
 
   // since last ion will not have padding to its right
@@ -20,7 +22,7 @@ export const findXPositionsOfPositiveIons = (
     numberOfPositiveIons * widthOfPositiveIonWithPadding -
     distanceBetweenPositiveIons;
 
-  const excessWidth = stageWidth - totalWidthOfPositiveIons;
+  const excessWidth = width - totalWidthOfPositiveIons;
   const leftIndent = excessWidth / 2;
 
   return [...Array(numberOfPositiveIons)].map(

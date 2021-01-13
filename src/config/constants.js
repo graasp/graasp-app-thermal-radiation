@@ -46,7 +46,7 @@ export const SET_INTERVAL_TIME = 10;
 
 // spectrum bar constants
 // note: infrared range: 1000-700nm; visible light: 700-400nm; ultraviolet: 400-100nm
-export const INFRARED_BAR_WIDTH = 80;
+export const INFRARED_BAR_WIDTH = 200;
 export const VISIBLE_LIGHT_BAR_WIDTH = 80;
 export const ULTRAVIOLET_BAR_WIDTH = 80;
 export const TOTAL_SPECTRUM_BAR_WIDTH =
