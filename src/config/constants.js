@@ -42,3 +42,4 @@ export const GRADUATION_HEIGHT = 17;
 export const GRADUATION_MAX_NUMBER_TICKS = 10;
 
 export const SLIDER_FILL_COLOR = 'black';
+export const SET_INTERVAL_TIME = 10;

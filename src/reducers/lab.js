@@ -1,7 +1,11 @@
 import { SET_TEMPERATURE } from '../types';
 
 const INITIAL_STATE = {
-  temperature: 0,
+  temperature: 400,
+  thermometer: {
+    to: 500,
+    from: -100,
+  },
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -12,6 +16,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         temperature: payload,
       };
     default:
+      console.log(payload);
       return state;
   }
 };

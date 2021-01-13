@@ -96,7 +96,11 @@ const heightToTemperature = ({ height, deltaHeight, step, from, to }) => {
   return newTemperature;
 };
 
-const GraduationBase = ({ from, to, temperature, dispatchSetTemperature }) => {
+const GraduationBase = ({
+  temperature,
+  dispatchSetTemperature,
+  thermometer: { from, to },
+}) => {
   const x = THERMOMETER_POSITION_X + THERMOMETER_WIDTH;
 
   // compute ideal step distance between ticks
@@ -215,14 +219,17 @@ const GraduationBase = ({ from, to, temperature, dispatchSetTemperature }) => {
 };
 
 GraduationBase.propTypes = {
-  from: PropTypes.number.isRequired,
-  to: PropTypes.number.isRequired,
   dispatchSetTemperature: PropTypes.func.isRequired,
   temperature: PropTypes.number.isRequired,
+  thermometer: PropTypes.shape({
+    from: PropTypes.number.isRequired,
+    to: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = ({ lab }) => ({
   temperature: lab.temperature,
+  thermometer: lab.thermometer,
 });
 
 const mapDispatchToProps = {
@@ -233,27 +240,14 @@ const Graduation = connect(mapStateToProps, mapDispatchToProps)(GraduationBase);
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Thermometer extends Component {
-  static propTypes = {
-    to: PropTypes.number,
-    from: PropTypes.number,
-  };
-
-  // todo: change these values to use predefined ranges
-  static defaultProps = {
-    to: 500,
-    from: -100,
-  };
-
   render() {
-    const { from, to } = this.props;
-
     // 1 - thermometer fill color
     // 2 - graduation and current value fill
     // 3 - thermometer stroke
     return (
       <Group>
         <ThermometerShape height={0} fill={THERMOMETER_COLOR} />
-        <Graduation from={from} to={to} />
+        <Graduation />
         <ThermometerShape
           stroke={THERMOMETER_STROKE_COLOR}
           strokeWidth={THERMOMETER_STROKE_WIDTH}

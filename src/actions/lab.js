@@ -1,9 +1,10 @@
 import { SET_TEMPERATURE } from '../types';
 
-// eslint-disable-next-line import/prefer-default-export
-export const setTemperature = (payload) => (dispatch) => {
+const setTemperature = (temperature) => (dispatch) =>
   dispatch({
     type: SET_TEMPERATURE,
-    payload,
+    payload: temperature,
   });
-};
+
+// eslint-disable-next-line import/prefer-default-export
+export { setTemperature };
