@@ -5,8 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import { Stage, Layer } from 'react-konva';
 import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
-import { BACKGROUND_COLOR } from '../../config/constants';
+import {
+  BACKGROUND_COLOR,
+  NUMBER_OF_LINES,
+  LINES_OFFSET,
+  LINE_PADDING,
+  LINE_AMPLITUDE,
+} from '../../config/constants';
 import Thermometer from './Thermometer';
+import EmittedLine from './EmittedLine';
 
 const styles = () => ({
   container: {
@@ -77,6 +84,14 @@ class Lab extends Component {
                 </Layer>
                 <Layer>
                   <Lattice stageDimensions={stageDimensions} />
+                </Layer>
+                <Layer>
+                  {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
+                    <EmittedLine
+                      chargeOscillation={{ x: 0, y: 0 }}
+                      x={LINES_OFFSET + i * (LINE_AMPLITUDE + LINE_PADDING)}
+                    />
+                  ))}
                 </Layer>
               </Provider>
             </Stage>

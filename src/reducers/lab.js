@@ -16,7 +16,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         temperature: payload,
       };
     default:
-      console.log(payload);
       return state;
   }
 };
