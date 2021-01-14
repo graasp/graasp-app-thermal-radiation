@@ -67,3 +67,14 @@ export const WAVELENGTH_LABELS_X_AXIS_ADJUSTMENT_FACTOR = 18;
 
 export const PLANCK_CONSTANT = 6.63 * 10e-34;
 export const SPEED_OF_LIGHT_CONSTANT = 299792458; // m/s
+export const LINE_STROKE_COLOR = 'black';
+export const DEFAULT_TENSION = 0.1;
+export const MAX_POINTS_FOR_LINES = 300;
+
+export const NUMBER_OF_LINES = 3;
+export const LINE_STEP = 3;
+export const LINE_AMPLITUDE = 20;
+export const LINE_ANGLE = Math.PI / 2;
+export const LINE_STARTING_POSITION_Y = 550;
+export const LINE_PADDING = 100;
+export const LINES_OFFSET = 200;

@@ -5,9 +5,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { Stage, Layer } from 'react-konva';
 import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
-import { BACKGROUND_COLOR } from '../../config/constants';
 import Thermometer from './thermometer/Thermometer';
+import {
+  NUMBER_OF_LINES,
+  LINES_OFFSET,
+  LINE_PADDING,
+  LINE_AMPLITUDE,
+  BACKGROUND_COLOR,
+} from '../../config/constants';
 import SpectrumBar from './SpectrumBar';
+import EmittedLine from './EmittedLine';
 
 const styles = () => ({
   container: {
@@ -83,6 +90,12 @@ class Lab extends Component {
                   {spectrumBar && (
                     <SpectrumBar stageDimensions={stageDimensions} />
                   )}
+                  {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
+                    <EmittedLine
+                      chargeOscillation={{ x: 0, y: 0 }}
+                      x={LINES_OFFSET + i * (LINE_AMPLITUDE + LINE_PADDING)}
+                    />
+                  ))}
                 </Layer>
               </Provider>
             </Stage>
