@@ -77,7 +77,7 @@ const temperatureToHeight = ({ temperature, deltaHeight, step, from, to }) => {
   } else if (value > to) {
     value = to;
   }
-  return ((Math.abs(from) + value) * deltaHeight) / step;
+  return ((-from + value) * deltaHeight) / step;
 };
 
 const heightToTemperature = ({
@@ -90,8 +90,7 @@ const heightToTemperature = ({
   thermometerHeight,
 }) => {
   const newTemperature =
-    ((thermometerHeight + offsetY - height) * step) / deltaHeight -
-    Math.abs(from);
+    ((thermometerHeight + offsetY - height) * step) / deltaHeight + from;
 
   // clamp value
   let value = newTemperature;

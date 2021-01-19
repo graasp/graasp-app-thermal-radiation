@@ -4,13 +4,18 @@ import {
   TOGGLE_SIDE_MENU,
   SET_STAGE_DIMENSIONS,
   TOGGLE_ELECTRONS,
+  TOGGLE_SPECTRUM_BAR,
 } from '../types';
 
 const INITIAL_STATE = {
   settings: {
     open: false,
   },
-  lab: { stageDimensions: { stageWidth: 0, stageHeight: 0 }, electrons: true },
+  lab: {
+    stageDimensions: { stageWidth: 0, stageHeight: 0 },
+    electrons: true,
+    spectrumBar: false,
+  },
   showLoader: true,
   showSideMenu: true,
 };
@@ -40,6 +45,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     }
     case TOGGLE_ELECTRONS: {
       return { ...state, lab: { ...state.lab, electrons: payload } };
+    }
+    case TOGGLE_SPECTRUM_BAR: {
+      return { ...state, lab: { ...state.lab, spectrumBar: payload } };
     }
     default:
       return state;

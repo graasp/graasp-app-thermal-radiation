@@ -8,8 +8,6 @@ import {
   POSITIVE_ION_RADIUS,
   HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS,
   VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS,
-  TOTAL_SPECTRUM_BAR_WIDTH,
-  SPECTRUM_BAR_PADDING,
 } from '../../config/constants';
 import { findXPositionsOfPositiveIons } from '../../utils/utils';
 
@@ -18,7 +16,7 @@ const LatticeRow = ({ rowIndex, stageDimensions }) => {
   const { stageWidth, stageHeight } = stageDimensions;
 
   // horizontal distance to fill of ions, minus the spectrum bar width
-  const width = stageWidth - TOTAL_SPECTRUM_BAR_WIDTH - SPECTRUM_BAR_PADDING;
+  const width = stageWidth;
 
   const positiveIonsXPositions = findXPositionsOfPositiveIons(
     width,
@@ -32,7 +30,7 @@ const LatticeRow = ({ rowIndex, stageDimensions }) => {
       rowIndex * POSITIVE_ION_RADIUS);
 
   return positiveIonsXPositions.map((xPosition, index, array) => {
-    const x = xPosition + TOTAL_SPECTRUM_BAR_WIDTH + SPECTRUM_BAR_PADDING;
+    const x = xPosition;
 
     // since electrons sit in between positive ions, there will be one fewer electron than positive ions
     if (index === array.length - 1) {

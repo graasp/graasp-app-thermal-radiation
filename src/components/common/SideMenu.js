@@ -9,7 +9,11 @@ import { Divider, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { toggleSideMenu, toggleElectrons } from '../../actions';
+import {
+  toggleSideMenu,
+  toggleElectrons,
+  toggleSpectrumBar,
+} from '../../actions';
 import SwitchWithLabel from './SwitchWithLabel';
 import { DRAWER_WIDTH, DEFAULT_THEME_DIRECTION } from '../../config/constants';
 
@@ -50,6 +54,8 @@ class SideMenu extends React.Component {
     dispatchToggleSideMenu: PropTypes.func.isRequired,
     electrons: PropTypes.bool.isRequired,
     dispatchToggleElectrons: PropTypes.func.isRequired,
+    dispatchToggleSpectrumBar: PropTypes.func.isRequired,
+    spectrumBar: PropTypes.bool.isRequired,
   };
 
   handleToggleSideMenu = (open) => () => {
@@ -83,6 +89,8 @@ class SideMenu extends React.Component {
       electrons,
       dispatchToggleElectrons,
       t,
+      spectrumBar,
+      dispatchToggleSpectrumBar,
     } = this.props;
 
     return (
@@ -105,6 +113,14 @@ class SideMenu extends React.Component {
                 onToggle={dispatchToggleElectrons}
               />
             </div>
+
+            <div className={classes.switchContainer}>
+              <SwitchWithLabel
+                switchLabel={t('Spectrum Bar')}
+                isChecked={spectrumBar}
+                onToggle={dispatchToggleSpectrumBar}
+              />
+            </div>
           </div>
         </Drawer>
       </>
@@ -115,11 +131,13 @@ class SideMenu extends React.Component {
 const mapStateToProps = ({ layout }) => ({
   showSideMenu: layout.showSideMenu,
   electrons: layout.lab.electrons,
+  spectrumBar: layout.lab.spectrumBar,
 });
 
 const mapDispatchToProps = {
   dispatchToggleSideMenu: toggleSideMenu,
   dispatchToggleElectrons: toggleElectrons,
+  dispatchToggleSpectrumBar: toggleSpectrumBar,
 };
 
 const ConnectedComponent = connect(

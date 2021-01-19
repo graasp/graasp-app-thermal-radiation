@@ -4,6 +4,7 @@ import {
   TOGGLE_SIDE_MENU,
   SET_STAGE_DIMENSIONS,
   TOGGLE_ELECTRONS,
+  TOGGLE_SPECTRUM_BAR,
 } from '../types';
 
 const toggleSettings = (showSettings) => (dispatch) =>
@@ -38,10 +39,18 @@ const toggleElectrons = (payload) => (dispatch) => {
   });
 };
 
+const toggleSpectrumBar = (payload) => (dispatch) => {
+  dispatch({
+    type: TOGGLE_SPECTRUM_BAR,
+    payload,
+  });
+};
+
 export {
   toggleSettings,
   toggleLoadingScreen,
   toggleSideMenu,
   setStageDimensions,
   toggleElectrons,
+  toggleSpectrumBar,
 };

@@ -32,6 +32,7 @@ class Lab extends Component {
       stageWidth: PropTypes.number.isRequired,
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
+    spectrumBar: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -53,7 +54,7 @@ class Lab extends Component {
   };
 
   render() {
-    const { classes, stageDimensions } = this.props;
+    const { classes, stageDimensions, spectrumBar } = this.props;
     const { stageWidth, stageHeight } = stageDimensions;
     return (
       <div
@@ -78,10 +79,14 @@ class Lab extends Component {
                     stageWidth={stageWidth}
                     stageHeight={stageHeight}
                   />
-                  <SpectrumBar stageHeight={stageHeight} />
                 </Layer>
                 <Layer>
                   <Lattice stageDimensions={stageDimensions} />
+                </Layer>
+                <Layer>
+                  {spectrumBar && (
+                    <SpectrumBar stageDimensions={stageDimensions} />
+                  )}
                 </Layer>
               </Provider>
             </Stage>
@@ -94,6 +99,7 @@ class Lab extends Component {
 
 const mapStateToProps = ({ layout }) => ({
   stageDimensions: layout.lab.stageDimensions,
+  spectrumBar: layout.lab.spectrumBar,
 });
 
 const mapDispatchToProps = {

@@ -3,8 +3,8 @@ import { SET_TEMPERATURE } from '../types';
 const INITIAL_STATE = {
   temperature: 400,
   thermometer: {
-    to: 500,
-    from: -100,
+    to: 800,
+    from: 200,
   },
 };
 
