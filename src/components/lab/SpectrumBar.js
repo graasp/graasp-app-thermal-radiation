@@ -23,10 +23,8 @@ import {
   SPECTRUM_BAR_PADDING,
 } from '../../config/constants';
 
-// const BOLTZMANN_CONSTANT = 1.38 * 10e-23;
-// const PLANCK_CONSTANT = 6.63 * 10e-34;
-// // const WIEN_DISPLACEMENT_CONSTANT = 2.9 * 10e-3;
-// const SPEED_OF_LIGHT_CONSTANT = 299792458; // m/s
+const PLANCK_CONSTANT = 6.63 * 10e-34;
+const SPEED_OF_LIGHT_CONSTANT = 299792458; // m/s
 
 /**
  * Function that returns the peak wavelength (in nanometers) of the blackbody
@@ -40,9 +38,9 @@ import {
 //   return (1e9 * WIEN_CONSTANT) / this.temperatureProperty.value;
 // };
 
-const linear = (a1, a2, b1, b2, a3) => {
-  return ((b2 - b1) / (a2 - a1)) * (a3 - a1) + b1;
-};
+// const linear = (a1, a2, b1, b2, a3) => {
+//   return ((b2 - b1) / (a2 - a1)) * (a3 - a1) + b1;
+// };
 
 /**
  * Function that returns the spectral power density at a given wavelength (in nm)
@@ -63,40 +61,38 @@ const getSpectralPowerDensityAt = ({ wavelength, temperature }) => {
     return 0;
   }
 
-  const A = 3.74192e-16; // is 2πhc^2 in units of watts*m^2
   const B = 1.43877e7; // is hc/k in units of nanometer-kelvin
+  const c = SPEED_OF_LIGHT_CONSTANT;
+  const h = PLANCK_CONSTANT;
   return (
-    A /
-    // eslint-disable-next-line no-restricted-properties
-    (Math.pow(wavelength, 5) * (Math.exp(B / (wavelength * temperature)) - 1))
+    (2 * h * c * c) /
+    wavelength ** 5 /
+    (Math.exp(B / (wavelength * temperature)) - 1)
   );
 };
 
-const SpectrumBar = ({ stageHeight }) => {
+const SpectrumBar = ({ stageHeight, temperature }) => {
   const { t } = useTranslation();
 
   // centers spectrum bar horizontally
   const spectrumBarInitialXPosition = SPECTRUM_BAR_PADDING;
   const spectrumBarInitialYPosition = 0.77 * stageHeight;
 
-  // const TRD = ({ wavelength }) => {
-  //   const c = SPEED_OF_LIGHT_CONSTANT;
-  //   const k = BOLTZMANN_CONSTANT;
-  //   const h = PLANCK_CONSTANT;
-  //   const d = Math.exp((h * c) / (wavelength * k * temperature));
-  //   return 1 / (d - 1);
-  // };
+  let distributionPoints = [...new Array(100).keys()].map((i) => {
+    const wavelength = 10000 - i * 100;
+    return getSpectralPowerDensityAt({
+      wavelength,
+      temperature,
+    });
+  });
 
-  const distributionPoints = [...new Array(30).keys()]
-    .map((i) => {
-      const wavelength = 3000 - i * 100;
-      const v = getSpectralPowerDensityAt({
-        wavelength,
-        temperature: 5800,
-      });
-      const y = -1e33 * linear(0, 100, 0, 400, v);
-      const dd = [i * 10, y < -405 ? -405 : y];
-      return dd;
+  // eslint-disable-next-line prefer-spread
+  const max = Math.max.apply(Math, distributionPoints);
+
+  distributionPoints = distributionPoints
+    .map((y, i) => {
+      const v = (y / max) * 100;
+      return [i * 10, -v];
     })
     .flat();
 
@@ -218,7 +214,7 @@ const SpectrumBar = ({ stageHeight }) => {
 
 SpectrumBar.propTypes = {
   stageHeight: PropTypes.number.isRequired,
-  // temperature: PropTypes.number.isRequired,
+  temperature: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ lab }) => ({
