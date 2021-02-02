@@ -11,7 +11,7 @@ import {
 } from '../../config/constants';
 import { findXPositionsOfPositiveIons } from '../../utils/utils';
 
-const LatticeRow = ({ rowIndex, stageDimensions }) => {
+const LatticeRow = ({ rowIndex, stageDimensions, oscillation }) => {
   const electrons = useSelector(({ layout }) => layout.lab.electrons);
   const { stageWidth, stageHeight } = stageDimensions;
 
@@ -31,16 +31,28 @@ const LatticeRow = ({ rowIndex, stageDimensions }) => {
 
   return positiveIonsXPositions.map((xPosition, index, array) => {
     const x = xPosition;
+    const idx = rowIndex + index;
 
     // since electrons sit in between positive ions, there will be one fewer electron than positive ions
     if (index === array.length - 1) {
       return (
-        <PositiveIon yPosition={currentRowYPosition} xPosition={x} key={x} />
+        <PositiveIon
+          index={idx}
+          oscillation={oscillation}
+          yPosition={currentRowYPosition}
+          xPosition={xPosition}
+          key={xPosition}
+        />
       );
     }
     return (
-      <Group key={x}>
-        <PositiveIon yPosition={currentRowYPosition} xPosition={x} />
+      <Group key={xPosition}>
+        <PositiveIon
+          index={idx}
+          yPosition={currentRowYPosition}
+          xPosition={xPosition}
+          oscillation={oscillation}
+        />
         {electrons && (
           <Electron
             yPosition={currentRowYPosition}

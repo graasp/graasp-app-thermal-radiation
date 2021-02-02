@@ -9,9 +9,10 @@ import Thermometer from './thermometer/Thermometer';
 import {
   NUMBER_OF_LINES,
   LINES_OFFSET,
-  LINE_PADDING,
   LINE_AMPLITUDE,
   BACKGROUND_COLOR,
+  THERMOMETER_POSITION_X,
+  THERMOMETER_WIDTH,
 } from '../../config/constants';
 import SpectrumBar from './SpectrumBar';
 import EmittedLine from './EmittedLine';
@@ -63,6 +64,14 @@ class Lab extends Component {
   render() {
     const { classes, stageDimensions, spectrumBar } = this.props;
     const { stageWidth, stageHeight } = stageDimensions;
+
+    // space between lines
+    const linePadding =
+      (stageDimensions.stageWidth -
+        (THERMOMETER_WIDTH + THERMOMETER_POSITION_X) -
+        NUMBER_OF_LINES * LINE_AMPLITUDE) /
+      NUMBER_OF_LINES;
+
     return (
       <div
         className={classes.container}
@@ -93,9 +102,14 @@ class Lab extends Component {
                   {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
                     <EmittedLine
                       chargeOscillation={{ x: 0, y: 0 }}
-                      x={LINES_OFFSET + i * (LINE_AMPLITUDE + LINE_PADDING)}
+                      x={LINES_OFFSET + i * (LINE_AMPLITUDE + linePadding)}
                     />
                   ))}
+                </Layer>
+                <Layer>
+                  {spectrumBar && (
+                    <SpectrumBar stageDimensions={stageDimensions} />
+                  )}
                 </Layer>
               </Provider>
             </Stage>
