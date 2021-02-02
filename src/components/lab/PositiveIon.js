@@ -17,8 +17,8 @@ class PositiveIon extends Component {
   static propTypes = {
     yPosition: PropTypes.number.isRequired,
     xPosition: PropTypes.number.isRequired,
-    temperature: PropTypes.number.isRequired,
-    thermometer: PropTypes.shape({
+    currentTemperature: PropTypes.number.isRequired,
+    scales: PropTypes.shape({
       from: PropTypes.number.isRequired,
     }).isRequired,
   };
@@ -36,8 +36,8 @@ class PositiveIon extends Component {
     const { xOscillation } = this.state;
     this.oscillationInterval = setInterval(() => {
       const {
-        temperature,
-        thermometer: { from },
+        currentTemperature,
+        scales: { from },
       } = this.props;
       const { angle } = this.state;
       const oscillationDistance = IONS_OSCILLATION_RADIUS * Math.sin(angle);
@@ -50,7 +50,8 @@ class PositiveIon extends Component {
 
       this.setState({
         oscillation,
-        angle: angle + (temperature - from) * IONS_OSCILLATION_SPEED_FACTOR,
+        angle:
+          angle + (currentTemperature - from) * IONS_OSCILLATION_SPEED_FACTOR,
       });
     }, SET_INTERVAL_TIME);
   }
@@ -85,8 +86,8 @@ class PositiveIon extends Component {
 }
 
 const mapStateToProps = ({ lab }) => ({
-  temperature: lab.temperature,
-  thermometer: lab.thermometer,
+  currentTemperature: lab.temperature,
+  scales: lab.scales,
 });
 
 const ConnectedComponent = connect(mapStateToProps)(PositiveIon);

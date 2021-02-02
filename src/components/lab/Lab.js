@@ -6,7 +6,7 @@ import { Stage, Layer } from 'react-konva';
 import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
 import { BACKGROUND_COLOR } from '../../config/constants';
-import Thermometer from './Thermometer';
+import Thermometer from './thermometer/Thermometer';
 import SpectrumBar from './SpectrumBar';
 
 const styles = () => ({
@@ -79,11 +79,7 @@ class Lab extends Component {
                     stageWidth={stageWidth}
                     stageHeight={stageHeight}
                   />
-                </Layer>
-                <Layer>
                   <Lattice stageDimensions={stageDimensions} />
-                </Layer>
-                <Layer>
                   {spectrumBar && (
                     <SpectrumBar stageDimensions={stageDimensions} />
                   )}

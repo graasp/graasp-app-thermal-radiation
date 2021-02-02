@@ -33,13 +33,13 @@ export const THERMOMETER_POSITION_Y = 150;
 export const THERMOMETER_STROKE_WIDTH = 3;
 export const THERMOMETER_STROKE_COLOR = 'black';
 
-export const GRADUATION_WIDTH = 10;
-export const GRADUATION_FONT_SIZE = 13;
-export const GRADUATION_PADDING_LEFT = 7;
-export const GRADUATION_LINE_HEIGHT = 1.5;
-export const GRADUATION_HEIGHT = 17;
-// the actual number of displayed ticks might vary
-export const GRADUATION_MAX_NUMBER_TICKS = 10;
+export const SCALE_WIDTH = 10;
+export const SCALE_FONT_SIZE = 13;
+export const SCALE_PADDING_LEFT = 7;
+export const SCALE_LINE_HEIGHT = 1.5;
+export const SCALE_HEIGHT = 17;
+// the actual number of displayed ticks might vary due to number rounding
+export const SCALE_MAX_NUMBER_TICKS = 10;
 
 export const SLIDER_FILL_COLOR = 'black';
 export const SET_INTERVAL_TIME = 10;

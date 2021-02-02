@@ -1,8 +1,8 @@
 import { SET_TEMPERATURE } from '../types';
 
 const INITIAL_STATE = {
-  temperature: 400,
-  thermometer: {
+  temperature: 300,
+  scales: {
     to: 800,
     from: 200,
   },
