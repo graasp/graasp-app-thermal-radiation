@@ -41,7 +41,7 @@ const Slider = ({
   offsetY,
   y,
   heightBetweenTicks,
-  scales,
+  nbScales,
   dispatchSetTemperature,
   minTemperature,
   maxTemperature,
@@ -66,7 +66,7 @@ const Slider = ({
 
   const minThermometerHeight = offsetY + thermometerHeight;
   const maxThermomerterHeight =
-    minThermometerHeight - (scales.length - 1) * heightBetweenTicks;
+    minThermometerHeight - (nbScales - 1) * heightBetweenTicks;
 
   return (
     <RegularPolygon
@@ -113,7 +113,7 @@ Slider.propTypes = {
   thermometerHeight: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  scales: PropTypes.arrayOf(PropTypes.number).isRequired,
+  nbScales: PropTypes.number.isRequired,
   dispatchSetTemperature: PropTypes.func.isRequired,
   heightBetweenTicks: PropTypes.number.isRequired,
   minTemperature: PropTypes.number.isRequired,
@@ -123,7 +123,6 @@ Slider.propTypes = {
 
 const mapStateToProps = ({ lab }) => ({
   currentTemperature: lab.temperature,
-  scales: lab.scales,
 });
 
 const mapDispatchToProps = {

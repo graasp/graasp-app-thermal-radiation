@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Group, Text, Rect } from 'react-konva';
 import {
-  THERMOMETER_HEIGHT,
   THERMOMETER_WIDTH,
   THERMOMETER_POSITION_X,
   SCALE_HEIGHT,
@@ -78,7 +77,10 @@ const Scale = ({
   // draw scale ticks
   const scaleComponents = scaleArray.map((text, idx) => {
     const thermometerYPosition =
-      offsetY + thermometerHeight - idx * heightBetweenTicks;
+      offsetY +
+      thermometerHeight -
+      idx * heightBetweenTicks -
+      SCALE_LINE_HEIGHT;
 
     return (
       <Group key={text}>
@@ -123,6 +125,7 @@ const Scale = ({
         minTemperature={roundFrom}
         maxTemperature={roundTo}
         tickStep={tickStep}
+        nbScales={scaleArray.length}
       />
     </>
   );
@@ -134,12 +137,8 @@ Scale.propTypes = {
     from: PropTypes.number.isRequired,
     to: PropTypes.number.isRequired,
   }).isRequired,
-  thermometerHeight: PropTypes.number,
+  thermometerHeight: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
-};
-
-Scale.defaultProps = {
-  thermometerHeight: THERMOMETER_HEIGHT,
 };
 
 const mapStateToProps = ({ lab }) => ({

@@ -10,24 +10,19 @@ import ThermometerShape from './ThermometerShape';
 import Scale from './Scale';
 
 const Thermometer = ({ stageWidth, stageHeight }) => {
-  const thermometerHeight = stageHeight * 0.5;
+  const thermometerHeight = stageHeight * 0.6;
   const offsetY = stageHeight * 0.15;
   return (
     <Group>
+      <Scale thermometerHeight={thermometerHeight} offsetY={offsetY} />
       <ThermometerShape
         stageWidth={stageWidth}
         stageHeight={stageHeight}
-        fillHeight={0}
         fillColor={THERMOMETER_COLOR}
         thermometerHeight={thermometerHeight}
         offsetY={offsetY}
-      />
-      <Scale thermometerHeight={thermometerHeight} offsetY={offsetY} />
-      <ThermometerShape
-        thermometerHeight={thermometerHeight}
         stroke={THERMOMETER_STROKE_COLOR}
         strokeWidth={THERMOMETER_STROKE_WIDTH}
-        offsetY={offsetY}
       />
     </Group>
   );

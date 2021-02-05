@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
 import { Line } from 'react-konva';
 import {
   DEFAULT_TENSION,
-  MAX_POINTS_FOR_LINES,
   SET_INTERVAL_TIME,
   LINE_STROKE_COLOR,
   LINE_AMPLITUDE,
   LINE_STEP,
-  LINE_STARTING_POSITION_Y,
+  LATTICE_HEIGHT,
   LINE_ANGLE,
 } from '../../config/constants';
 
@@ -21,7 +19,11 @@ class EmittedLine extends Component {
       y: PropTypes.number.isRequired,
     }).isRequired,
     x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
     temperature: PropTypes.number.isRequired,
+    stageDimensions: PropTypes.shape({
+      stageHeight: PropTypes.number.isRequired,
+    }).isRequired,
   };
 
   state = {
@@ -39,12 +41,13 @@ class EmittedLine extends Component {
       const {
         chargeOscillation: { y },
         temperature,
+        stageDimensions: { stageHeight },
       } = this.props;
 
       const x = Math.sin(t) * LINE_AMPLITUDE;
 
       // add points in respective direction
-      let newPoints = points
+      const newPoints = points
         .slice(2)
         .map((value, i) =>
           i % 2 === 0
@@ -52,25 +55,26 @@ class EmittedLine extends Component {
             : value + Math.sin(-LINE_ANGLE) * LINE_STEP,
         );
 
-      // the first point is where the charge is
-      // add second point where the new point should be
-      // keeps only MAX_POINTS_FOR_LINES first points
-      // needs at least two points x,y to create a line
-      newPoints = [x, y, x, y, ...newPoints].slice(0, MAX_POINTS_FOR_LINES);
+      // needs approximatively a bit less than the screen height fill of points
+      let maxPointsForLine = Math.ceil((stageHeight - LATTICE_HEIGHT) * 0.9);
+      // always keep even number of points
+      maxPointsForLine =
+        maxPointsForLine % 2 === 0 ? maxPointsForLine : maxPointsForLine + 1;
+
       this.setState({
-        points: newPoints,
+        points: [x, y, x, y, ...newPoints].slice(0, maxPointsForLine),
         t: t + temperature / 1500,
       });
     }, SET_INTERVAL_TIME);
   };
 
   render() {
-    const { x } = this.props;
+    const { x, y } = this.props;
     const { points } = this.state;
     return (
       <Line
         x={x}
-        y={LINE_STARTING_POSITION_Y}
+        y={y}
         points={points}
         tension={DEFAULT_TENSION}
         stroke={LINE_STROKE_COLOR}

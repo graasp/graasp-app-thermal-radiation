@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Shape } from 'react-konva';
 import {
   THERMOMETER_RADIUS,
-  THERMOMETER_HEIGHT,
   THERMOMETER_WIDTH,
   THERMOMETER_POSITION_X,
 } from '../../../config/constants';
@@ -13,15 +12,16 @@ const ThermometerShape = ({
   strokeWidth,
   fillColor,
   thermometerHeight,
-  fillHeight,
   offsetY,
 }) => {
   // use trigonometry to get the exact angle matching the circle and the rectangle
   // the angle is used to draw the most perfect mercury bulb
   const angle = Math.asin(THERMOMETER_WIDTH / 2 / THERMOMETER_RADIUS);
 
-  const drawThermometerShape = (context, shape) => {
-    const totalOffset = offsetY + thermometerHeight - fillHeight;
+  const drawThermometerShape = (context, shape, height) => {
+    const totalOffset = offsetY + thermometerHeight - height;
+
+    // draw fill rectangle
 
     context.beginPath();
     // draw top and right straight lines
@@ -29,20 +29,20 @@ const ThermometerShape = ({
     context.lineTo(THERMOMETER_POSITION_X + THERMOMETER_WIDTH, totalOffset);
     context.lineTo(
       THERMOMETER_POSITION_X + THERMOMETER_WIDTH,
-      totalOffset + fillHeight,
+      totalOffset + height,
     );
 
     // draw bulb
     context.arc(
       THERMOMETER_POSITION_X + THERMOMETER_WIDTH / 2,
-      totalOffset + fillHeight + THERMOMETER_RADIUS,
+      totalOffset + height + THERMOMETER_RADIUS,
       THERMOMETER_RADIUS,
       -Math.PI / 2 + angle,
       -angle + (3 / 2) * Math.PI,
     );
 
     // draw left straight line
-    context.lineTo(THERMOMETER_POSITION_X, totalOffset + fillHeight);
+    context.lineTo(THERMOMETER_POSITION_X, totalOffset + height);
     context.closePath();
     // (!) Konva specific method, it is very important
     context.fillStrokeShape(shape);
@@ -52,28 +52,30 @@ const ThermometerShape = ({
     <>
       <Shape
         sceneFunc={(context, shape) => {
-          drawThermometerShape(context, shape, fillHeight);
+          drawThermometerShape(context, shape, 0);
+        }}
+        fill={fillColor}
+      />
+      <Shape
+        sceneFunc={(context, shape) => {
+          drawThermometerShape(context, shape, thermometerHeight);
         }}
         stroke={stroke}
         strokeWidth={strokeWidth}
-        fill={fillColor}
       />
     </>
   );
 };
 
 ThermometerShape.propTypes = {
-  stroke: PropTypes.number,
+  stroke: PropTypes.string,
   strokeWidth: PropTypes.number,
-  thermometerHeight: PropTypes.number,
-  fillHeight: PropTypes.number,
+  thermometerHeight: PropTypes.number.isRequired,
   fillColor: PropTypes.string,
   offsetY: PropTypes.number.isRequired,
 };
 
 ThermometerShape.defaultProps = {
-  thermometerHeight: THERMOMETER_HEIGHT,
-  fillHeight: THERMOMETER_HEIGHT,
   stroke: '',
   strokeWidth: 0,
   fillColor: '',

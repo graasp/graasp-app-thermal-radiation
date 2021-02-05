@@ -18,6 +18,9 @@ export const VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS = 30;
 export const HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS = 20;
 export const IONS_OSCILLATION_SPEED_FACTOR = 0.005;
 export const IONS_OSCILLATION_RADIUS = 5;
+export const LATTICE_HEIGHT =
+  NUMBER_OF_ROWS_IN_LATTICE *
+  (POSITIVE_ION_RADIUS + VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS);
 
 // constants used in the electrons between positive ions
 export const ELECTRON_RADIUS = 6;
@@ -28,7 +31,6 @@ export const ELECTRON_SYMBOL_COLOR = 'white';
 
 export const THERMOMETER_COLOR = 'red';
 export const THERMOMETER_WIDTH = 20;
-export const THERMOMETER_HEIGHT = 350;
 export const THERMOMETER_RADIUS = 20;
 export const THERMOMETER_POSITION_X = 40;
 export const THERMOMETER_POSITION_Y = 150;
@@ -71,11 +73,9 @@ export const PLANCK_CONSTANT = 6.63 * 10e-34;
 export const SPEED_OF_LIGHT_CONSTANT = 299792458; // m/s
 export const LINE_STROKE_COLOR = 'black';
 export const DEFAULT_TENSION = 0.1;
-export const MAX_POINTS_FOR_LINES = 350;
 
 export const NUMBER_OF_LINES = 5;
 export const LINE_STEP = 3;
 export const LINE_AMPLITUDE = 30;
 export const LINE_ANGLE = Math.PI / 2;
 export const LINE_STARTING_POSITION_Y = 550;
-export const LINES_OFFSET = 200;
