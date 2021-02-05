@@ -5,7 +5,19 @@ import { withStyles } from '@material-ui/core/styles';
 import { Stage, Layer } from 'react-konva';
 import Lattice from './Lattice';
 import { setStageDimensions } from '../../actions';
-import { BACKGROUND_COLOR } from '../../config/constants';
+import Thermometer from './thermometer/Thermometer';
+import {
+  NUMBER_OF_LINES,
+  LINE_AMPLITUDE,
+  BACKGROUND_COLOR,
+  THERMOMETER_POSITION_X,
+  THERMOMETER_WIDTH,
+  LATTICE_HEIGHT,
+  SCALE_WIDTH,
+  VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS,
+} from '../../config/constants';
+import SpectrumBar from './SpectrumBar';
+import EmittedLine from './EmittedLine';
 
 const styles = () => ({
   container: {
@@ -30,6 +42,7 @@ class Lab extends Component {
       stageWidth: PropTypes.number.isRequired,
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
+    spectrumBar: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -51,8 +64,23 @@ class Lab extends Component {
   };
 
   render() {
-    const { classes, stageDimensions } = this.props;
+    const { classes, stageDimensions, spectrumBar } = this.props;
     const { stageWidth, stageHeight } = stageDimensions;
+
+    // space between lines
+    const linePadding =
+      (stageDimensions.stageWidth -
+        (THERMOMETER_WIDTH + THERMOMETER_POSITION_X) -
+        NUMBER_OF_LINES * LINE_AMPLITUDE) /
+      NUMBER_OF_LINES;
+
+    const linesXOffset =
+      THERMOMETER_POSITION_X +
+      THERMOMETER_WIDTH +
+      SCALE_WIDTH +
+      LINE_AMPLITUDE +
+      linePadding / 2;
+
     return (
       <div
         className={classes.container}
@@ -72,7 +100,31 @@ class Lab extends Component {
             >
               <Provider store={store}>
                 <Layer>
+                  <Thermometer
+                    stageWidth={stageWidth}
+                    stageHeight={stageHeight}
+                  />
                   <Lattice stageDimensions={stageDimensions} />
+                  {spectrumBar && (
+                    <SpectrumBar stageDimensions={stageDimensions} />
+                  )}
+                  {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
+                    <EmittedLine
+                      stageDimensions={stageDimensions}
+                      chargeOscillation={{ x: 0, y: 0 }}
+                      x={linesXOffset + i * (LINE_AMPLITUDE + linePadding)}
+                      y={
+                        stageHeight -
+                        LATTICE_HEIGHT -
+                        VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS / 2
+                      }
+                    />
+                  ))}
+                </Layer>
+                <Layer>
+                  {spectrumBar && (
+                    <SpectrumBar stageDimensions={stageDimensions} />
+                  )}
                 </Layer>
               </Provider>
             </Stage>
@@ -85,6 +137,7 @@ class Lab extends Component {
 
 const mapStateToProps = ({ layout }) => ({
   stageDimensions: layout.lab.stageDimensions,
+  spectrumBar: layout.lab.spectrumBar,
 });
 
 const mapDispatchToProps = {

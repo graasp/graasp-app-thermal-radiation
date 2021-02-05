@@ -11,12 +11,15 @@ import {
 } from '../../config/constants';
 import { findXPositionsOfPositiveIons } from '../../utils/utils';
 
-const LatticeRow = ({ rowIndex, stageDimensions }) => {
+const LatticeRow = ({ rowIndex, stageDimensions, oscillation }) => {
   const electrons = useSelector(({ layout }) => layout.lab.electrons);
   const { stageWidth, stageHeight } = stageDimensions;
 
+  // horizontal distance to fill of ions, minus the spectrum bar width
+  const width = stageWidth;
+
   const positiveIonsXPositions = findXPositionsOfPositiveIons(
-    stageWidth,
+    width,
     POSITIVE_ION_RADIUS,
     HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS,
   );
@@ -27,10 +30,15 @@ const LatticeRow = ({ rowIndex, stageDimensions }) => {
       rowIndex * POSITIVE_ION_RADIUS);
 
   return positiveIonsXPositions.map((xPosition, index, array) => {
+    const x = xPosition;
+    const idx = rowIndex + index;
+
     // since electrons sit in between positive ions, there will be one fewer electron than positive ions
     if (index === array.length - 1) {
       return (
         <PositiveIon
+          index={idx}
+          oscillation={oscillation}
           yPosition={currentRowYPosition}
           xPosition={xPosition}
           key={xPosition}
@@ -39,13 +47,18 @@ const LatticeRow = ({ rowIndex, stageDimensions }) => {
     }
     return (
       <Group key={xPosition}>
-        <PositiveIon yPosition={currentRowYPosition} xPosition={xPosition} />
+        <PositiveIon
+          index={idx}
+          yPosition={currentRowYPosition}
+          xPosition={xPosition}
+          oscillation={oscillation}
+        />
         {electrons && (
           <Electron
             yPosition={currentRowYPosition}
             // distance between center of positive ion and center of electron: positive ion radius + half the distance between two positive ions
             xPosition={
-              xPosition +
+              x +
               POSITIVE_ION_RADIUS +
               HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS / 2
             }

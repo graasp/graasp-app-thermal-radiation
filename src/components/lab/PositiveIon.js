@@ -9,18 +9,21 @@ import {
   POSITIVE_ION_SYMBOL_FONT_SIZE,
 } from '../../config/constants';
 
-const PositiveIon = ({ xPosition, yPosition }) => {
+const PositiveIon = ({ xPosition, yPosition, oscillation, index }) => {
+  const xOscillation = index % 2 === 0;
+  const x = xPosition + (xOscillation ? oscillation : 0);
+  const y = yPosition + (!xOscillation ? oscillation : 0);
   return (
-    <Group>
+    <Group x={x} y={y}>
       <Circle
-        x={xPosition}
-        y={yPosition}
+        x={0}
+        y={0}
         radius={POSITIVE_ION_RADIUS}
         fill={POSITIVE_ION_COLOR}
       />
       <Text
-        x={xPosition - POSITIVE_ION_RADIUS}
-        y={yPosition - POSITIVE_ION_RADIUS}
+        x={-POSITIVE_ION_RADIUS}
+        y={-POSITIVE_ION_RADIUS}
         text={POSITIVE_ION_SYMBOL}
         fontSize={POSITIVE_ION_SYMBOL_FONT_SIZE}
         fill={POSITIVE_ION_SYMBOL_COLOR}
@@ -36,6 +39,11 @@ const PositiveIon = ({ xPosition, yPosition }) => {
 PositiveIon.propTypes = {
   yPosition: PropTypes.number.isRequired,
   xPosition: PropTypes.number.isRequired,
+  thermometer: PropTypes.shape({
+    from: PropTypes.number.isRequired,
+  }).isRequired,
+  oscillation: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default PositiveIon;
