@@ -5,10 +5,11 @@ import { RegularPolygon } from 'react-konva';
 import {
   THERMOMETER_WIDTH,
   THERMOMETER_POSITION_X,
-  SCALE_FONT_SIZE,
   SCALE_PADDING_LEFT,
   SCALE_WIDTH,
   SLIDER_FILL_COLOR,
+  SCALE_TEXT_WIDTH_FACTOR,
+  SLIDER_RADIUS,
 } from '../../../config/constants';
 import { setTemperature } from '../../../actions';
 
@@ -62,7 +63,7 @@ const Slider = ({
     THERMOMETER_WIDTH +
     SCALE_WIDTH +
     SCALE_PADDING_LEFT +
-    SCALE_FONT_SIZE * 2;
+    SCALE_TEXT_WIDTH_FACTOR;
 
   const minThermometerHeight = offsetY + thermometerHeight;
   const maxThermomerterHeight =
@@ -102,7 +103,7 @@ const Slider = ({
       x={sliderPositionX}
       y={y}
       sides={3}
-      radius={8}
+      radius={SLIDER_RADIUS}
       rotation={30}
       fill={SLIDER_FILL_COLOR}
     />

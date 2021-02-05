@@ -18,6 +18,16 @@ const ThermometerShape = ({
   // the angle is used to draw the most perfect mercury bulb
   const angle = Math.asin(THERMOMETER_WIDTH / 2 / THERMOMETER_RADIUS);
 
+  // compute start and end angles to draw the bulb
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
+  const computeStartAngle = () => {
+    return -Math.PI / 2 + angle;
+  };
+
+  const computeEndAngle = () => {
+    return -angle + (3 / 2) * Math.PI;
+  };
+
   const drawThermometerShape = (context, shape, height) => {
     const totalOffset = offsetY + thermometerHeight - height;
 
@@ -37,8 +47,8 @@ const ThermometerShape = ({
       THERMOMETER_POSITION_X + THERMOMETER_WIDTH / 2,
       totalOffset + height + THERMOMETER_RADIUS,
       THERMOMETER_RADIUS,
-      -Math.PI / 2 + angle,
-      -angle + (3 / 2) * Math.PI,
+      computeStartAngle(),
+      computeEndAngle(),
     );
 
     // draw left straight line

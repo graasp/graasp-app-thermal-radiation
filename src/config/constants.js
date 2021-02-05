@@ -33,19 +33,24 @@ export const THERMOMETER_COLOR = 'red';
 export const THERMOMETER_WIDTH = 20;
 export const THERMOMETER_RADIUS = 20;
 export const THERMOMETER_POSITION_X = 40;
-export const THERMOMETER_POSITION_Y = 150;
 export const THERMOMETER_STROKE_WIDTH = 3;
 export const THERMOMETER_STROKE_COLOR = 'black';
+// these factors are used as percentage depending on stage dimensions
+export const THERMOMETER_POSITION_Y_FACTOR = 0.15;
+export const THERMOMETER_HEIGHT_FACTOR = 0.6;
 
 export const SCALE_WIDTH = 10;
 export const SCALE_FONT_SIZE = 13;
 export const SCALE_PADDING_LEFT = 7;
 export const SCALE_LINE_HEIGHT = 1.5;
 export const SCALE_HEIGHT = 17;
+// approximatively the width of the scale text
+export const SCALE_TEXT_WIDTH_FACTOR = 2 * SCALE_FONT_SIZE;
 // the actual number of displayed ticks might vary due to number rounding
 export const SCALE_MAX_NUMBER_TICKS = 10;
 
 export const SLIDER_FILL_COLOR = 'black';
+export const SLIDER_RADIUS = 8;
 export const SET_INTERVAL_TIME = 10;
 
 // spectrum bar constants

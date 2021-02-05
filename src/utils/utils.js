@@ -13,9 +13,9 @@ export const findXPositionsOfPositiveIons = (
 
   const width = stageWidth < 0 ? 0 : stageWidth;
 
-  let numberOfPositiveIons = Math.floor(width / widthOfPositiveIonWithPadding);
-
-  numberOfPositiveIons = numberOfPositiveIons > 0 ? numberOfPositiveIons : 0;
+  const numberOfPositiveIons = Math.floor(
+    width / widthOfPositiveIonWithPadding,
+  );
 
   // since last ion will not have padding to its right
   const totalWidthOfPositiveIons =

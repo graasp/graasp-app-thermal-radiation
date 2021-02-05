@@ -5,13 +5,15 @@ import {
   THERMOMETER_COLOR,
   THERMOMETER_STROKE_WIDTH,
   THERMOMETER_STROKE_COLOR,
+  THERMOMETER_HEIGHT_FACTOR,
+  THERMOMETER_POSITION_Y_FACTOR,
 } from '../../../config/constants';
 import ThermometerShape from './ThermometerShape';
 import Scale from './Scale';
 
 const Thermometer = ({ stageWidth, stageHeight }) => {
-  const thermometerHeight = stageHeight * 0.6;
-  const offsetY = stageHeight * 0.15;
+  const thermometerHeight = stageHeight * THERMOMETER_HEIGHT_FACTOR;
+  const offsetY = stageHeight * THERMOMETER_POSITION_Y_FACTOR;
   return (
     <Group>
       <Scale thermometerHeight={thermometerHeight} offsetY={offsetY} />
