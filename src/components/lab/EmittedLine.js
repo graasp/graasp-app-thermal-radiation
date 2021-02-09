@@ -24,6 +24,7 @@ class EmittedLine extends Component {
     stageDimensions: PropTypes.shape({
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
+    isPaused: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -31,8 +32,13 @@ class EmittedLine extends Component {
     t: 0,
   };
 
-  componentDidMount() {
-    this.beginLineInterval();
+  componentDidUpdate({ isPaused: prevIsPaused }) {
+    const { isPaused } = this.props;
+    if (isPaused !== prevIsPaused && isPaused) {
+      clearInterval(this.emittedLineInterval);
+    } else if (isPaused !== prevIsPaused && !isPaused) {
+      this.beginLineInterval();
+    }
   }
 
   beginLineInterval = () => {
@@ -85,6 +91,7 @@ class EmittedLine extends Component {
 
 const mapStateToProps = ({ lab }) => ({
   temperature: lab.temperature,
+  isPaused: lab.isPaused,
 });
 const ConnectedComponent = connect(mapStateToProps)(EmittedLine);
 export default ConnectedComponent;

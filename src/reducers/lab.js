@@ -1,4 +1,4 @@
-import { SET_TEMPERATURE } from '../types';
+import { SET_TEMPERATURE, SET_IS_PAUSED } from '../types';
 
 const INITIAL_STATE = {
   temperature: 300,
@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     to: 800,
     from: 200,
   },
+  isPaused: true,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -15,6 +16,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         temperature: payload,
       };
+    case SET_IS_PAUSED:
+      return { ...state, isPaused: payload };
     default:
       return state;
   }

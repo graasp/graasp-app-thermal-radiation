@@ -1,4 +1,4 @@
-import { SET_TEMPERATURE } from '../types';
+import { SET_TEMPERATURE, SET_IS_PAUSED } from '../types';
 
 const setTemperature = (temperature) => (dispatch) =>
   dispatch({
@@ -6,5 +6,10 @@ const setTemperature = (temperature) => (dispatch) =>
     payload: temperature,
   });
 
-// eslint-disable-next-line import/prefer-default-export
-export { setTemperature };
+const setIsPaused = (isPaused) => (dispatch) =>
+  dispatch({
+    type: SET_IS_PAUSED,
+    payload: isPaused,
+  });
+
+export { setTemperature, setIsPaused };

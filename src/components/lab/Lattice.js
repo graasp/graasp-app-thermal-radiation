@@ -19,6 +19,7 @@ class Lattice extends Component {
     scales: PropTypes.shape({
       from: PropTypes.number.isRequired,
     }).isRequired,
+    isPaused: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -26,22 +27,34 @@ class Lattice extends Component {
     angle: 0,
   };
 
-  componentDidMount() {
-    // set up general animation for positive ions
-    setInterval(() => {
-      const {
-        temperature,
-        scales: { from },
-      } = this.props;
-      const { angle } = this.state;
-      const oscillation = IONS_OSCILLATION_RADIUS * Math.sin(angle);
-
-      this.setState({
-        oscillation,
-        angle: angle + (temperature - from) * IONS_OSCILLATION_SPEED_FACTOR,
-      });
-    }, SET_INTERVAL_TIME);
+  componentDidUpdate({ isPaused: prevIsPaused }) {
+    const { isPaused } = this.props;
+    if (isPaused !== prevIsPaused && isPaused) {
+      clearInterval(this.interval);
+      this.interval = null;
+    } else if (isPaused !== prevIsPaused && !isPaused) {
+      this.beginInterval();
+    }
   }
+
+  beginInterval = () => {
+    if (!this.interval) {
+      // set up general animation for positive ions
+      this.interval = setInterval(() => {
+        const {
+          temperature,
+          scales: { from },
+        } = this.props;
+        const { angle } = this.state;
+        const oscillation = IONS_OSCILLATION_RADIUS * Math.sin(angle);
+
+        this.setState({
+          oscillation,
+          angle: angle + (temperature - from) * IONS_OSCILLATION_SPEED_FACTOR,
+        });
+      }, SET_INTERVAL_TIME);
+    }
+  };
 
   render() {
     const { stageDimensions } = this.props;
@@ -63,6 +76,7 @@ class Lattice extends Component {
 const mapStateToProps = ({ lab }) => ({
   temperature: lab.temperature,
   scales: lab.scales,
+  isPaused: lab.isPaused,
 });
 
 const ConnectedComponent = connect(mapStateToProps)(Lattice);

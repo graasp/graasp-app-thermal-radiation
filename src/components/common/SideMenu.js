@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
@@ -7,12 +8,17 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Divider, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { green, yellow } from '@material-ui/core/colors';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {
   toggleSideMenu,
   toggleElectrons,
   toggleSpectrumBar,
+  setIsPaused,
 } from '../../actions';
 import SwitchWithLabel from './SwitchWithLabel';
 import { DRAWER_WIDTH, DEFAULT_THEME_DIRECTION } from '../../config/constants';
@@ -36,6 +42,10 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  buttons: { textAlign: 'center' },
+  button: { fontSize: '2em' },
+  playButton: { color: green[800] },
+  pauseButton: { color: yellow[800] },
 });
 
 class SideMenu extends React.Component {
@@ -45,6 +55,10 @@ class SideMenu extends React.Component {
       drawerPaper: PropTypes.string.isRequired,
       contentWrapper: PropTypes.string.isRequired,
       switchContainer: PropTypes.string.isRequired,
+      playButton: PropTypes.string.isRequired,
+      pauseButton: PropTypes.string.isRequired,
+      button: PropTypes.string.isRequired,
+      buttons: PropTypes.string.isRequired,
     }).isRequired,
     theme: PropTypes.shape({
       direction: PropTypes.string.isRequired,
@@ -56,11 +70,48 @@ class SideMenu extends React.Component {
     dispatchToggleElectrons: PropTypes.func.isRequired,
     dispatchToggleSpectrumBar: PropTypes.func.isRequired,
     spectrumBar: PropTypes.bool.isRequired,
+    isPaused: PropTypes.bool.isRequired,
+    dispatchSetIsPause: PropTypes.func.isRequired,
   };
 
   handleToggleSideMenu = (open) => () => {
     const { dispatchToggleSideMenu } = this.props;
     dispatchToggleSideMenu(open);
+  };
+
+  onClickPauseOrPlay = () => {
+    const { dispatchSetIsPause, isPaused } = this.props;
+    dispatchSetIsPause(!isPaused);
+  };
+
+  renderPlayAndPauseButtons = () => {
+    const { isPaused, classes, t } = this.props;
+    return (
+      <div className={classes.buttons}>
+        <Tooltip title={t('Pause')}>
+          <span>
+            <IconButton onClick={this.onClickPauseOrPlay} disabled={isPaused}>
+              <PauseCircleOutlineIcon
+                className={clsx(classes.button, {
+                  [classes.pauseButton]: !isPaused,
+                })}
+              />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <Tooltip title={t('Play')}>
+          <span>
+            <IconButton onClick={this.onClickPauseOrPlay} disabled={!isPaused}>
+              <PlayCircleOutlineIcon
+                className={clsx(classes.button, {
+                  [classes.playButton]: isPaused,
+                })}
+              />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </div>
+    );
   };
 
   renderDrawerHeader = () => {
@@ -106,6 +157,7 @@ class SideMenu extends React.Component {
         >
           {this.renderDrawerHeader()}
           <div className={classes.contentWrapper}>
+            {this.renderPlayAndPauseButtons()}
             <div className={classes.switchContainer}>
               <SwitchWithLabel
                 switchLabel={t('Electrons')}
@@ -128,16 +180,18 @@ class SideMenu extends React.Component {
   }
 }
 
-const mapStateToProps = ({ layout }) => ({
+const mapStateToProps = ({ layout, lab }) => ({
   showSideMenu: layout.showSideMenu,
   electrons: layout.lab.electrons,
   spectrumBar: layout.lab.spectrumBar,
+  isPaused: lab.isPaused,
 });
 
 const mapDispatchToProps = {
   dispatchToggleSideMenu: toggleSideMenu,
   dispatchToggleElectrons: toggleElectrons,
   dispatchToggleSpectrumBar: toggleSpectrumBar,
+  dispatchSetIsPause: setIsPaused,
 };
 
 const ConnectedComponent = connect(
