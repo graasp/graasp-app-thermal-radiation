@@ -18,6 +18,7 @@ import {
 } from '../../config/constants';
 import SpectrumBar from './SpectrumBar';
 import EmittedLine from './EmittedLine';
+import Ground from './Ground';
 
 const styles = () => ({
   container: {
@@ -43,6 +44,7 @@ class Lab extends Component {
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
     spectrumBar: PropTypes.bool.isRequired,
+    isMicroscopic: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -64,7 +66,7 @@ class Lab extends Component {
   };
 
   render() {
-    const { classes, stageDimensions, spectrumBar } = this.props;
+    const { classes, stageDimensions, spectrumBar, isMicroscopic } = this.props;
     const { stageWidth, stageHeight } = stageDimensions;
 
     // space between lines
@@ -104,10 +106,17 @@ class Lab extends Component {
                     stageWidth={stageWidth}
                     stageHeight={stageHeight}
                   />
-                  <Lattice stageDimensions={stageDimensions} />
+                  {/* display either ground or ions */}
+                  {isMicroscopic ? (
+                    <Lattice stageDimensions={stageDimensions} />
+                  ) : (
+                    <Ground stageDimensions={stageDimensions} />
+                  )}
+
                   {spectrumBar && (
                     <SpectrumBar stageDimensions={stageDimensions} />
                   )}
+
                   {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
                     <EmittedLine
                       stageDimensions={stageDimensions}
@@ -121,11 +130,6 @@ class Lab extends Component {
                     />
                   ))}
                 </Layer>
-                <Layer>
-                  {spectrumBar && (
-                    <SpectrumBar stageDimensions={stageDimensions} />
-                  )}
-                </Layer>
               </Provider>
             </Stage>
           )}
@@ -135,9 +139,10 @@ class Lab extends Component {
   }
 }
 
-const mapStateToProps = ({ layout }) => ({
+const mapStateToProps = ({ layout, lab }) => ({
   stageDimensions: layout.lab.stageDimensions,
   spectrumBar: layout.lab.spectrumBar,
+  isMicroscopic: lab.isMicroscopic,
 });
 
 const mapDispatchToProps = {

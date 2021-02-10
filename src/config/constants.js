@@ -84,3 +84,7 @@ export const LINE_STEP = 3;
 export const LINE_AMPLITUDE = 30;
 export const LINE_ANGLE = Math.PI / 2;
 export const LINE_STARTING_POSITION_Y = 550;
+
+export const GROUND_FILL_DARK_COLOR = '#ad7e4e';
+export const GROUND_FILL_LIGHT_COLOR = '#cfae67';
+export const GROUND_GRASS_HEIGHT = 20;

@@ -27,6 +27,10 @@ class Lattice extends Component {
     angle: 0,
   };
 
+  componentDidMount() {
+    this.beginInterval();
+  }
+
   componentDidUpdate({ isPaused: prevIsPaused }) {
     const { isPaused } = this.props;
     if (isPaused !== prevIsPaused && isPaused) {
@@ -35,6 +39,10 @@ class Lattice extends Component {
     } else if (isPaused !== prevIsPaused && !isPaused) {
       this.beginInterval();
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   beginInterval = () => {

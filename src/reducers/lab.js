@@ -1,4 +1,4 @@
-import { SET_TEMPERATURE, SET_IS_PAUSED } from '../types';
+import { SET_TEMPERATURE, SET_IS_PAUSED, SET_IS_MICROSCOPIC } from '../types';
 
 const INITIAL_STATE = {
   temperature: 300,
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
     from: 200,
   },
   isPaused: true,
+  isMicroscopic: false,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       };
     case SET_IS_PAUSED:
       return { ...state, isPaused: payload };
+    case SET_IS_MICROSCOPIC:
+      return { ...state, isMicroscopic: payload };
     default:
       return state;
   }

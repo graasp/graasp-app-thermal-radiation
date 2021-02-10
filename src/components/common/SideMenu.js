@@ -19,6 +19,7 @@ import {
   toggleElectrons,
   toggleSpectrumBar,
   setIsPaused,
+  setIsMicroscopic,
 } from '../../actions';
 import SwitchWithLabel from './SwitchWithLabel';
 import { DRAWER_WIDTH, DEFAULT_THEME_DIRECTION } from '../../config/constants';
@@ -72,6 +73,8 @@ class SideMenu extends React.Component {
     spectrumBar: PropTypes.bool.isRequired,
     isPaused: PropTypes.bool.isRequired,
     dispatchSetIsPause: PropTypes.func.isRequired,
+    isMicroscopic: PropTypes.bool.isRequired,
+    dispatchSetIsMicroscopic: PropTypes.func.isRequired,
   };
 
   handleToggleSideMenu = (open) => () => {
@@ -142,6 +145,8 @@ class SideMenu extends React.Component {
       t,
       spectrumBar,
       dispatchToggleSpectrumBar,
+      isMicroscopic,
+      dispatchSetIsMicroscopic,
     } = this.props;
 
     return (
@@ -160,9 +165,17 @@ class SideMenu extends React.Component {
             {this.renderPlayAndPauseButtons()}
             <div className={classes.switchContainer}>
               <SwitchWithLabel
+                switchLabel={t('Microscopic View')}
+                isChecked={isMicroscopic}
+                onToggle={dispatchSetIsMicroscopic}
+              />
+            </div>
+            <div className={classes.switchContainer}>
+              <SwitchWithLabel
                 switchLabel={t('Electrons')}
                 isChecked={electrons}
                 onToggle={dispatchToggleElectrons}
+                disabled={!isMicroscopic}
               />
             </div>
 
@@ -185,6 +198,7 @@ const mapStateToProps = ({ layout, lab }) => ({
   electrons: layout.lab.electrons,
   spectrumBar: layout.lab.spectrumBar,
   isPaused: lab.isPaused,
+  isMicroscopic: lab.isMicroscopic,
 });
 
 const mapDispatchToProps = {
@@ -192,6 +206,7 @@ const mapDispatchToProps = {
   dispatchToggleElectrons: toggleElectrons,
   dispatchToggleSpectrumBar: toggleSpectrumBar,
   dispatchSetIsPause: setIsPaused,
+  dispatchSetIsMicroscopic: setIsMicroscopic,
 };
 
 const ConnectedComponent = connect(

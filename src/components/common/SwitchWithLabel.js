@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SwitchWithLabel = ({ isChecked, onToggle, switchLabel }) => {
+const SwitchWithLabel = ({ isChecked, onToggle, switchLabel, disabled }) => {
   const classes = useStyles();
 
   const onSwitchToggle = () => {
@@ -26,6 +26,7 @@ const SwitchWithLabel = ({ isChecked, onToggle, switchLabel }) => {
 
   const Control = (
     <Switch
+      disabled={disabled}
       checked={isChecked}
       onChange={onSwitchToggle}
       name={switchLabel}
@@ -53,6 +54,11 @@ SwitchWithLabel.propTypes = {
   isChecked: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
   switchLabel: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+};
+
+SwitchWithLabel.defaultProps = {
+  disabled: false,
 };
 
 export default SwitchWithLabel;

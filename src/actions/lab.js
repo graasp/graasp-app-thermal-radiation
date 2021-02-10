@@ -1,4 +1,4 @@
-import { SET_TEMPERATURE, SET_IS_PAUSED } from '../types';
+import { SET_TEMPERATURE, SET_IS_PAUSED, SET_IS_MICROSCOPIC } from '../types';
 
 const setTemperature = (temperature) => (dispatch) =>
   dispatch({
@@ -12,4 +12,10 @@ const setIsPaused = (isPaused) => (dispatch) =>
     payload: isPaused,
   });
 
-export { setTemperature, setIsPaused };
+const setIsMicroscopic = (isMicroscopic) => (dispatch) =>
+  dispatch({
+    type: SET_IS_MICROSCOPIC,
+    payload: isMicroscopic,
+  });
+
+export { setTemperature, setIsPaused, setIsMicroscopic };
