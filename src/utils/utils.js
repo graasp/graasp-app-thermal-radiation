@@ -30,3 +30,7 @@ export const findXPositionsOfPositiveIons = (
       leftIndent + positiveIonRadius + widthOfPositiveIonWithPadding * index,
   );
 };
+
+export const fahrenheitToCelsius = (f) => f - 273.15;
+
+export const celsiusToFahrenheit = (c) => c + 273.15;

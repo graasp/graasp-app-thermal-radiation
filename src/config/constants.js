@@ -39,9 +39,10 @@ export const THERMOMETER_STROKE_COLOR = 'black';
 export const THERMOMETER_POSITION_Y_FACTOR = 0.15;
 export const THERMOMETER_HEIGHT_FACTOR = 0.6;
 
-export const SCALE_WIDTH = 10;
+export const SCALE_WIDTH = 7;
 export const SCALE_FONT_SIZE = 13;
 export const SCALE_PADDING_LEFT = 7;
+export const SCALE_PADDING_RIGHT = 20;
 export const SCALE_LINE_HEIGHT = 1.5;
 export const SCALE_HEIGHT = 17;
 // approximatively the width of the scale text

@@ -41,6 +41,7 @@ const Grid = ({ gridWidth, gridHeight }) => {
     <>
       {xTicksArray.map((tick) => (
         <Line
+          key={tick}
           x={tick}
           y={0}
           points={[
@@ -56,6 +57,7 @@ const Grid = ({ gridWidth, gridHeight }) => {
 
       {yTicksArray.map((tick) => (
         <Line
+          key={tick}
           x={0}
           y={tick}
           points={[THERMOMETER_TOTAL_WIDTH, 0, gridWidth, 0]}
@@ -68,8 +70,13 @@ const Grid = ({ gridWidth, gridHeight }) => {
 };
 
 Grid.propTypes = {
-  gridWidth: PropTypes.number.isRequired,
-  gridHeight: PropTypes.number.isRequired,
+  gridWidth: PropTypes.number,
+  gridHeight: PropTypes.number,
+};
+
+Grid.defaultProps = {
+  gridWidth: 0,
+  gridHeight: 0,
 };
 
 export default Grid;

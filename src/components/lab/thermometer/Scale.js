@@ -13,13 +13,15 @@ import {
   THERMOMETER_COLOR,
   THERMOMETER_STROKE_COLOR,
   SCALE_MAX_NUMBER_TICKS,
+  SCALE_PADDING_RIGHT,
 } from '../../../config/constants';
 import Slider from './Slider';
+import { celsiusToFahrenheit, fahrenheitToCelsius } from '../../../utils/utils';
 
+// compute the corresponding height in px given the temperature
 const temperatureToHeight = ({
   currentTemperature,
-  heightBetweenTicks,
-  tickStep,
+  deltaTemperatureHeight,
   minTemperature,
   maxTemperature,
 }) => {
@@ -29,7 +31,126 @@ const temperatureToHeight = ({
   } else if (value > maxTemperature) {
     value = maxTemperature;
   }
-  return ((-minTemperature + value) * heightBetweenTicks) / tickStep;
+  return (-minTemperature + value) * deltaTemperatureHeight;
+};
+
+const renderScales = ({
+  scales,
+  x: offsetX,
+  offsetY,
+  scaleXOffset,
+  textXOffset,
+}) =>
+  scales.map(({ text, y }) => {
+    const thermometerYPosition = offsetY - y;
+
+    return (
+      <Group key={text} y={thermometerYPosition} x={offsetX}>
+        <Text
+          x={textXOffset}
+          y={-SCALE_FONT_SIZE / 3}
+          text={text}
+          fontSize={SCALE_FONT_SIZE}
+        />
+        <Rect
+          x={scaleXOffset}
+          width={SCALE_WIDTH}
+          height={SCALE_LINE_HEIGHT}
+          fill={THERMOMETER_STROKE_COLOR}
+        />
+      </Group>
+    );
+  });
+
+const buildFahrenheitScales = ({
+  to,
+  from,
+  tickStep,
+  thermometerHeight,
+  offsetY,
+  thermometerXPosition,
+  deltaHeight,
+}) => {
+  // compute text and y position for fahrenheit scales
+  let scales = Array.from(
+    {
+      length: (to - from) / tickStep + 1, // +1 to include max
+    },
+    (key, idx) => {
+      const value = idx * tickStep + from;
+      return { text: value, y: (value - from) * deltaHeight };
+    },
+  );
+
+  // select marks at most number of scale we can display
+  const maxNbScale = Math.floor(thermometerHeight / SCALE_HEIGHT);
+  const prop = Math.ceil(scales.length / maxNbScale);
+  if (prop > 1) {
+    scales = scales.filter((_, i) => i % prop === 0);
+  }
+
+  // draw scale ticks
+  const ScaleComponents = renderScales({
+    offsetY: offsetY + thermometerHeight - SCALE_LINE_HEIGHT,
+    x: thermometerXPosition,
+    scales,
+    scaleXOffset: -SCALE_WIDTH,
+    textXOffset: SCALE_PADDING_LEFT,
+  });
+
+  return ScaleComponents;
+};
+
+const buildCelsiusScales = ({
+  from,
+  to,
+  roundFromFahrenheit,
+  deltaFahrenheitHeight,
+  offsetY,
+  offsetX,
+}) => {
+  // get celsium degree from fahrenheit thermometer boundaries
+  const celsiusFrom = fahrenheitToCelsius(from);
+  const celsiusTo = fahrenheitToCelsius(to);
+
+  // compute ideal step between ticks
+  const celsiusTickStep = Math.ceil(
+    (Math.abs(celsiusTo) + Math.abs(celsiusFrom)) / SCALE_MAX_NUMBER_TICKS,
+  );
+
+  // round min and max to closest scale steps
+  // these bounds might not include from and to values
+  const celsiusRoundFrom =
+    celsiusTickStep * Math.ceil(celsiusFrom / celsiusTickStep);
+  const celsiusRoundTo =
+    celsiusTickStep * Math.floor(celsiusTo / celsiusTickStep);
+
+  // compute scales text and y position based on fahrenheit scales
+  const celsiusScales = Array.from(
+    {
+      length: (celsiusRoundTo - celsiusRoundFrom) / celsiusTickStep + 1, // +1 to include max
+    },
+    (key, idx) => {
+      const value = idx * celsiusTickStep + celsiusRoundFrom;
+      return {
+        text: value,
+        y:
+          (celsiusToFahrenheit(value) - Math.abs(roundFromFahrenheit)) *
+          deltaFahrenheitHeight,
+      };
+    },
+  );
+
+  // draw scale ticks
+  const CelsiusScaleComponents = renderScales({
+    offsetY,
+    x: offsetX,
+    scales: celsiusScales,
+    scaleXOffset: 0,
+    textXOffset: -SCALE_PADDING_RIGHT - SCALE_WIDTH,
+  });
+
+  return CelsiusScaleComponents;
 };
 
 const Scale = ({
@@ -49,59 +170,43 @@ const Scale = ({
   const roundFrom = tickStep * Math.floor(from / tickStep);
   const roundTo = tickStep * Math.ceil(to / tickStep) || tickStep;
 
-  // compute scale array at every step
-  const nbScale = (roundTo - roundFrom) / tickStep + 1; // +1 to include max
-  let scaleArray = Array.from(
-    { length: nbScale },
-    (key, value) => value * tickStep + roundFrom,
-  );
+  // height in pixel for one degree fahrenheit
+  const deltaFahrenheitHeight = thermometerHeight / (roundTo - roundFrom);
 
-  // select marks at most number of scale we can display
-  const maxNbScale = Math.floor(thermometerHeight / SCALE_HEIGHT);
-  const prop = Math.ceil(scaleArray.length / maxNbScale);
-  if (prop > 1) {
-    scaleArray = scaleArray.filter((_, i) => i % prop === 0);
-  }
+  // build fahrenheit scales
+  const FahrenheightScaleComponents = buildFahrenheitScales({
+    from: roundFrom,
+    to: roundTo,
+    offsetY,
+    thermometerXPosition,
+    tickStep,
+    thermometerHeight,
+    deltaHeight: deltaFahrenheitHeight,
+  });
 
-  const heightBetweenTicks = thermometerHeight / scaleArray.length;
+  // build celsius scales
+  const CelsiusScaleComponents = buildCelsiusScales({
+    from,
+    to,
+    offsetY: offsetY + thermometerHeight - SCALE_LINE_HEIGHT,
+    offsetX: thermometerXPosition - THERMOMETER_WIDTH,
+    roundFromFahrenheit: roundFrom,
+    deltaFahrenheitHeight,
+    thermometerHeight,
+  });
 
   // compute fill height given current temperature value
   const fillValue = temperatureToHeight({
-    heightBetweenTicks,
+    deltaTemperatureHeight: deltaFahrenheitHeight,
     currentTemperature,
-    tickStep,
+
     minTemperature: roundFrom,
     maxTemperature: roundTo,
   });
 
-  // draw scale ticks
-  const scaleComponents = scaleArray.map((text, idx) => {
-    const thermometerYPosition =
-      offsetY +
-      thermometerHeight -
-      idx * heightBetweenTicks -
-      SCALE_LINE_HEIGHT;
-
-    return (
-      <Group key={text}>
-        <Text
-          x={thermometerXPosition + SCALE_PADDING_LEFT}
-          y={thermometerYPosition - SCALE_FONT_SIZE / 3}
-          text={text}
-          fontSize={SCALE_FONT_SIZE}
-        />
-        <Rect
-          x={THERMOMETER_POSITION_X + THERMOMETER_WIDTH - SCALE_WIDTH}
-          y={thermometerYPosition}
-          width={SCALE_WIDTH}
-          height={SCALE_LINE_HEIGHT}
-          fill={THERMOMETER_STROKE_COLOR}
-        />
-      </Group>
-    );
-  });
-
+  // absolute y position for given temperature
   const currentTemperatureY = offsetY + thermometerHeight - fillValue;
+
   return (
     <>
       {/* current temperature fill */}
@@ -114,18 +219,17 @@ const Scale = ({
       />
 
       {/* scales */}
-      {scaleComponents}
+      {FahrenheightScaleComponents}
+      {CelsiusScaleComponents}
 
       {/* triangle slider */}
       <Slider
-        heightBetweenTicks={heightBetweenTicks}
+        deltaTemperatureHeight={deltaFahrenheitHeight}
         y={currentTemperatureY}
         offsetY={offsetY}
         thermometerHeight={thermometerHeight}
         minTemperature={roundFrom}
         maxTemperature={roundTo}
-        tickStep={tickStep}
-        nbScales={scaleArray.length}
       />
     </>
   );
