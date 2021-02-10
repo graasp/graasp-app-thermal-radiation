@@ -53,6 +53,13 @@ export const SLIDER_FILL_COLOR = 'black';
 export const SLIDER_RADIUS = 8;
 export const SET_INTERVAL_TIME = 10;
 
+export const THERMOMETER_TOTAL_WIDTH =
+  THERMOMETER_WIDTH +
+  THERMOMETER_POSITION_X +
+  SCALE_TEXT_WIDTH_FACTOR * 2 +
+  SCALE_PADDING_LEFT +
+  SLIDER_RADIUS;
+
 // spectrum bar constants
 export const SPECTRUM_BAR_WIDTH = 350;
 export const SPECTRUM_BAR_HEIGHT = 120;
@@ -88,3 +95,8 @@ export const LINE_STARTING_POSITION_Y = 550;
 export const GROUND_FILL_DARK_COLOR = '#ad7e4e';
 export const GROUND_FILL_LIGHT_COLOR = '#cfae67';
 export const GROUND_GRASS_HEIGHT = 20;
+
+// grid constants
+export const GRID_AXES_COLOR = '#000';
+export const GRID_AXES_STROKE_WIDTH = 0.5;
+export const GRID_SQUARE_WIDTH_AND_HEIGHT = 47.5;
