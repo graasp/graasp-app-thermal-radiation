@@ -1,4 +1,9 @@
-import { SET_TEMPERATURE, SET_IS_PAUSED, SET_IS_MICROSCOPIC } from '../types';
+import {
+  SET_TEMPERATURE,
+  SET_IS_PAUSED,
+  SET_IS_MICROSCOPIC,
+  SET_SHOW_THERMOMETER_LABELS,
+} from '../types';
 
 const INITIAL_STATE = {
   temperature: 300,
@@ -8,6 +13,7 @@ const INITIAL_STATE = {
   },
   isPaused: true,
   isMicroscopic: false,
+  showThermometerLabels: true,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -21,6 +27,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return { ...state, isPaused: payload };
     case SET_IS_MICROSCOPIC:
       return { ...state, isMicroscopic: payload };
+    case SET_SHOW_THERMOMETER_LABELS:
+      return { ...state, showThermometerLabels: payload };
     default:
       return state;
   }

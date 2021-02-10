@@ -10,6 +10,8 @@ import {
   SLIDER_FILL_COLOR,
   SCALE_TEXT_WIDTH_FACTOR,
   SLIDER_RADIUS,
+  SCALE_LABEL_NOTES_STROKE_WIDTH,
+  BACKGROUND_COLOR,
 } from '../../../config/constants';
 import { setTemperature } from '../../../actions';
 
@@ -68,6 +70,9 @@ const Slider = ({
   return (
     <RegularPolygon
       draggable
+      fillAfterStrokeEnabled
+      stroke={BACKGROUND_COLOR}
+      strokeWidth={SCALE_LABEL_NOTES_STROKE_WIDTH}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       dragBoundFunc={(pos) => {

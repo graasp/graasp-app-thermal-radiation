@@ -32,12 +32,12 @@ export const ELECTRON_SYMBOL_COLOR = 'white';
 export const THERMOMETER_COLOR = 'red';
 export const THERMOMETER_WIDTH = 20;
 export const THERMOMETER_RADIUS = 20;
-export const THERMOMETER_POSITION_X = 40;
+export const THERMOMETER_POSITION_X = 50;
 export const THERMOMETER_STROKE_WIDTH = 3;
 export const THERMOMETER_STROKE_COLOR = 'black';
 // these factors are used as percentage depending on stage dimensions
 export const THERMOMETER_POSITION_Y_FACTOR = 0.15;
-export const THERMOMETER_HEIGHT_FACTOR = 0.6;
+export const THERMOMETER_HEIGHT_FACTOR = 0.57;
 
 export const SCALE_WIDTH = 7;
 export const SCALE_FONT_SIZE = 13;
@@ -49,6 +49,15 @@ export const SCALE_HEIGHT = 17;
 export const SCALE_TEXT_WIDTH_FACTOR = 2 * SCALE_FONT_SIZE;
 // the actual number of displayed ticks might vary due to number rounding
 export const SCALE_MAX_NUMBER_TICKS = 10;
+export const SCALE_LEGEND_PADDING_BOTTOM = 30;
+export const SCALE_LEGEND_FONT_SIZE = 16;
+export const SCALE_LABEL_NOTES = [
+  { name: 'Mars', t: 201 },
+  { name: 'Freezing Point', t: 273 },
+  { name: 'Earth', t: 289 },
+  { name: 'Venus', t: 733 },
+];
+export const SCALE_LABEL_NOTES_STROKE_WIDTH = 5;
 
 export const SLIDER_FILL_COLOR = 'black';
 export const SLIDER_RADIUS = 8;
@@ -57,9 +66,10 @@ export const SET_INTERVAL_TIME = 10;
 export const THERMOMETER_TOTAL_WIDTH =
   THERMOMETER_WIDTH +
   THERMOMETER_POSITION_X +
-  SCALE_TEXT_WIDTH_FACTOR * 2 +
+  SCALE_TEXT_WIDTH_FACTOR * 2 + // approximatively left scale text width
   SCALE_PADDING_LEFT +
-  SLIDER_RADIUS;
+  SLIDER_RADIUS +
+  SCALE_TEXT_WIDTH_FACTOR * 2;
 
 // spectrum bar constants
 export const SPECTRUM_BAR_WIDTH = 350;

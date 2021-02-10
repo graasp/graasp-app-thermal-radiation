@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Group, Text, Rect } from 'react-konva';
 import {
@@ -14,6 +15,12 @@ import {
   THERMOMETER_STROKE_COLOR,
   SCALE_MAX_NUMBER_TICKS,
   SCALE_PADDING_RIGHT,
+  SCALE_LEGEND_PADDING_BOTTOM,
+  BACKGROUND_COLOR,
+  SCALE_LEGEND_FONT_SIZE,
+  SCALE_LABEL_NOTES,
+  SCALE_TEXT_WIDTH_FACTOR,
+  SCALE_LABEL_NOTES_STROKE_WIDTH,
 } from '../../../config/constants';
 import Slider from './Slider';
 import { celsiusToFahrenheit, fahrenheitToCelsius } from '../../../utils/utils';
@@ -40,27 +47,40 @@ const renderScales = ({
   offsetY,
   scaleXOffset,
   textXOffset,
-}) =>
-  scales.map(({ text, y }) => {
-    const thermometerYPosition = offsetY - y;
+  labelYOffset,
+  label,
+}) => (
+  <>
+    {/* legend */}
+    <Text
+      fontStyle="bold"
+      x={offsetX + textXOffset}
+      y={labelYOffset}
+      text={label}
+      fontSize={SCALE_LEGEND_FONT_SIZE}
+    />
+    {scales.map(({ text, y }) => {
+      const thermometerYPosition = offsetY - y;
 
-    return (
-      <Group key={text} y={thermometerYPosition} x={offsetX}>
-        <Text
-          x={textXOffset}
-          y={-SCALE_FONT_SIZE / 3}
-          text={text}
-          fontSize={SCALE_FONT_SIZE}
-        />
-        <Rect
-          x={scaleXOffset}
-          width={SCALE_WIDTH}
-          height={SCALE_LINE_HEIGHT}
-          fill={THERMOMETER_STROKE_COLOR}
-        />
-      </Group>
-    );
-  });
+      return (
+        <Group key={text} y={thermometerYPosition} x={offsetX}>
+          <Text
+            x={textXOffset}
+            y={-SCALE_FONT_SIZE / 3}
+            text={text}
+            fontSize={SCALE_FONT_SIZE}
+          />
+          <Rect
+            x={scaleXOffset}
+            width={SCALE_WIDTH}
+            height={SCALE_LINE_HEIGHT}
+            fill={THERMOMETER_STROKE_COLOR}
+          />
+        </Group>
+      );
+    })}
+  </>
+);
 
 const buildFahrenheitScales = ({
   to,
@@ -69,6 +89,7 @@ const buildFahrenheitScales = ({
   thermometerHeight,
   offsetY,
   thermometerXPosition,
+  labelYOffset,
   deltaHeight,
 }) => {
   // compute text and y position for fahrenheit scales
@@ -96,6 +117,8 @@ const buildFahrenheitScales = ({
     scales,
     scaleXOffset: -SCALE_WIDTH,
     textXOffset: SCALE_PADDING_LEFT,
+    labelYOffset,
+    label: '°K',
   });
 
   return ScaleComponents;
@@ -108,6 +131,7 @@ const buildCelsiusScales = ({
   deltaFahrenheitHeight,
   offsetY,
   offsetX,
+  labelYOffset,
 }) => {
   // get celsium degree from fahrenheit thermometer boundaries
   const celsiusFrom = fahrenheitToCelsius(from);
@@ -148,6 +172,8 @@ const buildCelsiusScales = ({
     scales: celsiusScales,
     scaleXOffset: 0,
     textXOffset: -SCALE_PADDING_RIGHT - SCALE_WIDTH,
+    labelYOffset,
+    label: '°C',
   });
 
   return CelsiusScaleComponents;
@@ -158,7 +184,9 @@ const Scale = ({
   scales: { from, to },
   thermometerHeight,
   offsetY,
+  showThermometerLabels,
 }) => {
+  const { t } = useTranslation();
   const thermometerXPosition = THERMOMETER_POSITION_X + THERMOMETER_WIDTH;
 
   // compute ideal step distance between ticks
@@ -173,6 +201,8 @@ const Scale = ({
   // height in pixel for one degree fahrenheit
   const deltaFahrenheitHeight = thermometerHeight / (roundTo - roundFrom);
 
+  const labelYOffset = offsetY - SCALE_LEGEND_PADDING_BOTTOM;
+
   // build fahrenheit scales
   const FahrenheightScaleComponents = buildFahrenheitScales({
     from: roundFrom,
@@ -182,6 +212,7 @@ const Scale = ({
     tickStep,
     thermometerHeight,
     deltaHeight: deltaFahrenheitHeight,
+    labelYOffset,
   });
 
   // build celsius scales
@@ -193,7 +224,28 @@ const Scale = ({
     roundFromFahrenheit: roundFrom,
     deltaFahrenheitHeight,
     thermometerHeight,
+    labelYOffset,
   });
+
+  const LabelNoteComponents = SCALE_LABEL_NOTES.map(
+    ({ name, t: temperature }) => (
+      <Text
+        fontStyle="italic"
+        stroke={BACKGROUND_COLOR}
+        strokeWidth={SCALE_LABEL_NOTES_STROKE_WIDTH}
+        fillAfterStrokeEnabled
+        x={thermometerXPosition + SCALE_TEXT_WIDTH_FACTOR + SCALE_PADDING_LEFT}
+        y={
+          -(SCALE_FONT_SIZE / 3) +
+          offsetY +
+          thermometerHeight -
+          (temperature - roundFrom) * deltaFahrenheitHeight
+        }
+        text={t(name)}
+        fontSize={SCALE_FONT_SIZE}
+      />
+    ),
+  );
 
   // compute fill height given current temperature value
   const fillValue = temperatureToHeight({
@@ -222,6 +274,9 @@ const Scale = ({
       {FahrenheightScaleComponents}
       {CelsiusScaleComponents}
 
+      {/* label notes: planets, etc */}
+      {showThermometerLabels && LabelNoteComponents}
+
       {/* triangle slider */}
       <Slider
         deltaTemperatureHeight={deltaFahrenheitHeight}
@@ -243,11 +298,13 @@ Scale.propTypes = {
   }).isRequired,
   thermometerHeight: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
+  showThermometerLabels: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ lab }) => ({
   currentTemperature: lab.temperature,
   scales: lab.scales,
+  showThermometerLabels: lab.showThermometerLabels,
 });
 
 export default connect(mapStateToProps)(Scale);
