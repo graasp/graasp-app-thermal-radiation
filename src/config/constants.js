@@ -57,7 +57,7 @@ export const SCALE_LABEL_NOTES = [
   { name: 'Earth', t: 289 },
   { name: 'Venus', t: 733 },
 ];
-export const SCALE_LABEL_NOTES_STROKE_WIDTH = 5;
+export const SCALE_LABEL_NOTES_STROKE_WIDTH = 3;
 
 export const SLIDER_FILL_COLOR = 'black';
 export const SLIDER_RADIUS = 8;
@@ -106,6 +106,8 @@ export const LINE_STARTING_POSITION_Y = 550;
 export const GROUND_FILL_DARK_COLOR = '#ad7e4e';
 export const GROUND_FILL_LIGHT_COLOR = '#cfae67';
 export const GROUND_GRASS_HEIGHT = 20;
+export const GROUND_GRASS_LINE_TENSION = 0.3;
+export const GROUND_GRASS_BACKGROUND = '#34852d';
 
 // grid constants
 export const GRID_AXES_COLOR = '#000';

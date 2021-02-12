@@ -28,7 +28,10 @@ class Lattice extends Component {
   };
 
   componentDidMount() {
-    this.beginInterval();
+    const { isPaused } = this.props;
+    if (!isPaused) {
+      this.beginInterval();
+    }
   }
 
   componentDidUpdate({ isPaused: prevIsPaused }) {

@@ -9,6 +9,8 @@ import {
   LATTICE_HEIGHT,
 } from '../../config/constants';
 
+// eslint-disable-next-line no-console
+console.log('ewf');
 const Grid = ({ gridWidth, gridHeight }) => {
   // in return statement below, a VERTICAL line is drawn at each of the points in xTicksArray
   // for alignment purposes, ensure xTicksArray includes the point startingXTick

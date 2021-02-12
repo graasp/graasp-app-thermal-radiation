@@ -23,7 +23,7 @@ import {
   SCALE_LABEL_NOTES_STROKE_WIDTH,
 } from '../../../config/constants';
 import Slider from './Slider';
-import { celsiusToFahrenheit, fahrenheitToCelsius } from '../../../utils/utils';
+import { celsiusToKelvin, kelvinToCelsius } from '../../../utils/utils';
 
 // compute the corresponding height in px given the temperature
 const temperatureToHeight = ({
@@ -82,7 +82,7 @@ const renderScales = ({
   </>
 );
 
-const buildFahrenheitScales = ({
+const buildKelvinScales = ({
   to,
   from,
   tickStep,
@@ -92,7 +92,7 @@ const buildFahrenheitScales = ({
   labelYOffset,
   deltaHeight,
 }) => {
-  // compute text and y position for fahrenheit scales
+  // compute text and y position for kelvin scales
   let scales = Array.from(
     {
       length: (to - from) / tickStep + 1, // +1 to include max
@@ -127,15 +127,15 @@ const buildFahrenheitScales = ({
 const buildCelsiusScales = ({
   from,
   to,
-  roundFromFahrenheit,
-  deltaFahrenheitHeight,
+  roundFromKelvin,
+  deltaKelvinHeight,
   offsetY,
   offsetX,
   labelYOffset,
 }) => {
-  // get celsium degree from fahrenheit thermometer boundaries
-  const celsiusFrom = fahrenheitToCelsius(from);
-  const celsiusTo = fahrenheitToCelsius(to);
+  // get celsium degree from kelvin thermometer boundaries
+  const celsiusFrom = kelvinToCelsius(from);
+  const celsiusTo = kelvinToCelsius(to);
 
   // compute ideal step between ticks
   const celsiusTickStep = Math.ceil(
@@ -149,7 +149,7 @@ const buildCelsiusScales = ({
   const celsiusRoundTo =
     celsiusTickStep * Math.floor(celsiusTo / celsiusTickStep);
 
-  // compute scales text and y position based on fahrenheit scales
+  // compute scales text and y position based on kelvin scales
   const celsiusScales = Array.from(
     {
       length: (celsiusRoundTo - celsiusRoundFrom) / celsiusTickStep + 1, // +1 to include max
@@ -159,8 +159,8 @@ const buildCelsiusScales = ({
       return {
         text: value,
         y:
-          (celsiusToFahrenheit(value) - Math.abs(roundFromFahrenheit)) *
-          deltaFahrenheitHeight,
+          (celsiusToKelvin(value) - Math.abs(roundFromKelvin)) *
+          deltaKelvinHeight,
       };
     },
   );
@@ -198,20 +198,20 @@ const Scale = ({
   const roundFrom = tickStep * Math.floor(from / tickStep);
   const roundTo = tickStep * Math.ceil(to / tickStep) || tickStep;
 
-  // height in pixel for one degree fahrenheit
-  const deltaFahrenheitHeight = thermometerHeight / (roundTo - roundFrom);
+  // height in pixel for one degree kelvin
+  const deltaKelvinHeight = thermometerHeight / (roundTo - roundFrom);
 
   const labelYOffset = offsetY - SCALE_LEGEND_PADDING_BOTTOM;
 
-  // build fahrenheit scales
-  const FahrenheightScaleComponents = buildFahrenheitScales({
+  // build kelvin scales
+  const KelvinScaleComponents = buildKelvinScales({
     from: roundFrom,
     to: roundTo,
     offsetY,
     thermometerXPosition,
     tickStep,
     thermometerHeight,
-    deltaHeight: deltaFahrenheitHeight,
+    deltaHeight: deltaKelvinHeight,
     labelYOffset,
   });
 
@@ -221,8 +221,8 @@ const Scale = ({
     to,
     offsetY: offsetY + thermometerHeight - SCALE_LINE_HEIGHT,
     offsetX: thermometerXPosition - THERMOMETER_WIDTH,
-    roundFromFahrenheit: roundFrom,
-    deltaFahrenheitHeight,
+    roundFromKelvin: roundFrom,
+    deltaKelvinHeight,
     thermometerHeight,
     labelYOffset,
   });
@@ -239,7 +239,7 @@ const Scale = ({
           -(SCALE_FONT_SIZE / 3) +
           offsetY +
           thermometerHeight -
-          (temperature - roundFrom) * deltaFahrenheitHeight
+          (temperature - roundFrom) * deltaKelvinHeight
         }
         text={t(name)}
         fontSize={SCALE_FONT_SIZE}
@@ -249,7 +249,7 @@ const Scale = ({
 
   // compute fill height given current temperature value
   const fillValue = temperatureToHeight({
-    deltaTemperatureHeight: deltaFahrenheitHeight,
+    deltaTemperatureHeight: deltaKelvinHeight,
     currentTemperature,
 
     minTemperature: roundFrom,
@@ -271,7 +271,7 @@ const Scale = ({
       />
 
       {/* scales */}
-      {FahrenheightScaleComponents}
+      {KelvinScaleComponents}
       {CelsiusScaleComponents}
 
       {/* label notes: planets, etc */}
@@ -279,7 +279,7 @@ const Scale = ({
 
       {/* triangle slider */}
       <Slider
-        deltaTemperatureHeight={deltaFahrenheitHeight}
+        deltaTemperatureHeight={deltaKelvinHeight}
         y={currentTemperatureY}
         offsetY={offsetY}
         thermometerHeight={thermometerHeight}

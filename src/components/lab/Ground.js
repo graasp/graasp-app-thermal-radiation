@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import {
   GROUND_FILL_DARK_COLOR,
   GROUND_FILL_LIGHT_COLOR,
+  GROUND_GRASS_BACKGROUND,
   GROUND_GRASS_HEIGHT,
+  GROUND_GRASS_LINE_TENSION,
   HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS,
   LATTICE_HEIGHT,
   VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS,
@@ -20,12 +22,10 @@ const Ground = ({ stageDimensions }) => {
     GROUND_GRASS_HEIGHT;
   const GROUND_POINTS_NUMBER = 5;
 
-  const randomPoints = [...Array(GROUND_POINTS_NUMBER).keys()]
-    .map((i) => [
-      (groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1),
-      Math.random() * GROUND_GRASS_HEIGHT,
-    ])
-    .flat();
+  const randomPoints = Array.from({ length: GROUND_POINTS_NUMBER }, (v, i) => [
+    (groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1),
+    Math.random() * GROUND_GRASS_HEIGHT,
+  ]).flat();
 
   const points = [
     0,
@@ -55,7 +55,14 @@ const Ground = ({ stageDimensions }) => {
           GROUND_FILL_LIGHT_COLOR,
         ]}
       />
-      <Line x={0} y={0} points={points} tension={0.3} closed fill="#34852d" />
+      <Line
+        x={0}
+        y={0}
+        points={points}
+        tension={GROUND_GRASS_LINE_TENSION}
+        closed
+        fill={GROUND_GRASS_BACKGROUND}
+      />
     </Group>
   );
 };
