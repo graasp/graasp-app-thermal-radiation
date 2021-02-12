@@ -7,6 +7,7 @@ import {
   IONS_OSCILLATION_SPEED_FACTOR,
   NUMBER_OF_ROWS_IN_LATTICE,
   SET_INTERVAL_TIME,
+  IONS_OSCILLATION_OFFSET,
 } from '../../config/constants';
 
 class Lattice extends Component {
@@ -18,6 +19,7 @@ class Lattice extends Component {
     temperature: PropTypes.number.isRequired,
     scales: PropTypes.shape({
       from: PropTypes.number.isRequired,
+      to: PropTypes.string.isRequired,
     }).isRequired,
     isPaused: PropTypes.bool.isRequired,
   };
@@ -54,14 +56,19 @@ class Lattice extends Component {
       this.interval = setInterval(() => {
         const {
           temperature,
-          scales: { from },
+          scales: { from, to },
         } = this.props;
         const { angle } = this.state;
         const oscillation = IONS_OSCILLATION_RADIUS * Math.sin(angle);
 
         this.setState({
           oscillation,
-          angle: angle + (temperature - from) * IONS_OSCILLATION_SPEED_FACTOR,
+          angle:
+            // transform from scale to float
+            // add an offset to allow oscillation even at minumum temperature
+            angle +
+            (((temperature + IONS_OSCILLATION_OFFSET - from) * 1.0) / to) *
+              IONS_OSCILLATION_SPEED_FACTOR,
         });
       }, SET_INTERVAL_TIME);
     }

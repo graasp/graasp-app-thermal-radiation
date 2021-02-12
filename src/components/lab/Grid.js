@@ -9,15 +9,14 @@ import {
   LATTICE_HEIGHT,
 } from '../../config/constants';
 
-// eslint-disable-next-line no-console
-console.log('ewf');
 const Grid = ({ gridWidth, gridHeight }) => {
   // in return statement below, a VERTICAL line is drawn at each of the points in xTicksArray
   // for alignment purposes, ensure xTicksArray includes the point startingXTick
   // this ensures that the vertical radiation line emitted by the charge is in line with the grid
   const centralXTick = gridWidth / 2;
-  const totalNumberOfXTicks = Math.ceil(
-    gridWidth / GRID_SQUARE_WIDTH_AND_HEIGHT,
+  const totalNumberOfXTicks = Math.max(
+    Math.ceil(gridWidth / GRID_SQUARE_WIDTH_AND_HEIGHT),
+    0,
   );
   const startingXTick =
     centralXTick -
@@ -32,9 +31,10 @@ const Grid = ({ gridWidth, gridHeight }) => {
   // in return statement below, a HORIZONTAL line is drawn at each of the points in yTicksArray
   // for alignment purposes, ensure yTicksArray includes the point startingYTick
   // this ensures that the horizontal radiation line emitted by the charge is in line with the grid
-  const totalNumberOfYTicks =
-    Math.ceil((gridHeight - LATTICE_HEIGHT) / GRID_SQUARE_WIDTH_AND_HEIGHT) ||
-    0;
+  const totalNumberOfYTicks = Math.max(
+    Math.ceil((gridHeight - LATTICE_HEIGHT) / GRID_SQUARE_WIDTH_AND_HEIGHT),
+    0,
+  );
   const yTicksArray = new Array(totalNumberOfYTicks)
     .fill()
     .map((emptyElement, index) => index * GRID_SQUARE_WIDTH_AND_HEIGHT);

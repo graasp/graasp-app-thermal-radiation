@@ -6,7 +6,7 @@ import {
 } from '../types';
 
 const INITIAL_STATE = {
-  temperature: 300,
+  temperature: 400,
   scales: {
     to: 800,
     from: 200,

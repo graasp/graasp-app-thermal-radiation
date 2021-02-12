@@ -118,7 +118,7 @@ const buildKelvinScales = ({
     scaleXOffset: -SCALE_WIDTH,
     textXOffset: SCALE_PADDING_LEFT,
     labelYOffset,
-    label: '°K',
+    label: 'K',
   });
 
   return ScaleComponents;
