@@ -1,5 +1,5 @@
 {
-  "name": "graasp-app-starter-lab",
+  "name": "graasp-app-thermal-radiation",
   "version": "0.1.0",
   "private": true,
   "author": "EPFL",
@@ -7,7 +7,8 @@
     "Juan Carlos Farah",
     "Hassan Abdul Ghaffar",
     "Mashkour Abdel Aziz",
-    "Kim Lan Phan Hoang"
+    "Kim Lan Phan Hoang",
+    "Hagop Taminian"
   ],
   "homepage": ".",
   "license": "MIT",
