@@ -112,14 +112,14 @@ aws s3 sync ${BUILD} s3://${APP_DIR} --delete
 # see: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html
 
 # ensure the correct distribution variables are defined
-#if \
-#  [ -z "${DISTRIBUTION}" ]; then
-#  echo "error: environment variable DISTRIBUTION is not defined" 1>&2
-#  echo "error: contact your favourite Graasp engineer if you keep running into trouble" 1>&2
-#  exit 1
-#fi
+if \
+  [ -z "${DISTRIBUTION}" ]; then
+  echo "error: environment variable DISTRIBUTION is not defined" 1>&2
+  echo "error: contact your favourite Graasp engineer if you keep running into trouble" 1>&2
+  exit 1
+fi
 
 # invalidate cloudfront distribution
-# aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION} --paths /${APP_PATH}/*
+aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION} --paths /${APP_PATH}/*
 
 echo "published app to https://${REACT_APP_HOST}/${APP_PATH}/index.html"
