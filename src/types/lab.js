@@ -1,2 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
 export const SET_TEMPERATURE = 'SET_TEMPERATURE';
+export const SET_IS_PAUSED = 'SET_IS_PAUSED';
+export const SET_IS_MICROSCOPIC = 'SET_IS_MICROSCOPIC';
+export const SET_SHOW_THERMOMETER_LABELS = 'SET_SHOW_THERMOMETER_LABELS';

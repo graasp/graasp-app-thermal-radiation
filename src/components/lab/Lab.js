@@ -18,6 +18,8 @@ import {
 } from '../../config/constants';
 import SpectrumBar from './SpectrumBar';
 import EmittedLine from './EmittedLine';
+import Ground from './Ground';
+import Grid from './Grid';
 
 const styles = () => ({
   container: {
@@ -43,6 +45,8 @@ class Lab extends Component {
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
     spectrumBar: PropTypes.bool.isRequired,
+    isMicroscopic: PropTypes.bool.isRequired,
+    gridLines: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -55,8 +59,8 @@ class Lab extends Component {
 
   checkSize = () => {
     const { dispatchSetStageDimensions } = this.props;
-    const stageWidth = this.container?.offsetWidth;
-    const stageHeight = this.container?.offsetHeight;
+    const stageWidth = this.container?.offsetWidth || 0;
+    const stageHeight = this.container?.offsetHeight || 0;
     dispatchSetStageDimensions({
       stageWidth,
       stageHeight,
@@ -64,7 +68,13 @@ class Lab extends Component {
   };
 
   render() {
-    const { classes, stageDimensions, spectrumBar } = this.props;
+    const {
+      classes,
+      stageDimensions,
+      spectrumBar,
+      isMicroscopic,
+      gridLines,
+    } = this.props;
     const { stageWidth, stageHeight } = stageDimensions;
 
     // space between lines
@@ -100,14 +110,24 @@ class Lab extends Component {
             >
               <Provider store={store}>
                 <Layer>
+                  {gridLines && (
+                    <Grid
+                      gridWidth={stageDimensions.stageWidth}
+                      gridHeight={stageDimensions.stageHeight}
+                    />
+                  )}
+
                   <Thermometer
                     stageWidth={stageWidth}
                     stageHeight={stageHeight}
                   />
-                  <Lattice stageDimensions={stageDimensions} />
-                  {spectrumBar && (
-                    <SpectrumBar stageDimensions={stageDimensions} />
+                  {/* display either ground or ions */}
+                  {isMicroscopic ? (
+                    <Lattice stageDimensions={stageDimensions} />
+                  ) : (
+                    <Ground stageDimensions={stageDimensions} />
                   )}
+
                   {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
                     <EmittedLine
                       stageDimensions={stageDimensions}
@@ -120,8 +140,7 @@ class Lab extends Component {
                       }
                     />
                   ))}
-                </Layer>
-                <Layer>
+
                   {spectrumBar && (
                     <SpectrumBar stageDimensions={stageDimensions} />
                   )}
@@ -135,9 +154,11 @@ class Lab extends Component {
   }
 }
 
-const mapStateToProps = ({ layout }) => ({
+const mapStateToProps = ({ layout, lab }) => ({
   stageDimensions: layout.lab.stageDimensions,
   spectrumBar: layout.lab.spectrumBar,
+  isMicroscopic: lab.isMicroscopic,
+  gridLines: true,
 });
 
 const mapDispatchToProps = {

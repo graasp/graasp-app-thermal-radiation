@@ -30,3 +30,7 @@ export const findXPositionsOfPositiveIons = (
       leftIndent + positiveIonRadius + widthOfPositiveIonWithPadding * index,
   );
 };
+
+export const kelvinToCelsius = (k) => k - 273.15;
+
+export const celsiusToKelvin = (c) => c + 273.15;

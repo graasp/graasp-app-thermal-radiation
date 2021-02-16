@@ -10,20 +10,21 @@ import {
   SLIDER_FILL_COLOR,
   SCALE_TEXT_WIDTH_FACTOR,
   SLIDER_RADIUS,
+  SCALE_LABEL_NOTES_STROKE_WIDTH,
+  BACKGROUND_COLOR,
 } from '../../../config/constants';
 import { setTemperature } from '../../../actions';
 
 const heightToTemperature = ({
   height,
-  heightBetweenTicks,
-  tickStep,
+  deltaTemperatureHeight,
   minTemperature,
   maxTemperature,
   offsetY,
   thermometerHeight,
 }) => {
   const newTemperature =
-    ((thermometerHeight + offsetY - height) * tickStep) / heightBetweenTicks +
+    (thermometerHeight + offsetY - height) / deltaTemperatureHeight +
     minTemperature;
 
   // clamp value
@@ -41,12 +42,10 @@ const Slider = ({
   thermometerHeight,
   offsetY,
   y,
-  heightBetweenTicks,
-  nbScales,
   dispatchSetTemperature,
   minTemperature,
   maxTemperature,
-  tickStep,
+  deltaTemperatureHeight,
 }) => {
   const onMouseEnter = (event) => {
     const container = event.target.getStage().container();
@@ -66,12 +65,14 @@ const Slider = ({
     SCALE_TEXT_WIDTH_FACTOR;
 
   const minThermometerHeight = offsetY + thermometerHeight;
-  const maxThermomerterHeight =
-    minThermometerHeight - (nbScales - 1) * heightBetweenTicks;
+  const maxThermomerterHeight = minThermometerHeight - thermometerHeight;
 
   return (
     <RegularPolygon
       draggable
+      fillAfterStrokeEnabled
+      stroke={BACKGROUND_COLOR}
+      strokeWidth={SCALE_LABEL_NOTES_STROKE_WIDTH}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       dragBoundFunc={(pos) => {
@@ -84,9 +85,8 @@ const Slider = ({
         }
         // compute temperature from slider y position
         const newTemperature = heightToTemperature({
-          heightBetweenTicks,
           height: newPositionY,
-          tickStep,
+          deltaTemperatureHeight,
           minTemperature,
           maxTemperature,
           offsetY,
@@ -114,12 +114,10 @@ Slider.propTypes = {
   thermometerHeight: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  nbScales: PropTypes.number.isRequired,
   dispatchSetTemperature: PropTypes.func.isRequired,
-  heightBetweenTicks: PropTypes.number.isRequired,
   minTemperature: PropTypes.number.isRequired,
   maxTemperature: PropTypes.number.isRequired,
-  tickStep: PropTypes.number.isRequired,
+  deltaTemperatureHeight: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ lab }) => ({
