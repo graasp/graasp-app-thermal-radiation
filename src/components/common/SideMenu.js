@@ -23,7 +23,15 @@ import {
   setShowThermometerLabels,
 } from '../../actions';
 import SwitchWithLabel from './SwitchWithLabel';
-import { DRAWER_WIDTH, DEFAULT_THEME_DIRECTION } from '../../config/constants';
+import {
+  DRAWER_WIDTH,
+  DEFAULT_THEME_DIRECTION,
+  GRID_LEGEND_LABEL_TEXT,
+  GRID_UNIT_SQUARE_LENGTH,
+  BACKGROUND_COLOR,
+  GRID_AXES_COLOR,
+  GRID_AXES_STROKE_WIDTH,
+} from '../../config/constants';
 
 const styles = (theme) => ({
   drawerPaper: {
@@ -48,6 +56,24 @@ const styles = (theme) => ({
   button: { fontSize: '2em' },
   playButton: { color: green[800] },
   pauseButton: { color: yellow[800] },
+  legendDivider: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
+  },
+  legend: {
+    fontStyle: 'italic',
+  },
+  gridUnitSquare: {
+    height: GRID_UNIT_SQUARE_LENGTH,
+    width: GRID_UNIT_SQUARE_LENGTH,
+    backgroundColor: BACKGROUND_COLOR,
+    display: 'inline-block',
+    borderColor: GRID_AXES_COLOR,
+    borderWidth: GRID_AXES_STROKE_WIDTH,
+    borderStyle: 'solid',
+    verticalAlign: 'middle',
+    marginRight: theme.spacing(1),
+  },
 });
 
 class SideMenu extends React.Component {
@@ -61,6 +87,9 @@ class SideMenu extends React.Component {
       pauseButton: PropTypes.string.isRequired,
       button: PropTypes.string.isRequired,
       buttons: PropTypes.string.isRequired,
+      legend: PropTypes.string.isRequired,
+      legendDivider: PropTypes.string.isRequired,
+      gridUnitSquare: PropTypes.string.isRequired,
     }).isRequired,
     theme: PropTypes.shape({
       direction: PropTypes.string.isRequired,
@@ -73,7 +102,7 @@ class SideMenu extends React.Component {
     dispatchToggleSpectrumBar: PropTypes.func.isRequired,
     spectrumBar: PropTypes.bool.isRequired,
     isPaused: PropTypes.bool.isRequired,
-    dispatchSetIsPause: PropTypes.func.isRequired,
+    dispatchSetIsPaused: PropTypes.func.isRequired,
     isMicroscopic: PropTypes.bool.isRequired,
     dispatchSetIsMicroscopic: PropTypes.func.isRequired,
     dispatchSetShowThermometerLabels: PropTypes.func.isRequired,
@@ -86,8 +115,8 @@ class SideMenu extends React.Component {
   };
 
   onClickPauseOrPlay = () => {
-    const { dispatchSetIsPause, isPaused } = this.props;
-    dispatchSetIsPause(!isPaused);
+    const { dispatchSetIsPaused, isPaused } = this.props;
+    dispatchSetIsPaused(!isPaused);
   };
 
   renderPlayAndPauseButtons = () => {
@@ -183,7 +212,6 @@ class SideMenu extends React.Component {
                 disabled={!isMicroscopic}
               />
             </div>
-
             <div className={classes.switchContainer}>
               <SwitchWithLabel
                 switchLabel={t('Spectrum Bar')}
@@ -191,7 +219,6 @@ class SideMenu extends React.Component {
                 onToggle={dispatchToggleSpectrumBar}
               />
             </div>
-
             <div className={classes.switchContainer}>
               <SwitchWithLabel
                 switchLabel={t('Show Labels')}
@@ -199,6 +226,14 @@ class SideMenu extends React.Component {
                 onToggle={dispatchSetShowThermometerLabels}
               />
             </div>
+
+            <Divider className={classes.legendDivider} />
+
+            {/* grid legend */}
+            <Typography variant="caption" className={classes.legend}>
+              <div className={classes.gridUnitSquare} />
+              {`=${GRID_LEGEND_LABEL_TEXT}`}
+            </Typography>
           </div>
         </Drawer>
       </>
@@ -219,7 +254,7 @@ const mapDispatchToProps = {
   dispatchToggleSideMenu: toggleSideMenu,
   dispatchToggleElectrons: toggleElectrons,
   dispatchToggleSpectrumBar: toggleSpectrumBar,
-  dispatchSetIsPause: setIsPaused,
+  dispatchSetIsPaused: setIsPaused,
   dispatchSetIsMicroscopic: setIsMicroscopic,
   dispatchSetShowThermometerLabels: setShowThermometerLabels,
 };

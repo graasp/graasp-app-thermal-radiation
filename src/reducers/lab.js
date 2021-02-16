@@ -1,3 +1,4 @@
+import { INITIAL_TEMPERATURE } from '../config/constants';
 import {
   SET_TEMPERATURE,
   SET_IS_PAUSED,
@@ -6,7 +7,7 @@ import {
 } from '../types';
 
 const INITIAL_STATE = {
-  temperature: 400,
+  temperature: INITIAL_TEMPERATURE,
   scales: {
     to: 800,
     from: 200,

@@ -45,7 +45,7 @@ class Lab extends Component {
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
     spectrumBar: PropTypes.bool.isRequired,
-    isMicroscopic: PropTypes.string.isRequired,
+    isMicroscopic: PropTypes.bool.isRequired,
     gridLines: PropTypes.bool.isRequired,
   };
 

@@ -19,7 +19,7 @@ class Lattice extends Component {
     temperature: PropTypes.number.isRequired,
     scales: PropTypes.shape({
       from: PropTypes.number.isRequired,
-      to: PropTypes.string.isRequired,
+      to: PropTypes.number.isRequired,
     }).isRequired,
     isPaused: PropTypes.bool.isRequired,
   };
@@ -56,7 +56,7 @@ class Lattice extends Component {
       this.interval = setInterval(() => {
         const {
           temperature,
-          scales: { from, to },
+          scales: { to },
         } = this.props;
         const { angle } = this.state;
         const oscillation = IONS_OSCILLATION_RADIUS * Math.sin(angle);
@@ -64,10 +64,9 @@ class Lattice extends Component {
         this.setState({
           oscillation,
           angle:
-            // transform from scale to float
-            // add an offset to allow oscillation even at minumum temperature
+            // add an offset to allow oscillation even at minimum temperature
             angle +
-            (((temperature + IONS_OSCILLATION_OFFSET - from) * 1.0) / to) *
+            ((temperature + IONS_OSCILLATION_OFFSET) / to) *
               IONS_OSCILLATION_SPEED_FACTOR,
         });
       }, SET_INTERVAL_TIME);

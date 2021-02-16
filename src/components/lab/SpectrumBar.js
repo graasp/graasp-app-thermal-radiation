@@ -91,8 +91,24 @@ const SpectrumBar = ({ stageDimensions, temperature }) => {
   const tickStep = wavelengthDistance / SPECTRUM_BAR_AXIS_NB_TICKS;
   const tickDistance = SPECTRUM_BAR_WIDTH / SPECTRUM_BAR_AXIS_NB_TICKS;
 
+  const onMouseEnter = (event) => {
+    const container = event.target.getStage().container();
+    container.style.cursor = 'grab';
+  };
+
+  const onMouseLeave = (event) => {
+    const container = event.target.getStage().container();
+    container.style.cursor = 'default';
+  };
+
   return (
-    <Group x={spectrumBarInitialXPosition} y={spectrumBarInitialYPosition}>
+    <Group
+      x={spectrumBarInitialXPosition}
+      y={spectrumBarInitialYPosition}
+      draggable
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {/* three rectangles, one for each portion of the spectrum bar */}
       <Rect
         x={0}

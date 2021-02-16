@@ -31,6 +31,6 @@ export const findXPositionsOfPositiveIons = (
   );
 };
 
-export const kelvinToCelsius = (f) => f - 273.15;
+export const kelvinToCelsius = (k) => k - 273.15;
 
 export const celsiusToKelvin = (c) => c + 273.15;

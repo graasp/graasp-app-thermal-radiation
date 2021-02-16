@@ -39,9 +39,6 @@ const PositiveIon = ({ xPosition, yPosition, oscillation, index }) => {
 PositiveIon.propTypes = {
   yPosition: PropTypes.number.isRequired,
   xPosition: PropTypes.number.isRequired,
-  thermometer: PropTypes.shape({
-    from: PropTypes.number.isRequired,
-  }).isRequired,
   oscillation: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
 };

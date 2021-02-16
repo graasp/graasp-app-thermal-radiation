@@ -16,8 +16,8 @@ export const POSITIVE_ION_SYMBOL_COLOR = 'white';
 export const NUMBER_OF_ROWS_IN_LATTICE = 3;
 export const VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS = 30;
 export const HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS = 20;
-export const IONS_OSCILLATION_SPEED_FACTOR = 0.002;
-export const IONS_OSCILLATION_OFFSET = 10;
+export const IONS_OSCILLATION_SPEED_FACTOR = 0.5;
+export const IONS_OSCILLATION_OFFSET = 10.1;
 export const IONS_OSCILLATION_RADIUS = 5;
 export const LATTICE_HEIGHT =
   NUMBER_OF_ROWS_IN_LATTICE *
@@ -39,6 +39,7 @@ export const THERMOMETER_STROKE_COLOR = 'black';
 // these factors are used as percentage depending on stage dimensions
 export const THERMOMETER_POSITION_Y_FACTOR = 0.15;
 export const THERMOMETER_HEIGHT_FACTOR = 0.57;
+export const INITIAL_TEMPERATURE = 400;
 
 export const SCALE_WIDTH = 7;
 export const SCALE_FONT_SIZE = 13;
@@ -114,3 +115,5 @@ export const GROUND_GRASS_BACKGROUND = '#34852d';
 export const GRID_AXES_COLOR = '#000';
 export const GRID_AXES_STROKE_WIDTH = 0.5;
 export const GRID_SQUARE_WIDTH_AND_HEIGHT = 47.5;
+export const GRID_LEGEND_LABEL_TEXT = '100nm';
+export const GRID_UNIT_SQUARE_LENGTH = 45;
