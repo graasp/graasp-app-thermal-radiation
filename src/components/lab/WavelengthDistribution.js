@@ -45,19 +45,19 @@ const getSpectralPowerDensityAt = ({ wavelength, temperature }) => {
   );
 };
 
-const SpectrumBar = ({ stageDimensions, temperature }) => {
+const WavelengthDistribution = ({ stageDimensions, temperature }) => {
   const { t } = useTranslation();
   const { stageHeight, stageWidth } = stageDimensions;
   const wavelengthDistance =
     SPECTRUM_BAR_MAX_WAVELENGTH - SPECTRUM_BAR_MIN_WAVELENGTH;
 
   // centers spectrum bar horizontally
-  const spectrumBarInitialXPosition =
+  const wavelengthDistributionInitialXPosition =
     stageWidth -
     SPECTRUM_BAR_WIDTH -
     SPECTRUM_BAR_MARGIN -
     2 * SPECTRUM_BAR_PADDING;
-  const spectrumBarInitialYPosition = 0.12 * stageHeight;
+  const wavelengthDistributionInitialYPosition = 0.12 * stageHeight;
 
   const wavelengthStep =
     wavelengthDistance / SPECTRUM_BAR_DISTRIBUTION_POINTS_NUMBER;
@@ -103,8 +103,8 @@ const SpectrumBar = ({ stageDimensions, temperature }) => {
 
   return (
     <Group
-      x={spectrumBarInitialXPosition}
-      y={spectrumBarInitialYPosition}
+      x={wavelengthDistributionInitialXPosition}
+      y={wavelengthDistributionInitialYPosition}
       draggable
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -178,7 +178,7 @@ const SpectrumBar = ({ stageDimensions, temperature }) => {
   );
 };
 
-SpectrumBar.propTypes = {
+WavelengthDistribution.propTypes = {
   stageDimensions: PropTypes.shape({
     stageHeight: PropTypes.number.isRequired,
     stageWidth: PropTypes.number.isRequired,
@@ -190,6 +190,6 @@ const mapStateToProps = ({ lab }) => ({
   temperature: lab.temperature,
 });
 
-const ConnectedComponent = connect(mapStateToProps)(SpectrumBar);
+const ConnectedComponent = connect(mapStateToProps)(WavelengthDistribution);
 
 export default ConnectedComponent;
