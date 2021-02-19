@@ -166,6 +166,7 @@ const WavelengthDistribution = ({ stageDimensions, temperature }) => {
           const v = i * tickStep + SPECTRUM_BAR_MIN_WAVELENGTH;
           return (
             <Text
+              key={x}
               text={v}
               x={x}
               y={SPECTRUM_BAR_LABELS_PADDING_TOP}

@@ -9,6 +9,20 @@
     "Settings": "Paramètres",
     "Open Drawer": "Ouvrir le Menu",
     "Description": "Description",
-    "Wavelength Distribution": "Distribution des longueurs d'onde"
+    "Wavelength Distribution": "Distribution des longueurs d'onde",
+    "Thermal Radiation App": "Application sur les Rayonnements Thermiques",
+    "Pause": "Pause",
+    "Play": "Simuler",
+    "Reset": "Réinitialiser",
+    "Microscopic View": "Vue Microscopique",
+    "Electrons": "Electrons",
+    "Grid": "Grille",
+    "Emitted Lines": "Rayonnements",
+    "Thermometer Labels": "Labels du Thermomètre",
+    "Earth": "Terre",
+    "Venus": "Vénus",
+    "Mars": "Mars",
+    "Freezing Point": "Point de congélation",
+    "Wavelength (nm)": "Longueur d'onde (nm)"
   }
 }

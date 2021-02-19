@@ -250,21 +250,21 @@ class SideMenu extends React.Component {
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Show Labels')}
+                switchLabel={t('Thermometer Labels')}
                 isChecked={showThermometerLabels}
                 onToggle={dispatchSetShowThermometerLabels}
               />
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Show Grid')}
+                switchLabel={t('Grid')}
                 isChecked={showGrid}
                 onToggle={dispatchSetShowGrid}
               />
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Show Emitted Lines')}
+                switchLabel={t('Emitted Lines')}
                 isChecked={showEmittedLines}
                 onToggle={dispatchSetShowEmittedLines}
               />
