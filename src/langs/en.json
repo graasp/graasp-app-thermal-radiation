@@ -21,6 +21,8 @@
     "Venus": "Venus",
     "Mars": "Mars",
     "Freezing Point": "Freezing Point",
-    "Wavelength (nm)": "Wavelength (nm)"
+    "Wavelength (nm)": "Wavelength (nm)",
+    "Most Frequent": "Most Frequent",
+    "Macroscopic View": "Macroscopic View"
   }
 }

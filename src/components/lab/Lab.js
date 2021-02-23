@@ -129,6 +129,7 @@ class Lab extends Component {
 
                   {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
                     <EmittedLine
+                      key={i}
                       stageDimensions={stageDimensions}
                       chargeOscillation={{ x: 0, y: 0 }}
                       x={linesXOffset + i * (LINE_AMPLITUDE + linePadding)}

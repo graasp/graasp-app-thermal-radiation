@@ -10,7 +10,7 @@ class StudentMode extends Component {
   static propTypes = {
     appInstanceId: PropTypes.string,
     view: PropTypes.string,
-    activity: PropTypes.number,
+    activity: PropTypes.bool.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     dispatchGetActions: PropTypes.func.isRequired,
     userId: PropTypes.string,
@@ -19,7 +19,6 @@ class StudentMode extends Component {
   static defaultProps = {
     view: DEFAULT_VIEW,
     appInstanceId: null,
-    activity: false,
     userId: null,
   };
 

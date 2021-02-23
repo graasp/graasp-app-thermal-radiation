@@ -103,10 +103,10 @@ export const WAVELENGTH_DISTRIBUTION_TICK_LINE_LENGTH = 7;
 export const PLANCK_CONSTANT = 6.63 * 10e-34;
 export const SPEED_OF_LIGHT_CONSTANT = 299792458; // m/s
 export const LINE_STROKE_COLOR = 'black';
-export const DEFAULT_TENSION = 0.1;
+export const DEFAULT_TENSION = 0.3;
 
 export const NUMBER_OF_LINES = 5;
-export const LINE_STEP = 3;
+export const LINE_STEP = 10;
 export const LINE_AMPLITUDE = 30;
 export const LINE_ANGLE = Math.PI / 2;
 export const LINE_STARTING_POSITION_Y = 550;
@@ -120,6 +120,6 @@ export const GROUND_GRASS_BACKGROUND = '#a14e06';
 // grid constants
 export const GRID_AXES_COLOR = '#000';
 export const GRID_AXES_STROKE_WIDTH = 0.5;
-export const GRID_SQUARE_WIDTH_AND_HEIGHT = 47.5;
-export const GRID_LEGEND_LABEL_TEXT = '5000nm';
-export const GRID_UNIT_SQUARE_LENGTH = 45;
+export const GRID_SQUARE_WIDTH_AND_HEIGHT = 33;
+export const GRID_LEGEND_LABEL_TEXT = '1000nm = 1um';
+export const GRID_UNIT_SQUARE_LENGTH = 35;
