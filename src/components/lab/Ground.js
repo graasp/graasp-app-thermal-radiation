@@ -13,6 +13,7 @@ import {
 } from '../../config/constants';
 
 const Ground = ({ stageDimensions }) => {
+  const [randomYPoints, setRandomYPoints] = useState([]);
   const [points, setPoints] = useState([]);
 
   const y = stageDimensions.stageHeight - LATTICE_HEIGHT;
@@ -24,14 +25,10 @@ const Ground = ({ stageDimensions }) => {
     GROUND_GRASS_HEIGHT;
   const GROUND_POINTS_NUMBER = 5;
 
-  useEffect(() => {
-    const randomPoints = Array.from(
-      { length: GROUND_POINTS_NUMBER },
-      (v, i) => [
-        (groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1),
-        Math.random() * GROUND_GRASS_HEIGHT,
-      ],
-    ).flat();
+  const updatePoints = (yPoints) => {
+    const randomPoints = yPoints
+      .map((v, i) => [(groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1), v])
+      .flat();
 
     setPoints([
       0,
@@ -44,7 +41,21 @@ const Ground = ({ stageDimensions }) => {
       groundWidth,
       GROUND_GRASS_HEIGHT,
     ]);
+  };
+
+  useEffect(() => {
+    const randomPoints = Array.from(
+      { length: GROUND_POINTS_NUMBER },
+      () => Math.random() * GROUND_GRASS_HEIGHT,
+    );
+
+    setRandomYPoints(randomPoints);
+    updatePoints(randomPoints);
   }, []);
+
+  useEffect(() => {
+    updatePoints(randomYPoints);
+  }, [stageDimensions.stageWidth]);
 
   return (
     <Group y={y} x={HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS}>

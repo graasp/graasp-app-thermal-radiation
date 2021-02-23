@@ -39,7 +39,6 @@ export const THERMOMETER_STROKE_COLOR = 'black';
 // these factors are used as percentage depending on stage dimensions
 export const THERMOMETER_POSITION_Y_FACTOR = 0.2;
 export const THERMOMETER_HEIGHT_FACTOR = 0.5;
-export const INITIAL_TEMPERATURE = 400;
 
 export const SCALE_WIDTH = 7;
 export const SCALE_FONT_SIZE = 13;
@@ -55,15 +54,15 @@ export const SCALE_LEGEND_PADDING_BOTTOM = 30;
 export const SCALE_LEGEND_FONT_SIZE = 16;
 export const SCALE_LABEL_NOTES = [
   { name: 'Mars', t: 201 },
-  { name: 'Freezing Point', t: 273 },
   { name: 'Earth', t: 289 },
   { name: 'Venus', t: 733 },
 ];
+export const INITIAL_TEMPERATURE = 289;
 export const SCALE_LABEL_NOTES_STROKE_WIDTH = 3;
 
 export const SLIDER_FILL_COLOR = 'black';
 export const SLIDER_RADIUS = 8;
-export const SET_INTERVAL_TIME = 10;
+export const SET_INTERVAL_TIME = 30;
 
 export const THERMOMETER_TOTAL_WIDTH =
   THERMOMETER_WIDTH +
@@ -74,25 +73,26 @@ export const THERMOMETER_TOTAL_WIDTH =
   SCALE_TEXT_WIDTH_FACTOR * 2;
 
 // spectrum bar constants
-export const SPECTRUM_BAR_WIDTH = 350;
-export const SPECTRUM_BAR_HEIGHT = 120;
-export const SPECTRUM_BAR_STROKE_COLOR = 'black';
-export const SPECTRUM_BAR_STROKE_WIDTH = 0.5;
-export const SPECTRUM_BAR_PADDING = 30;
-export const SPECTRUM_BAR_PADDING_TOP = 10;
-export const SPECTRUM_BAR_AXIS_HEIGHT = 50;
-export const SPECTRUM_BAR_AXIS_NB_TICKS = 4; // will actually display one more
-export const SPECTRUM_BAR_MARGIN = 20;
-export const SPECTRUM_BAR_LABELS_FONT_SIZE = 12;
+export const WAVELENGTH_DISTRIBUTION_WIDTH = 350;
+export const WAVELENGTH_DISTRIBUTION_HEIGHT = 120;
+export const WAVELENGTH_DISTRIBUTION_STROKE_COLOR = 'black';
+export const WAVELENGTH_DISTRIBUTION_STROKE_WIDTH = 0.5;
+export const WAVELENGTH_DISTRIBUTION_PADDING = 30;
+export const WAVELENGTH_DISTRIBUTION_PADDING_TOP = 10;
+export const WAVELENGTH_DISTRIBUTION_AXIS_HEIGHT = 50;
+export const WAVELENGTH_DISTRIBUTION_AXIS_NB_TICKS = 4; // will actually display one more
+export const WAVELENGTH_DISTRIBUTION_MARGIN = 20;
+export const WAVELENGTH_DISTRIBUTION_LABELS_FONT_SIZE = 12;
 export const WAVELENGTH_LABELS_Y_AXIS_ADJUSTMENT_FACTOR = 5;
-export const SPECTRUM_BAR_DISTRIBUTION_POINTS_NUMBER = 50;
-export const SPECTRUM_BAR_MAX_WAVELENGTH = 16000;
-export const SPECTRUM_BAR_MIN_WAVELENGTH = 3000;
-export const SPECTRUM_BAR_BACKGROUND_COLOR = 'white';
-export const SPECTRUM_BAR_LABELS_PADDING_TOP = 7;
-export const SPECTRUM_BAR_PEAK_WAVELENGTH_COLOR = 'red';
-export const SPECTRUM_BAR_AXIS_FONT_SIZE = 15;
-export const WAVELENGTH_LABELS_X_AXIS_ADJUSTMENT_FACTOR = 18;
+export const WAVELENGTH_DISTRIBUTION_DISTRIBUTION_POINTS_NUMBER = 50;
+export const WAVELENGTH_DISTRIBUTION_MAX_WAVELENGTH = 15000;
+export const WAVELENGTH_DISTRIBUTION_MIN_WAVELENGTH = 3000;
+export const WAVELENGTH_DISTRIBUTION_BACKGROUND_COLOR = 'white';
+export const WAVELENGTH_DISTRIBUTION_LABELS_PADDING_TOP = 7;
+export const WAVELENGTH_DISTRIBUTION_PEAK_WAVELENGTH_COLOR = 'red';
+export const WAVELENGTH_DISTRIBUTION_AXIS_FONT_SIZE = 15;
+export const WAVELENGTH_LABELS_X_AXIS_ADJUSTMENT_FACTOR = 20;
+export const WAVELENGTH_DISTRIBUTION_TICK_LINE_LENGTH = 7;
 
 export const PLANCK_CONSTANT = 6.63 * 10e-34;
 export const SPEED_OF_LIGHT_CONSTANT = 299792458; // m/s

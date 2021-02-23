@@ -6,18 +6,30 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    margin: theme.spacing(2, 0),
+  leftLabel: {
+    margin: theme.spacing(0),
     display: 'flex',
     justifyContent: 'space-between',
     width: '58%',
+  },
+  rightLabel: {
+    margin: theme.spacing(2, 0),
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
   },
   label: {
     display: 'block',
   },
 }));
 
-const SwitchWithLabel = ({ isChecked, onToggle, switchLabel, disabled }) => {
+const SwitchWithTwoLabels = ({
+  isChecked,
+  onToggle,
+  leftLabel,
+  rightLabel,
+  disabled,
+}) => {
   const classes = useStyles();
 
   const onSwitchToggle = () => {
@@ -29,36 +41,51 @@ const SwitchWithLabel = ({ isChecked, onToggle, switchLabel, disabled }) => {
       disabled={disabled}
       checked={isChecked}
       onChange={onSwitchToggle}
-      name={switchLabel}
+      name={leftLabel}
       color="primary"
     />
   );
 
-  const Label = (
+  const LeftLabel = (
     <Typography variant="body2" className={classes.label}>
-      {switchLabel}
+      {leftLabel}
     </Typography>
+  );
+  const RightLabel = (
+    <Typography variant="body2" className={classes.label}>
+      {rightLabel}
+    </Typography>
+  );
+
+  const leftLabelComponent = (
+    <FormControlLabel
+      className={classes.leftLabel}
+      control={Control}
+      label={LeftLabel}
+      labelPlacement="start"
+    />
   );
 
   return (
     <FormControlLabel
-      className={classes.wrapper}
-      control={Control}
-      label={Label}
-      labelPlacement="start"
+      className={classes.rightLabel}
+      control={leftLabelComponent}
+      label={RightLabel}
+      labelPlacement="end"
     />
   );
 };
 
-SwitchWithLabel.propTypes = {
+SwitchWithTwoLabels.propTypes = {
   isChecked: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
-  switchLabel: PropTypes.string.isRequired,
+  leftLabel: PropTypes.string.isRequired,
+  rightLabel: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
 };
 
-SwitchWithLabel.defaultProps = {
+SwitchWithTwoLabels.defaultProps = {
   disabled: false,
 };
 
-export default SwitchWithLabel;
+export default SwitchWithTwoLabels;

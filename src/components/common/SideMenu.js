@@ -36,6 +36,7 @@ import {
   GRID_AXES_COLOR,
   GRID_AXES_STROKE_WIDTH,
 } from '../../config/constants';
+import SwitchWithTwoLabels from './SwitchWithTwoLabels';
 
 const styles = (theme) => ({
   drawerPaper: {
@@ -227,8 +228,9 @@ class SideMenu extends React.Component {
           <div className={classes.contentWrapper}>
             {this.renderPlayAndPauseButtons()}
             <div className={classes.switchContainer}>
-              <SwitchWithLabel
-                switchLabel={t('Microscopic View')}
+              <SwitchWithTwoLabels
+                leftLabel={t('Microscopic View')}
+                rightLabel={t('Macroscopic View')}
                 isChecked={isMicroscopic}
                 onToggle={dispatchSetIsMicroscopic}
               />
@@ -264,7 +266,7 @@ class SideMenu extends React.Component {
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Emitted Lines')}
+                switchLabel={t('Radiation')}
                 isChecked={showEmittedLines}
                 onToggle={dispatchSetShowEmittedLines}
               />

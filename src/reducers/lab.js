@@ -8,7 +8,7 @@ import {
   SET_SHOW_GRID,
   RESET_SETTINGS,
   TOGGLE_ELECTRONS,
-  TOGGLE_SPECTRUM_BAR,
+  TOGGLE_WAVELENGTH_DISTRIBUTION,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -51,7 +51,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case TOGGLE_ELECTRONS: {
       return { ...state, electrons: payload };
     }
-    case TOGGLE_SPECTRUM_BAR: {
+    case TOGGLE_WAVELENGTH_DISTRIBUTION: {
       return { ...state, wavelengthDistribution: payload };
     }
     default:

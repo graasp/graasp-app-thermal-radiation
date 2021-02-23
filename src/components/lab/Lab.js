@@ -50,7 +50,6 @@ class Lab extends Component {
   };
 
   componentDidMount() {
-    this.checkSize();
     const ro = new ResizeObserver(() => {
       this.checkSize();
     });

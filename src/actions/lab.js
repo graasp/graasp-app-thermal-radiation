@@ -7,7 +7,7 @@ import {
   SET_SHOW_GRID,
   RESET_SETTINGS,
   TOGGLE_ELECTRONS,
-  TOGGLE_SPECTRUM_BAR,
+  TOGGLE_WAVELENGTH_DISTRIBUTION,
 } from '../types';
 
 const setTemperature = (temperature) => (dispatch) =>
@@ -55,7 +55,7 @@ const toggleElectrons = (payload) => (dispatch) => {
 
 const toggleWavelengthDistribution = (payload) => (dispatch) => {
   dispatch({
-    type: TOGGLE_SPECTRUM_BAR,
+    type: TOGGLE_WAVELENGTH_DISTRIBUTION,
     payload,
   });
 };
