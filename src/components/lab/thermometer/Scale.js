@@ -2,25 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Group, Text, Rect } from 'react-konva';
+import { Group, Text, Rect, Line } from 'react-konva';
 import {
   THERMOMETER_WIDTH,
   THERMOMETER_POSITION_X,
   SCALE_HEIGHT,
   SCALE_FONT_SIZE,
-  SCALE_PADDING_LEFT,
   SCALE_WIDTH,
   SCALE_LINE_HEIGHT,
   THERMOMETER_COLOR,
   THERMOMETER_STROKE_COLOR,
   SCALE_MAX_NUMBER_TICKS,
-  SCALE_PADDING_RIGHT,
   SCALE_LEGEND_PADDING_BOTTOM,
   BACKGROUND_COLOR,
   SCALE_LEGEND_FONT_SIZE,
   SCALE_LABEL_NOTES,
   SCALE_TEXT_WIDTH_FACTOR,
   SCALE_LABEL_NOTES_STROKE_WIDTH,
+  SCALE_PADDING_RIGHT,
+  SCALE_UNITS,
+  SCALE_TICKS_STROKE_COLOR,
 } from '../../../config/constants';
 import Slider from './Slider';
 import { celsiusToKelvin, kelvinToCelsius } from '../../../utils/utils';
@@ -88,7 +89,7 @@ const buildKelvinScales = ({
   tickStep,
   thermometerHeight,
   offsetY,
-  thermometerXPosition,
+  offsetX,
   labelYOffset,
   deltaHeight,
 }) => {
@@ -113,12 +114,12 @@ const buildKelvinScales = ({
   // draw scale ticks
   const ScaleComponents = renderScales({
     offsetY: offsetY + thermometerHeight - SCALE_LINE_HEIGHT,
-    x: thermometerXPosition,
+    x: offsetX,
     scales,
-    scaleXOffset: -SCALE_WIDTH,
-    textXOffset: SCALE_PADDING_LEFT,
+    scaleXOffset: 0,
+    textXOffset: -SCALE_PADDING_RIGHT - SCALE_WIDTH,
     labelYOffset,
-    label: 'K',
+    label: SCALE_UNITS.KELVIN.unit,
   });
 
   return ScaleComponents;
@@ -173,7 +174,7 @@ const buildCelsiusScales = ({
     scaleXOffset: 0,
     textXOffset: -SCALE_PADDING_RIGHT - SCALE_WIDTH,
     labelYOffset,
-    label: '°C',
+    label: SCALE_UNITS.CELSIUS.unit,
   });
 
   return CelsiusScaleComponents;
@@ -185,6 +186,7 @@ const Scale = ({
   thermometerHeight,
   offsetY,
   showThermometerLabels,
+  showKelvinScale,
 }) => {
   const { t } = useTranslation();
   const thermometerXPosition = THERMOMETER_POSITION_X + THERMOMETER_WIDTH;
@@ -209,6 +211,7 @@ const Scale = ({
     to: roundTo,
     offsetY,
     thermometerXPosition,
+    offsetX: thermometerXPosition - THERMOMETER_WIDTH,
     tickStep,
     thermometerHeight,
     deltaHeight: deltaKelvinHeight,
@@ -229,21 +232,33 @@ const Scale = ({
 
   const LabelNoteComponents = SCALE_LABEL_NOTES.map(
     ({ name, t: temperature }) => (
-      <Text
-        fontStyle="italic"
-        stroke={BACKGROUND_COLOR}
-        strokeWidth={SCALE_LABEL_NOTES_STROKE_WIDTH}
-        fillAfterStrokeEnabled
-        x={thermometerXPosition + SCALE_TEXT_WIDTH_FACTOR + SCALE_PADDING_LEFT}
+      <Group
+        key={name}
+        x={thermometerXPosition}
         y={
-          -(SCALE_FONT_SIZE / 3) +
           offsetY +
           thermometerHeight -
           (temperature - roundFrom) * deltaKelvinHeight
         }
-        text={t(name)}
-        fontSize={SCALE_FONT_SIZE}
-      />
+      >
+        <Line
+          x={-THERMOMETER_WIDTH}
+          points={[0, 0, THERMOMETER_WIDTH + SCALE_TEXT_WIDTH_FACTOR - 5, 0]}
+          stroke={SCALE_TICKS_STROKE_COLOR}
+          dash={[6, 2]}
+          strokeWidth={1}
+        />
+        <Text
+          x={SCALE_TEXT_WIDTH_FACTOR}
+          y={-SCALE_FONT_SIZE / 2}
+          fontStyle="italic"
+          stroke={BACKGROUND_COLOR}
+          strokeWidth={SCALE_LABEL_NOTES_STROKE_WIDTH}
+          fillAfterStrokeEnabled
+          text={t(name)}
+          fontSize={SCALE_FONT_SIZE}
+        />
+      </Group>
     ),
   );
 
@@ -271,8 +286,8 @@ const Scale = ({
       />
 
       {/* scales */}
-      {KelvinScaleComponents}
-      {CelsiusScaleComponents}
+      {showKelvinScale && KelvinScaleComponents}
+      {!showKelvinScale && CelsiusScaleComponents}
 
       {/* label notes: planets, etc */}
       {showThermometerLabels && LabelNoteComponents}
@@ -299,12 +314,14 @@ Scale.propTypes = {
   thermometerHeight: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
   showThermometerLabels: PropTypes.bool.isRequired,
+  showKelvinScale: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ lab }) => ({
   currentTemperature: lab.temperature,
   scales: lab.scales,
   showThermometerLabels: lab.showThermometerLabels,
+  showKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
 });
 
 export default connect(mapStateToProps)(Scale);

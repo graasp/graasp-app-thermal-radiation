@@ -1,4 +1,4 @@
-import { INITIAL_TEMPERATURE } from '../config/constants';
+import { INITIAL_TEMPERATURE, SCALE_UNITS } from '../config/constants';
 import {
   SET_TEMPERATURE,
   SET_IS_PAUSED,
@@ -9,6 +9,7 @@ import {
   RESET_SETTINGS,
   TOGGLE_ELECTRONS,
   TOGGLE_WAVELENGTH_DISTRIBUTION,
+  SET_SCALE_UNIT,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
   showGrid: false,
   electrons: true,
   wavelengthDistribution: false,
+  scaleUnit: SCALE_UNITS.KELVIN,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -53,6 +55,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     }
     case TOGGLE_WAVELENGTH_DISTRIBUTION: {
       return { ...state, wavelengthDistribution: payload };
+    }
+    case SET_SCALE_UNIT: {
+      return { ...state, scaleUnit: payload };
     }
     default:
       return state;

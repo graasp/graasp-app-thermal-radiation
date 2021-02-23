@@ -25,6 +25,7 @@ import {
   setShowGrid,
   setShowEmittedLines,
   resetSettings,
+  setScaleUnit,
 } from '../../actions';
 import SwitchWithLabel from './SwitchWithLabel';
 import {
@@ -35,6 +36,7 @@ import {
   BACKGROUND_COLOR,
   GRID_AXES_COLOR,
   GRID_AXES_STROKE_WIDTH,
+  SCALE_UNITS,
 } from '../../config/constants';
 import SwitchWithTwoLabels from './SwitchWithTwoLabels';
 
@@ -119,6 +121,8 @@ class SideMenu extends React.Component {
     showEmittedLines: PropTypes.bool.isRequired,
     dispatchSetShowGrid: PropTypes.func.isRequired,
     dispatchResetSettings: PropTypes.func.isRequired,
+    showKelvinScale: PropTypes.bool.isRequired,
+    dispatchSetScaleUnit: PropTypes.func.isRequired,
   };
 
   handleToggleSideMenu = (open) => () => {
@@ -134,6 +138,15 @@ class SideMenu extends React.Component {
   reset = () => {
     const { dispatchResetSettings } = this.props;
     dispatchResetSettings();
+  };
+
+  onScaleUnitToggle = () => {
+    const { dispatchSetScaleUnit, showKelvinScale } = this.props;
+    if (showKelvinScale) {
+      dispatchSetScaleUnit(SCALE_UNITS.CELSIUS);
+    } else {
+      dispatchSetScaleUnit(SCALE_UNITS.KELVIN);
+    }
   };
 
   renderPlayAndPauseButtons = () => {
@@ -211,6 +224,7 @@ class SideMenu extends React.Component {
       dispatchSetShowEmittedLines,
       showEmittedLines,
       dispatchSetShowGrid,
+      showKelvinScale,
     } = this.props;
 
     return (
@@ -229,10 +243,18 @@ class SideMenu extends React.Component {
             {this.renderPlayAndPauseButtons()}
             <div className={classes.switchContainer}>
               <SwitchWithTwoLabels
-                leftLabel={t('Microscopic View')}
-                rightLabel={t('Macroscopic View')}
+                leftLabel={t('Macroscopic View')}
+                rightLabel={t('Microscopic View')}
                 isChecked={isMicroscopic}
-                onToggle={dispatchSetIsMicroscopic}
+                onSwitchToggle={() => dispatchSetIsMicroscopic(!isMicroscopic)}
+              />
+            </div>
+            <div className={classes.switchContainer}>
+              <SwitchWithTwoLabels
+                leftLabel={t('Kelvin')}
+                rightLabel={t('Celsius')}
+                isChecked={!showKelvinScale}
+                onSwitchToggle={this.onScaleUnitToggle}
               />
             </div>
             <div className={classes.switchContainer}>
@@ -277,7 +299,7 @@ class SideMenu extends React.Component {
             {/* grid legend */}
             <Typography variant="caption" className={classes.legend}>
               <div className={classes.gridUnitSquare} />
-              {`=${GRID_LEGEND_LABEL_TEXT}`}
+              {`= ${GRID_LEGEND_LABEL_TEXT}`}
             </Typography>
           </div>
         </Drawer>
@@ -295,6 +317,7 @@ const mapStateToProps = ({ layout, lab }) => ({
   showThermometerLabels: lab.showThermometerLabels,
   showGrid: lab.showGrid,
   showEmittedLines: lab.showEmittedLines,
+  showKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
 });
 
 const mapDispatchToProps = {
@@ -307,6 +330,7 @@ const mapDispatchToProps = {
   dispatchSetShowGrid: setShowGrid,
   dispatchSetShowEmittedLines: setShowEmittedLines,
   dispatchResetSettings: resetSettings,
+  dispatchSetScaleUnit: setScaleUnit,
 };
 
 const ConnectedComponent = connect(

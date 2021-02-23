@@ -8,6 +8,7 @@ import {
   RESET_SETTINGS,
   TOGGLE_ELECTRONS,
   TOGGLE_WAVELENGTH_DISTRIBUTION,
+  SET_SCALE_UNIT,
 } from '../types';
 
 const setTemperature = (temperature) => (dispatch) =>
@@ -65,6 +66,13 @@ const resetSettings = () => (dispatch) =>
     type: RESET_SETTINGS,
   });
 
+const setScaleUnit = (payload) => (dispatch) => {
+  dispatch({
+    type: SET_SCALE_UNIT,
+    payload,
+  });
+};
+
 export {
   setTemperature,
   setIsPaused,
@@ -75,4 +83,5 @@ export {
   setShowEmittedLines,
   toggleElectrons,
   toggleWavelengthDistribution,
+  setScaleUnit,
 };

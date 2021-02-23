@@ -39,6 +39,11 @@ export const THERMOMETER_STROKE_COLOR = 'black';
 // these factors are used as percentage depending on stage dimensions
 export const THERMOMETER_POSITION_Y_FACTOR = 0.2;
 export const THERMOMETER_HEIGHT_FACTOR = 0.5;
+export const SCALE_UNITS = {
+  KELVIN: { name: 'kelvin', unit: 'K' },
+  CELSIUS: { name: 'celsius', unit: '°C' },
+};
+export const THERMOMETER_CURRENT_TEMPERATURE_FONT_SIZE = 20;
 
 export const SCALE_WIDTH = 7;
 export const SCALE_FONT_SIZE = 13;
@@ -47,13 +52,14 @@ export const SCALE_PADDING_RIGHT = 20;
 export const SCALE_LINE_HEIGHT = 1.5;
 export const SCALE_HEIGHT = 17;
 // approximatively the width of the scale text
-export const SCALE_TEXT_WIDTH_FACTOR = 2 * SCALE_FONT_SIZE;
+export const SCALE_TEXT_WIDTH_FACTOR = SCALE_FONT_SIZE;
 // the actual number of displayed ticks might vary due to number rounding
 export const SCALE_MAX_NUMBER_TICKS = 10;
 export const SCALE_LEGEND_PADDING_BOTTOM = 30;
 export const SCALE_LEGEND_FONT_SIZE = 16;
+export const SCALE_TICKS_STROKE_COLOR = 'black';
 export const SCALE_LABEL_NOTES = [
-  { name: 'Mars', t: 201 },
+  { name: 'Mars', t: 210 },
   { name: 'Earth', t: 289 },
   { name: 'Venus', t: 733 },
 ];
@@ -109,7 +115,7 @@ export const GROUND_FILL_DARK_COLOR = '#ad7e4e';
 export const GROUND_FILL_LIGHT_COLOR = '#cfae67';
 export const GROUND_GRASS_HEIGHT = 20;
 export const GROUND_GRASS_LINE_TENSION = 0.3;
-export const GROUND_GRASS_BACKGROUND = '#34852d';
+export const GROUND_GRASS_BACKGROUND = '#a14e06';
 
 // grid constants
 export const GRID_AXES_COLOR = '#000';

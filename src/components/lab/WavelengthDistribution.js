@@ -139,6 +139,8 @@ const WavelengthDistribution = ({ stageDimensions, temperature }) => {
         tension={0.5}
         stroke={WAVELENGTH_DISTRIBUTION_STROKE_COLOR}
       />
+
+      {/* max peak wavelength */}
       <Line
         x={WAVELENGTH_DISTRIBUTION_PADDING}
         y={WAVELENGTH_DISTRIBUTION_PADDING_TOP}
@@ -150,6 +152,16 @@ const WavelengthDistribution = ({ stageDimensions, temperature }) => {
           WAVELENGTH_DISTRIBUTION_HEIGHT,
         ]}
       />
+      <Text
+        text={t('Most Frequent')}
+        rotation={-90}
+        fill={WAVELENGTH_DISTRIBUTION_PEAK_WAVELENGTH_COLOR}
+        fontSize={WAVELENGTH_DISTRIBUTION_AXIS_FONT_SIZE}
+        // this one has to be positioned manually
+        x={maxIndexXPosition + WAVELENGTH_DISTRIBUTION_PADDING + 5}
+        y={WAVELENGTH_DISTRIBUTION_HEIGHT}
+      />
+
       <Group
         x={WAVELENGTH_DISTRIBUTION_PADDING}
         y={

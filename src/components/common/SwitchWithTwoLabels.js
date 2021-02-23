@@ -6,6 +6,9 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
+  switch: {
+    color: theme.palette.primary.main,
+  },
   leftLabel: {
     margin: theme.spacing(0),
     display: 'flex',
@@ -13,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: '58%',
   },
   rightLabel: {
-    margin: theme.spacing(2, 0),
+    margin: theme.spacing(1, 0),
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
@@ -25,16 +28,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SwitchWithTwoLabels = ({
   isChecked,
-  onToggle,
+  onSwitchToggle,
   leftLabel,
   rightLabel,
   disabled,
 }) => {
   const classes = useStyles();
-
-  const onSwitchToggle = () => {
-    onToggle(!isChecked);
-  };
 
   const Control = (
     <Switch
@@ -43,6 +42,7 @@ const SwitchWithTwoLabels = ({
       onChange={onSwitchToggle}
       name={leftLabel}
       color="primary"
+      classes={{ switchBase: classes.switch }}
     />
   );
 
@@ -78,7 +78,7 @@ const SwitchWithTwoLabels = ({
 
 SwitchWithTwoLabels.propTypes = {
   isChecked: PropTypes.bool.isRequired,
-  onToggle: PropTypes.func.isRequired,
+  onSwitchToggle: PropTypes.func.isRequired,
   leftLabel: PropTypes.string.isRequired,
   rightLabel: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
