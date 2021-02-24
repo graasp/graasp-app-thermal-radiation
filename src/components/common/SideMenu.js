@@ -121,7 +121,7 @@ class SideMenu extends React.Component {
     showEmittedLines: PropTypes.bool.isRequired,
     dispatchSetShowGrid: PropTypes.func.isRequired,
     dispatchResetSettings: PropTypes.func.isRequired,
-    showKelvinScale: PropTypes.bool.isRequired,
+    currentlyShowingKelvinScale: PropTypes.bool.isRequired,
     dispatchSetScaleUnit: PropTypes.func.isRequired,
   };
 
@@ -140,9 +140,9 @@ class SideMenu extends React.Component {
     dispatchResetSettings();
   };
 
-  onScaleUnitToggle = () => {
-    const { dispatchSetScaleUnit, showKelvinScale } = this.props;
-    if (showKelvinScale) {
+  onToggleScaleUnit = () => {
+    const { dispatchSetScaleUnit, currentlyShowingKelvinScale } = this.props;
+    if (currentlyShowingKelvinScale) {
       dispatchSetScaleUnit(SCALE_UNITS.CELSIUS);
     } else {
       dispatchSetScaleUnit(SCALE_UNITS.KELVIN);
@@ -224,7 +224,7 @@ class SideMenu extends React.Component {
       dispatchSetShowEmittedLines,
       showEmittedLines,
       dispatchSetShowGrid,
-      showKelvinScale,
+      currentlyShowingKelvinScale,
     } = this.props;
 
     return (
@@ -253,8 +253,8 @@ class SideMenu extends React.Component {
               <SwitchWithTwoLabels
                 leftLabel={t('Kelvin')}
                 rightLabel={t('Celsius')}
-                isChecked={!showKelvinScale}
-                onSwitchToggle={this.onScaleUnitToggle}
+                isChecked={!currentlyShowingKelvinScale}
+                onSwitchToggle={this.onToggleScaleUnit}
               />
             </div>
             <div className={classes.switchContainer}>
@@ -317,7 +317,7 @@ const mapStateToProps = ({ layout, lab }) => ({
   showThermometerLabels: lab.showThermometerLabels,
   showGrid: lab.showGrid,
   showEmittedLines: lab.showEmittedLines,
-  showKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
+  currentlyShowingKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
 });
 
 const mapDispatchToProps = {

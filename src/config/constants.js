@@ -1,7 +1,9 @@
 export const DRAWER_WIDTH = 430;
 export const DEFAULT_THEME_DIRECTION = 'rtl';
 export const FORM_CONTROL_MIN_WIDTH = 120;
-export const LOGO_SIZE = '48px';
+export const LOGO_SIZE = 48;
+export const LOGO_MARGIN = 8;
+export const HEADER_HEIGHT = LOGO_SIZE + 2 * LOGO_MARGIN;
 export const DEFAULT_HEADER_VISIBLE = true;
 export const MAXIMUM_Z_INDEX = 999999;
 
@@ -65,6 +67,8 @@ export const SCALE_LABEL_NOTES = [
 ];
 export const INITIAL_TEMPERATURE = 289;
 export const SCALE_LABEL_NOTES_STROKE_WIDTH = 3;
+// apply dashed stroke that is 6px long and 2 pixels apart
+export const SCALE_LABELS_LINE_DASH = [6, 2];
 
 export const SLIDER_FILL_COLOR = 'black';
 export const SLIDER_RADIUS = 8;
@@ -121,5 +125,5 @@ export const GROUND_GRASS_BACKGROUND = '#a14e06';
 export const GRID_AXES_COLOR = '#000';
 export const GRID_AXES_STROKE_WIDTH = 0.5;
 export const GRID_SQUARE_WIDTH_AND_HEIGHT = 33;
-export const GRID_LEGEND_LABEL_TEXT = '1000nm = 1um';
+export const GRID_LEGEND_LABEL_TEXT = '1000nm = 1µm';
 export const GRID_UNIT_SQUARE_LENGTH = 35;

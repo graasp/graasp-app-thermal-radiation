@@ -25,8 +25,19 @@ const Ground = ({ stageDimensions }) => {
     GROUND_GRASS_HEIGHT;
   const GROUND_POINTS_NUMBER = 5;
 
-  const updatePoints = (yPoints) => {
-    const randomPoints = yPoints
+  useEffect(() => {
+    // generate random y position for a given number of points
+    const randomPoints = Array.from(
+      { length: GROUND_POINTS_NUMBER },
+      () => Math.random() * GROUND_GRASS_HEIGHT,
+    );
+
+    setRandomYPoints(randomPoints);
+  }, []);
+
+  useEffect(() => {
+    // distribute evenly depending on the width
+    const randomPoints = randomYPoints
       .map((v, i) => [(groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1), v])
       .flat();
 
@@ -41,21 +52,7 @@ const Ground = ({ stageDimensions }) => {
       groundWidth,
       GROUND_GRASS_HEIGHT,
     ]);
-  };
-
-  useEffect(() => {
-    const randomPoints = Array.from(
-      { length: GROUND_POINTS_NUMBER },
-      () => Math.random() * GROUND_GRASS_HEIGHT,
-    );
-
-    setRandomYPoints(randomPoints);
-    updatePoints(randomPoints);
-  }, []);
-
-  useEffect(() => {
-    updatePoints(randomYPoints);
-  }, [stageDimensions.stageWidth]);
+  }, [stageDimensions.stageWidth, randomYPoints]);
 
   return (
     <Group y={y} x={HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS}>

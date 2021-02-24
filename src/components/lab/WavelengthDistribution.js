@@ -26,6 +26,7 @@ import {
   WAVELENGTH_DISTRIBUTION_LABELS_PADDING_TOP,
   SPEED_OF_LIGHT_CONSTANT,
   PLANCK_CONSTANT,
+  HEADER_HEIGHT,
   WAVELENGTH_DISTRIBUTION_TICK_LINE_LENGTH,
 } from '../../config/constants';
 
@@ -36,6 +37,7 @@ const getSpectralPowerDensityAt = ({ wavelength, temperature }) => {
     return 0;
   }
 
+  // Normalized Planck's Law https://www.physics-in-a-nutshell.com/article/24/different-formulations-of-plancks-law
   const B = 1.43877e7; // is hc/k in units of nanometer-kelvin
   const c = SPEED_OF_LIGHT_CONSTANT;
   const h = PLANCK_CONSTANT;
@@ -48,7 +50,7 @@ const getSpectralPowerDensityAt = ({ wavelength, temperature }) => {
 
 const WavelengthDistribution = ({ stageDimensions, temperature }) => {
   const { t } = useTranslation();
-  const { stageHeight, stageWidth } = stageDimensions;
+  const { stageWidth } = stageDimensions;
   const wavelengthDistance =
     WAVELENGTH_DISTRIBUTION_MAX_WAVELENGTH -
     WAVELENGTH_DISTRIBUTION_MIN_WAVELENGTH;
@@ -59,7 +61,8 @@ const WavelengthDistribution = ({ stageDimensions, temperature }) => {
     WAVELENGTH_DISTRIBUTION_WIDTH -
     WAVELENGTH_DISTRIBUTION_MARGIN -
     2 * WAVELENGTH_DISTRIBUTION_PADDING;
-  const wavelengthDistributionInitialYPosition = 0.12 * stageHeight;
+  const wavelengthDistributionInitialYPosition =
+    HEADER_HEIGHT + WAVELENGTH_DISTRIBUTION_MARGIN;
 
   const wavelengthStep =
     wavelengthDistance / WAVELENGTH_DISTRIBUTION_DISTRIBUTION_POINTS_NUMBER;

@@ -22,6 +22,7 @@ import {
   SCALE_PADDING_RIGHT,
   SCALE_UNITS,
   SCALE_TICKS_STROKE_COLOR,
+  SCALE_LABELS_LINE_DASH,
 } from '../../../config/constants';
 import Slider from './Slider';
 import { celsiusToKelvin, kelvinToCelsius } from '../../../utils/utils';
@@ -245,7 +246,7 @@ const Scale = ({
           x={-THERMOMETER_WIDTH}
           points={[0, 0, THERMOMETER_WIDTH + SCALE_TEXT_WIDTH_FACTOR - 5, 0]}
           stroke={SCALE_TICKS_STROKE_COLOR}
-          dash={[6, 2]}
+          dash={SCALE_LABELS_LINE_DASH}
           strokeWidth={1}
         />
         <Text
