@@ -1,9 +1,15 @@
-import { INITIAL_TEMPERATURE } from '../config/constants';
+import { INITIAL_TEMPERATURE, SCALE_UNITS } from '../config/constants';
 import {
   SET_TEMPERATURE,
   SET_IS_PAUSED,
   SET_IS_MICROSCOPIC,
   SET_SHOW_THERMOMETER_LABELS,
+  SET_SHOW_EMITTED_LINES,
+  SET_SHOW_GRID,
+  RESET_SETTINGS,
+  TOGGLE_ELECTRONS,
+  TOGGLE_WAVELENGTH_DISTRIBUTION,
+  SET_SCALE_UNIT,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -15,6 +21,11 @@ const INITIAL_STATE = {
   isPaused: true,
   isMicroscopic: false,
   showThermometerLabels: true,
+  showEmittedLines: false,
+  showGrid: false,
+  electrons: true,
+  wavelengthDistribution: false,
+  scaleUnit: SCALE_UNITS.KELVIN,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -30,6 +41,24 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return { ...state, isMicroscopic: payload };
     case SET_SHOW_THERMOMETER_LABELS:
       return { ...state, showThermometerLabels: payload };
+    case SET_SHOW_EMITTED_LINES: {
+      return { ...state, showEmittedLines: payload };
+    }
+    case SET_SHOW_GRID: {
+      return { ...state, showGrid: payload };
+    }
+    case RESET_SETTINGS: {
+      return INITIAL_STATE;
+    }
+    case TOGGLE_ELECTRONS: {
+      return { ...state, electrons: payload };
+    }
+    case TOGGLE_WAVELENGTH_DISTRIBUTION: {
+      return { ...state, wavelengthDistribution: payload };
+    }
+    case SET_SCALE_UNIT: {
+      return { ...state, scaleUnit: payload };
+    }
     default:
       return state;
   }

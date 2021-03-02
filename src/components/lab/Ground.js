@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Group, Rect, Line } from 'react-konva';
 import PropTypes from 'prop-types';
 import {
@@ -13,6 +13,9 @@ import {
 } from '../../config/constants';
 
 const Ground = ({ stageDimensions }) => {
+  const [randomYPoints, setRandomYPoints] = useState([]);
+  const [points, setPoints] = useState([]);
+
   const y = stageDimensions.stageHeight - LATTICE_HEIGHT;
   const groundWidth =
     stageDimensions.stageWidth - HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS * 2;
@@ -22,22 +25,34 @@ const Ground = ({ stageDimensions }) => {
     GROUND_GRASS_HEIGHT;
   const GROUND_POINTS_NUMBER = 5;
 
-  const randomPoints = Array.from({ length: GROUND_POINTS_NUMBER }, (v, i) => [
-    (groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1),
-    Math.random() * GROUND_GRASS_HEIGHT,
-  ]).flat();
+  useEffect(() => {
+    // generate random y position for a given number of points
+    const randomPoints = Array.from(
+      { length: GROUND_POINTS_NUMBER },
+      () => Math.random() * GROUND_GRASS_HEIGHT,
+    );
 
-  const points = [
-    0,
-    GROUND_GRASS_HEIGHT,
-    0,
-    0,
-    ...randomPoints,
-    groundWidth,
-    0,
-    groundWidth,
-    GROUND_GRASS_HEIGHT,
-  ];
+    setRandomYPoints(randomPoints);
+  }, []);
+
+  useEffect(() => {
+    // distribute evenly depending on the width
+    const randomPoints = randomYPoints
+      .map((v, i) => [(groundWidth / (GROUND_POINTS_NUMBER + 1)) * (i + 1), v])
+      .flat();
+
+    setPoints([
+      0,
+      GROUND_GRASS_HEIGHT,
+      0,
+      0,
+      ...randomPoints,
+      groundWidth,
+      0,
+      groundWidth,
+      GROUND_GRASS_HEIGHT,
+    ]);
+  }, [stageDimensions.stageWidth, randomYPoints]);
 
   return (
     <Group y={y} x={HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS}>

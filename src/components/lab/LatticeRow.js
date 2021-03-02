@@ -12,7 +12,7 @@ import {
 import { findXPositionsOfPositiveIons } from '../../utils/utils';
 
 const LatticeRow = ({ rowIndex, stageDimensions, oscillation }) => {
-  const electrons = useSelector(({ layout }) => layout.lab.electrons);
+  const electrons = useSelector(({ lab }) => lab.electrons);
   const { stageWidth, stageHeight } = stageDimensions;
 
   // horizontal distance to fill of ions, minus the spectrum bar width

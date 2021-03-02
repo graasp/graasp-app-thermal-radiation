@@ -4,10 +4,25 @@
     "This is the teacher view. Switch to the student view by clicking on the URL below.": "This is the teacher view. Switch to the student view by clicking on the URL below.",
     "Welcome to the Graasp App Starter Lab Kit": "Welcome to the Graasp App Starter Lab Kit",
     "Observe": "Observe",
-    "Language": "Language",
-    "Show Header": "Show Header",
     "Settings": "Settings",
     "Open Drawer": "Open Drawer",
-    "Description": "Description"
+    "Description": "Description",
+    "Wavelength Distribution": "Wavelength Distribution",
+    "Thermal Radiation App": "Thermal Radiation App",
+    "Pause": "Pause",
+    "Play": "Play",
+    "Reset": "Reset",
+    "Microscopic View": "Microscopic View",
+    "Electrons": "Electrons",
+    "Grid": "Grid",
+    "Radiation": "Radiation",
+    "Thermometer Labels": "Thermometer Labels",
+    "Earth": "Earth",
+    "Venus": "Venus",
+    "Mars": "Mars",
+    "Freezing Point": "Freezing Point",
+    "Wavelength (nm)": "Wavelength (nm)",
+    "Most Frequent": "Most Frequent",
+    "Macroscopic View": "Macroscopic View"
   }
 }

@@ -11,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 import { toggleSideMenu } from '../../actions';
-import { DRAWER_WIDTH, LOGO_SIZE } from '../../config/constants';
+import { DRAWER_WIDTH, HEADER_HEIGHT, LOGO_SIZE } from '../../config/constants';
 
 const styles = (theme) => ({
   grow: {
@@ -22,6 +22,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(2),
   },
   appBar: {
+    height: HEADER_HEIGHT,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

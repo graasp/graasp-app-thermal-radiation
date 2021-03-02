@@ -16,7 +16,7 @@ import {
   SCALE_WIDTH,
   VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS,
 } from '../../config/constants';
-import SpectrumBar from './SpectrumBar';
+import WavelengthDistribution from './WavelengthDistribution';
 import EmittedLine from './EmittedLine';
 import Ground from './Ground';
 import Grid from './Grid';
@@ -44,13 +44,12 @@ class Lab extends Component {
       stageWidth: PropTypes.number.isRequired,
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
-    spectrumBar: PropTypes.bool.isRequired,
+    wavelengthDistribution: PropTypes.bool.isRequired,
     isMicroscopic: PropTypes.bool.isRequired,
-    gridLines: PropTypes.bool.isRequired,
+    showGrid: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
-    this.checkSize();
     const ro = new ResizeObserver(() => {
       this.checkSize();
     });
@@ -71,9 +70,9 @@ class Lab extends Component {
     const {
       classes,
       stageDimensions,
-      spectrumBar,
+      wavelengthDistribution,
       isMicroscopic,
-      gridLines,
+      showGrid,
     } = this.props;
     const { stageWidth, stageHeight } = stageDimensions;
 
@@ -110,7 +109,7 @@ class Lab extends Component {
             >
               <Provider store={store}>
                 <Layer>
-                  {gridLines && (
+                  {showGrid && (
                     <Grid
                       gridWidth={stageDimensions.stageWidth}
                       gridHeight={stageDimensions.stageHeight}
@@ -130,6 +129,7 @@ class Lab extends Component {
 
                   {[...new Array(NUMBER_OF_LINES).keys()].map((i) => (
                     <EmittedLine
+                      key={i}
                       stageDimensions={stageDimensions}
                       chargeOscillation={{ x: 0, y: 0 }}
                       x={linesXOffset + i * (LINE_AMPLITUDE + linePadding)}
@@ -141,8 +141,8 @@ class Lab extends Component {
                     />
                   ))}
 
-                  {spectrumBar && (
-                    <SpectrumBar stageDimensions={stageDimensions} />
+                  {wavelengthDistribution && (
+                    <WavelengthDistribution stageDimensions={stageDimensions} />
                   )}
                 </Layer>
               </Provider>
@@ -156,9 +156,9 @@ class Lab extends Component {
 
 const mapStateToProps = ({ layout, lab }) => ({
   stageDimensions: layout.lab.stageDimensions,
-  spectrumBar: layout.lab.spectrumBar,
+  wavelengthDistribution: lab.wavelengthDistribution,
   isMicroscopic: lab.isMicroscopic,
-  gridLines: true,
+  showGrid: lab.showGrid,
 });
 
 const mapDispatchToProps = {

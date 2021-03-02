@@ -25,6 +25,7 @@ class EmittedLine extends Component {
       stageHeight: PropTypes.number.isRequired,
     }).isRequired,
     isPaused: PropTypes.bool.isRequired,
+    showEmittedLines: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -75,8 +76,13 @@ class EmittedLine extends Component {
   };
 
   render() {
-    const { x, y } = this.props;
+    const { x, y, showEmittedLines } = this.props;
     const { points } = this.state;
+
+    if (!showEmittedLines) {
+      return null;
+    }
+
     return (
       <Line
         x={x}
@@ -92,6 +98,7 @@ class EmittedLine extends Component {
 const mapStateToProps = ({ lab }) => ({
   temperature: lab.temperature,
   isPaused: lab.isPaused,
+  showEmittedLines: lab.showEmittedLines,
 });
 const ConnectedComponent = connect(mapStateToProps)(EmittedLine);
 export default ConnectedComponent;
