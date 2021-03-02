@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.0...v0.1.1) (2021-03-02)
+
+### Features
+
+- add reset btn, grid and emitted lines toggles, change legend text ([3b01de6](https://github.com/graasp/graasp-app-thermal-radiation/commit/3b01de65043b1e30258554ac54b8f59a616f66b0))
+
 ## 0.1.0 (2021-02-16)
 
 ### Features
