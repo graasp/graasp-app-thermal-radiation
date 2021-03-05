@@ -45,7 +45,10 @@ const getActions = async (
     }
 
     // create url from params
-    const url = `//${apiHost + ACTIONS_ENDPOINT}?${Qs.stringify(params)}`;
+    const url = `//${apiHost + ACTIONS_ENDPOINT}?${Qs.stringify({
+      params,
+      spaceId,
+    })}`;
 
     const response = await fetch(url, DEFAULT_GET_REQUEST);
 

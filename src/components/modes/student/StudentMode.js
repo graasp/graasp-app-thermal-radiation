@@ -14,20 +14,17 @@ class StudentMode extends Component {
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     dispatchGetActions: PropTypes.func.isRequired,
     userId: PropTypes.string,
-    spaceId: PropTypes.string,
   };
 
   static defaultProps = {
     view: DEFAULT_VIEW,
     appInstanceId: null,
     userId: null,
-    spaceId: null,
   };
 
   componentDidMount() {
     const {
       userId,
-      spaceId,
       dispatchGetAppInstanceResources,
       dispatchGetActions,
     } = this.props;
@@ -35,7 +32,7 @@ class StudentMode extends Component {
     // by default get the resources for this user
     dispatchGetAppInstanceResources({ userId });
     // by default get all actions for this user
-    dispatchGetActions({ userId: [userId], spaceId: [spaceId] });
+    dispatchGetActions({ userId: [userId] });
   }
 
   componentDidUpdate({ appInstanceId: prevAppInstanceId }) {
@@ -64,9 +61,8 @@ class StudentMode extends Component {
   }
 }
 const mapStateToProps = ({ context, appInstanceResources }) => {
-  const { userId, appInstanceId, spaceId } = context;
+  const { userId, appInstanceId } = context;
   return {
-    spaceId,
     userId,
     appInstanceId,
     activity: Boolean(appInstanceResources.activity.length),
