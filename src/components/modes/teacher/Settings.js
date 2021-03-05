@@ -11,6 +11,7 @@ import { withTranslation } from 'react-i18next';
 import { toggleSettings, patchAppInstance } from '../../../actions';
 import Loader from '../../common/Loader';
 import LanguageSelect from './LanguageSelect';
+import { DEFAULT_HEADER_VISIBLE } from '../../../config/constants';
 
 const modalTopPercent = 50;
 const modalLeftPercent = 50;
@@ -52,7 +53,7 @@ class Settings extends Component {
 
   static defaultProps = {
     settings: {
-      headerVisible: true,
+      headerVisible: DEFAULT_HEADER_VISIBLE,
     },
   };
 

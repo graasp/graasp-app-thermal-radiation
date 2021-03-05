@@ -48,7 +48,11 @@ const getSpectralPowerDensityAt = ({ wavelength, temperature }) => {
   );
 };
 
-const WavelengthDistribution = ({ stageDimensions, temperature }) => {
+const WavelengthDistribution = ({
+  stageDimensions,
+  temperature,
+  headerVisible,
+}) => {
   const { t } = useTranslation();
   const { stageWidth } = stageDimensions;
   const wavelengthDistance =
@@ -62,7 +66,7 @@ const WavelengthDistribution = ({ stageDimensions, temperature }) => {
     WAVELENGTH_DISTRIBUTION_MARGIN -
     2 * WAVELENGTH_DISTRIBUTION_PADDING;
   const wavelengthDistributionInitialYPosition =
-    HEADER_HEIGHT + WAVELENGTH_DISTRIBUTION_MARGIN;
+    (headerVisible ? HEADER_HEIGHT : 0) + WAVELENGTH_DISTRIBUTION_MARGIN;
 
   const wavelengthStep =
     wavelengthDistance / WAVELENGTH_DISTRIBUTION_DISTRIBUTION_POINTS_NUMBER;
@@ -222,10 +226,12 @@ WavelengthDistribution.propTypes = {
     stageWidth: PropTypes.number.isRequired,
   }).isRequired,
   temperature: PropTypes.number.isRequired,
+  headerVisible: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ lab }) => ({
+const mapStateToProps = ({ lab, appInstance }) => ({
   temperature: lab.temperature,
+  headerVisible: appInstance.content.settings.headerVisible,
 });
 
 const ConnectedComponent = connect(mapStateToProps)(WavelengthDistribution);
