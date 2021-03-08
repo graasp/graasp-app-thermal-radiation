@@ -39,16 +39,15 @@ const getActions = async (
     }
 
     // by default include current space id
-    const { spaceId = [] } = params;
-    if (!spaceId.length) {
-      spaceId.push(currentSpaceId);
+    const completeParams = { ...params };
+    if (!completeParams.spaceId || !completeParams.spaceId.length) {
+      completeParams.spaceId = [currentSpaceId];
     }
 
     // create url from params
-    const url = `//${apiHost + ACTIONS_ENDPOINT}?${Qs.stringify({
-      params,
-      spaceId,
-    })}`;
+    const url = `//${apiHost + ACTIONS_ENDPOINT}?${Qs.stringify(
+      completeParams,
+    )}`;
 
     const response = await fetch(url, DEFAULT_GET_REQUEST);
 
