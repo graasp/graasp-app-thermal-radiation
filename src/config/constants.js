@@ -4,7 +4,7 @@ export const FORM_CONTROL_MIN_WIDTH = 120;
 export const LOGO_SIZE = 48;
 export const LOGO_MARGIN = 8;
 export const HEADER_HEIGHT = LOGO_SIZE + 2 * LOGO_MARGIN;
-export const DEFAULT_HEADER_VISIBLE = true;
+export const DEFAULT_HEADER_VISIBLE = false;
 export const MAXIMUM_Z_INDEX = 999999;
 
 export const BACKGROUND_COLOR = 'lightgrey';
