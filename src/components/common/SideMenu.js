@@ -267,13 +267,6 @@ class SideMenu extends React.Component {
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Wavelength Distribution')}
-                isChecked={wavelengthDistribution}
-                onToggle={dispatchToggleWavelengthDistribution}
-              />
-            </div>
-            <div className={classes.switchContainer}>
-              <SwitchWithLabel
                 switchLabel={t('Thermometer Labels')}
                 isChecked={showThermometerLabels}
                 onToggle={dispatchSetShowThermometerLabels}
@@ -291,6 +284,13 @@ class SideMenu extends React.Component {
                 switchLabel={t('Radiation')}
                 isChecked={showEmittedLines}
                 onToggle={dispatchSetShowEmittedLines}
+              />
+            </div>
+            <div className={classes.switchContainer}>
+              <SwitchWithLabel
+                switchLabel={t('Wavelength Distribution')}
+                isChecked={wavelengthDistribution}
+                onToggle={dispatchToggleWavelengthDistribution}
               />
             </div>
 
