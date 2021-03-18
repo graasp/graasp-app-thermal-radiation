@@ -153,28 +153,34 @@ class SideMenu extends React.Component {
     const { isPaused, classes, t } = this.props;
     return (
       <div className={classes.buttons}>
-        <Tooltip title={t('Pause')}>
-          <span>
-            <IconButton onClick={this.onClickPauseOrPlay} disabled={isPaused}>
-              <PauseCircleOutlineIcon
-                className={clsx(classes.button, {
-                  [classes.pauseButton]: !isPaused,
-                })}
-              />
-            </IconButton>
-          </span>
-        </Tooltip>
-        <Tooltip title={t('Play')}>
-          <span>
-            <IconButton onClick={this.onClickPauseOrPlay} disabled={!isPaused}>
-              <PlayCircleOutlineIcon
-                className={clsx(classes.button, {
-                  [classes.playButton]: isPaused,
-                })}
-              />
-            </IconButton>
-          </span>
-        </Tooltip>
+        {isPaused ? (
+          <Tooltip title={t('Play')}>
+            <span>
+              <IconButton
+                onClick={this.onClickPauseOrPlay}
+                disabled={!isPaused}
+              >
+                <PlayCircleOutlineIcon
+                  className={clsx(classes.button, {
+                    [classes.playButton]: isPaused,
+                  })}
+                />
+              </IconButton>
+            </span>
+          </Tooltip>
+        ) : (
+          <Tooltip title={t('Pause')}>
+            <span>
+              <IconButton onClick={this.onClickPauseOrPlay} disabled={isPaused}>
+                <PauseCircleOutlineIcon
+                  className={clsx(classes.button, {
+                    [classes.pauseButton]: !isPaused,
+                  })}
+                />
+              </IconButton>
+            </span>
+          </Tooltip>
+        )}
         <Tooltip title={t('Reset')}>
           <span>
             <IconButton onClick={this.reset}>
@@ -250,19 +256,19 @@ class SideMenu extends React.Component {
               />
             </div>
             <div className={classes.switchContainer}>
-              <SwitchWithTwoLabels
-                leftLabel={t('Kelvin')}
-                rightLabel={t('Celsius')}
-                isChecked={!currentlyShowingKelvinScale}
-                onSwitchToggle={this.onToggleScaleUnit}
-              />
-            </div>
-            <div className={classes.switchContainer}>
               <SwitchWithLabel
                 switchLabel={t('Electrons')}
                 isChecked={electrons}
                 onToggle={dispatchToggleElectrons}
                 disabled={!isMicroscopic}
+              />
+            </div>
+            <div className={classes.switchContainer}>
+              <SwitchWithTwoLabels
+                leftLabel={t('Kelvin')}
+                rightLabel={t('Celsius')}
+                isChecked={!currentlyShowingKelvinScale}
+                onSwitchToggle={this.onToggleScaleUnit}
               />
             </div>
             <div className={classes.switchContainer}>
