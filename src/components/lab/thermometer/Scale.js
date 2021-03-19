@@ -13,9 +13,7 @@ import {
   THERMOMETER_COLOR,
   THERMOMETER_STROKE_COLOR,
   SCALE_MAX_NUMBER_TICKS,
-  SCALE_LEGEND_PADDING_BOTTOM,
   BACKGROUND_COLOR,
-  SCALE_LEGEND_FONT_SIZE,
   SCALE_LABEL_NOTES,
   SCALE_TEXT_WIDTH_FACTOR,
   SCALE_LABEL_NOTES_STROKE_WIDTH,
@@ -49,18 +47,9 @@ const renderScales = ({
   offsetY,
   scaleXOffset,
   textXOffset,
-  labelYOffset,
-  label,
 }) => (
   <>
     {/* legend */}
-    <Text
-      fontStyle="bold"
-      x={offsetX + textXOffset}
-      y={labelYOffset}
-      text={label}
-      fontSize={SCALE_LEGEND_FONT_SIZE}
-    />
     {scales.map(({ text, y }) => {
       const thermometerYPosition = offsetY - y;
 
@@ -91,7 +80,6 @@ const buildKelvinScales = ({
   thermometerHeight,
   offsetY,
   offsetX,
-  labelYOffset,
   deltaHeight,
 }) => {
   // compute text and y position for kelvin scales
@@ -119,8 +107,6 @@ const buildKelvinScales = ({
     scales,
     scaleXOffset: 0,
     textXOffset: -SCALE_PADDING_RIGHT - SCALE_WIDTH,
-    labelYOffset,
-    label: SCALE_UNITS.KELVIN.unit,
   });
 
   return ScaleComponents;
@@ -133,7 +119,6 @@ const buildCelsiusScales = ({
   deltaKelvinHeight,
   offsetY,
   offsetX,
-  labelYOffset,
 }) => {
   // get celsium degree from kelvin thermometer boundaries
   const celsiusFrom = kelvinToCelsius(from);
@@ -174,8 +159,6 @@ const buildCelsiusScales = ({
     scales: celsiusScales,
     scaleXOffset: 0,
     textXOffset: -SCALE_PADDING_RIGHT - SCALE_WIDTH,
-    labelYOffset,
-    label: SCALE_UNITS.CELSIUS.unit,
   });
 
   return CelsiusScaleComponents;
@@ -204,8 +187,6 @@ const Scale = ({
   // height in pixel for one degree kelvin
   const deltaKelvinHeight = thermometerHeight / (roundTo - roundFrom);
 
-  const labelYOffset = offsetY - SCALE_LEGEND_PADDING_BOTTOM;
-
   // build kelvin scales
   const KelvinScaleComponents = buildKelvinScales({
     from: roundFrom,
@@ -216,7 +197,6 @@ const Scale = ({
     tickStep,
     thermometerHeight,
     deltaHeight: deltaKelvinHeight,
-    labelYOffset,
   });
 
   // build celsius scales
@@ -228,7 +208,6 @@ const Scale = ({
     roundFromKelvin: roundFrom,
     deltaKelvinHeight,
     thermometerHeight,
-    labelYOffset,
   });
 
   const LabelNoteComponents = SCALE_LABEL_NOTES.map(

@@ -58,7 +58,6 @@ export const SCALE_TEXT_WIDTH_FACTOR = SCALE_FONT_SIZE;
 // the actual number of displayed ticks might vary due to number rounding
 export const SCALE_MAX_NUMBER_TICKS = 10;
 export const SCALE_LEGEND_PADDING_BOTTOM = 30;
-export const SCALE_LEGEND_FONT_SIZE = 16;
 export const SCALE_TICKS_STROKE_COLOR = 'black';
 export const SCALE_LABEL_NOTES = [
   { name: 'Mars', t: 210 },
