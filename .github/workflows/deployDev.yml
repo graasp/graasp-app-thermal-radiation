@@ -1,0 +1,45 @@
+name: deploy dev build to aws
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    env:
+      # default build directory
+      BUILD_FOLDER: 'build/'
+      VERSION: 'latest'
+
+      # rename necessary variables used in the app
+      REACT_APP_APPS_DEVELOPER_ID: ${{ secrets.APPS_DEVELOPER_ID }}
+      REACT_APP_APP_ID: ${{ secrets.APP_ID }}
+      REACT_APP_VERSION: 'latest'
+      REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+      REACT_APP_GRAASP_DOMAIN: ${{ secrets.DEV_GRAASP_DOMAIN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Yarn Set Up
+        uses: actions/setup-node@v2
+      - run: yarn install
+      - run: yarn build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.APPS_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.APPS_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.APPS_AWS_REGION }}
+
+      - name: Copy files to AWS Bucket
+        env:
+          APP_DIR: '${{ secrets.APPS_DEV_BUCKET }}/${{ secrets.APPS_DEVELOPER_ID }}/${{ secrets.APP_ID }}/${{env.VERSION}}/'
+        run: aws s3 sync ${{env.BUILD_FOLDER}} s3://${APP_DIR} --delete
+
+      - name: Invalidate cloudfront distribution
+        env:
+          APP_PATH: '${{ secrets.APPS_DEVELOPER_ID }}/${{ secrets.APP_ID }}/${{env.VERSION}}'
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.APPS_DEV_CLOUDFRONT_DISTRIBUTION }} --paths /${APP_PATH}/*
