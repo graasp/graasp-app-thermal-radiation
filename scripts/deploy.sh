@@ -76,9 +76,9 @@ done
 # ensure the correct variables are defined
 if \
   [ -z "${REACT_APP_HOST}" ] || \
-  [ -z "${REACT_APP_GRAASP_DEVELOPER_ID}" ] || \
-  [ -z "${REACT_APP_GRAASP_APP_ID}" ]; then
-  echo "error: environment variables REACT_APP_GRAASP_APP_ID, REACT_APP_GRAASP_DEVELOPER_ID and/or REACT_APP_HOST are not defined" 1>&2
+  [ -z "${REACT_APP_APPS_DEVELOPER_ID}" ] || \
+  [ -z "${REACT_APP_APP_ID}" ]; then
+  echo "error: environment variables REACT_APP_APP_ID, REACT_APP_APPS_DEVELOPER_ID and/or REACT_APP_HOST are not defined" 1>&2
   echo "error: you can specify them through a .env file in the app root folder" 1>&2
   echo "error: or through another file specified with the -e flag" 1>&2
   exit 1
@@ -98,12 +98,12 @@ fi
 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 
-echo "info: publishing app ${REACT_APP_GRAASP_APP_ID} version ${REACT_APP_VERSION}"
+echo "info: publishing app ${REACT_APP_APP_ID} version ${REACT_APP_VERSION}"
 
-APP_DIR=${BUCKET}/${REACT_APP_GRAASP_DEVELOPER_ID}/${REACT_APP_GRAASP_APP_ID}/${REACT_APP_VERSION}/
+APP_DIR=${BUCKET}/${REACT_APP_APPS_DEVELOPER_ID}/${REACT_APP_APP_ID}/${REACT_APP_VERSION}/
 
 # make sure you do not use the word PATH as a variable because it overrides the PATH environment variable
-APP_PATH=${REACT_APP_GRAASP_DEVELOPER_ID}/${REACT_APP_GRAASP_APP_ID}/${REACT_APP_VERSION}
+APP_PATH=${REACT_APP_APPS_DEVELOPER_ID}/${REACT_APP_APP_ID}/${REACT_APP_VERSION}
 
 # sync s3 bucket
 aws s3 sync ${BUILD} s3://${APP_DIR} --delete
