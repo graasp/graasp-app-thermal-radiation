@@ -213,6 +213,16 @@ class SideMenu extends React.Component {
     );
   };
 
+  handleRadiationToggle = () => {
+    const {
+      dispatchSetShowEmittedLines,
+      showEmittedLines,
+      dispatchToggleWavelengthDistribution,
+    } = this.props;
+    dispatchSetShowEmittedLines(!showEmittedLines);
+    dispatchToggleWavelengthDistribution(false);
+  };
+
   render() {
     const {
       classes,
@@ -227,7 +237,6 @@ class SideMenu extends React.Component {
       dispatchSetShowThermometerLabels,
       showThermometerLabels,
       showGrid,
-      dispatchSetShowEmittedLines,
       showEmittedLines,
       dispatchSetShowGrid,
       currentlyShowingKelvinScale,
@@ -289,7 +298,7 @@ class SideMenu extends React.Component {
               <SwitchWithLabel
                 switchLabel={t('Radiation')}
                 isChecked={showEmittedLines}
-                onToggle={dispatchSetShowEmittedLines}
+                onToggle={this.handleRadiationToggle}
               />
             </div>
             <div className={classes.switchContainer}>
@@ -297,6 +306,7 @@ class SideMenu extends React.Component {
                 switchLabel={t('Wavelength Distribution')}
                 isChecked={wavelengthDistribution}
                 onToggle={dispatchToggleWavelengthDistribution}
+                disabled={!showEmittedLines}
               />
             </div>
 
