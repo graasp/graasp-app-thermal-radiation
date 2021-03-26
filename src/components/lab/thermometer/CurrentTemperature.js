@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import {
   SCALE_UNITS,
   THERMOMETER_CURRENT_TEMPERATURE_FONT_SIZE,
+  THERMOMETER_WIDTH,
 } from '../../../config/constants';
 import { kelvinToCelsius } from '../../../utils/utils';
 
@@ -26,7 +27,7 @@ const CurrentTemperature = ({ x, y }) => {
 
   return (
     <Text
-      x={x}
+      x={x - THERMOMETER_WIDTH / 2}
       y={y}
       text={text}
       fontSize={THERMOMETER_CURRENT_TEMPERATURE_FONT_SIZE}
