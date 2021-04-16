@@ -25,7 +25,7 @@ const INITIAL_STATE = {
   showGrid: false,
   electrons: true,
   wavelengthDistribution: false,
-  scaleUnit: SCALE_UNITS.KELVIN,
+  scaleUnit: SCALE_UNITS.CELSIUS,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
