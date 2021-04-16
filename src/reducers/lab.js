@@ -1,4 +1,8 @@
-import { INITIAL_TEMPERATURE, SCALE_UNITS } from '../config/constants';
+import {
+  DEFAULT_SHOW_MICROSCOPIC_VIEW,
+  INITIAL_TEMPERATURE,
+  SCALE_UNITS,
+} from '../config/constants';
 import {
   SET_TEMPERATURE,
   SET_IS_PAUSED,
@@ -19,7 +23,7 @@ const INITIAL_STATE = {
     from: 200,
   },
   isPaused: true,
-  isMicroscopic: false,
+  isMicroscopic: DEFAULT_SHOW_MICROSCOPIC_VIEW,
   showThermometerLabels: true,
   showEmittedLines: false,
   showGrid: false,

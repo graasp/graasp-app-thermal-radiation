@@ -1,9 +1,8 @@
 {
   "translations": {
-    "This is the student view. Switch to the teacher view by clicking on the URL below.": "This is the student view. Switch to the teacher view by clicking on the URL below.",
-    "This is the teacher view. Switch to the student view by clicking on the URL below.": "This is the teacher view. Switch to the student view by clicking on the URL below.",
-    "Welcome to the Graasp App Starter Lab Kit": "Welcome to the Graasp App Starter Lab Kit",
     "Observe": "Observe",
+    "Language": "Language",
+    "Show Header": "Show Header",
     "Settings": "Settings",
     "Open Drawer": "Open Drawer",
     "Description": "Description",
@@ -23,6 +22,9 @@
     "Freezing Point": "Freezing Point",
     "Wavelength (nm)": "Wavelength (nm)",
     "Most Frequent": "Most Frequent",
-    "Macroscopic View": "Macroscopic View"
+    "Macroscopic View": "Macroscopic View",
+    "Show Microscopic View by default": "Show Microscopic View by default",
+    "Kelvin": "Kelvin",
+    "Celsius": "Celsius"
   }
 }

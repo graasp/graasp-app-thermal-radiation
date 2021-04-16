@@ -12,6 +12,7 @@ import { toggleSettings, patchAppInstance } from '../../../actions';
 import Loader from '../../common/Loader';
 import LanguageSelect from './LanguageSelect';
 import { DEFAULT_HEADER_VISIBLE } from '../../../config/constants';
+import ShowMicroscopicViewSwitch from './ShowMicroscopicViewSwitch';
 
 const modalTopPercent = 50;
 const modalLeftPercent = 50;
@@ -103,10 +104,13 @@ class Settings extends Component {
     return (
       <Grid container>
         <Grid item xs={12}>
+          <LanguageSelect />
+        </Grid>
+        <Grid item xs={12}>
           <FormControlLabel control={switchControl} label={t('Show Header')} />
         </Grid>
         <Grid item xs={12}>
-          <LanguageSelect />
+          <ShowMicroscopicViewSwitch />
         </Grid>
       </Grid>
     );
