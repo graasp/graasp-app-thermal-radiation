@@ -1,9 +1,16 @@
+import _ from 'lodash';
 import {
   APP_INSTANCES_ENDPOINT,
   DEFAULT_GET_REQUEST,
   DEFAULT_PATCH_REQUEST,
 } from '../config/api';
-import { flag, getApiContext, isErrorResponse, postMessage } from './common';
+import {
+  flag,
+  getApiContext,
+  getSettings,
+  isErrorResponse,
+  postMessage,
+} from './common';
 import {
   FLAG_GETTING_APP_INSTANCE,
   FLAG_PATCHING_APP_INSTANCE,
@@ -13,7 +20,9 @@ import {
   PATCH_APP_INSTANCE_SUCCEEDED,
   GET_APP_INSTANCE,
   PATCH_APP_INSTANCE,
+  SET_IS_MICROSCOPIC,
 } from '../types';
+import { setIsMicroscopic } from './lab';
 
 const flagGettingAppInstance = flag(FLAG_GETTING_APP_INSTANCE);
 const flagPatchingAppInstance = flag(FLAG_PATCHING_APP_INSTANCE);
@@ -55,6 +64,15 @@ const getAppInstance = async () => async (dispatch, getState) => {
     await isErrorResponse(response);
 
     const appInstance = await response.json();
+
+    // set default microscopic view value
+    const payload = appInstance?.settings?.showMicroscopicView;
+    if (_.isBoolean(payload)) {
+      dispatch({
+        type: SET_IS_MICROSCOPIC,
+        payload,
+      });
+    }
 
     // send the app instance to the reducer
     return dispatch({
@@ -122,4 +140,20 @@ const patchAppInstance = async ({ data } = {}) => async (
   }
 };
 
-export { patchAppInstance, getAppInstance };
+const setShowMicroscopicView = (showMicroscopicView) => (
+  dispatch,
+  getState,
+) => {
+  const currentSettings = getSettings(getState);
+  const newSettings = {
+    ...currentSettings,
+    showMicroscopicView,
+  };
+  // first save the settings in the app instance
+  dispatch(patchAppInstance({ data: newSettings }));
+
+  // toggle view in sidemenu
+  dispatch(setIsMicroscopic(showMicroscopicView));
+};
+
+export { patchAppInstance, getAppInstance, setShowMicroscopicView };

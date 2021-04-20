@@ -96,7 +96,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = ({ context, appInstance, layout }) => ({
-  lang: context.lang,
+  lang: appInstance?.content?.settings?.lang || context.lang,
   mode: context.mode,
   view: context.view,
   appInstanceId: context.appInstanceId,

@@ -274,9 +274,9 @@ class SideMenu extends React.Component {
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithTwoLabels
-                leftLabel={t('Kelvin')}
-                rightLabel={t('Celsius')}
-                isChecked={!currentlyShowingKelvinScale}
+                leftLabel={t('Celsius')}
+                rightLabel={t('Kelvin')}
+                isChecked={currentlyShowingKelvinScale}
                 onSwitchToggle={this.onToggleScaleUnit}
               />
             </div>

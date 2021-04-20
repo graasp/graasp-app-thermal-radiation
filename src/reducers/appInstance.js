@@ -1,5 +1,8 @@
 import _ from 'lodash';
-import { DEFAULT_HEADER_VISIBLE } from '../config/constants';
+import {
+  DEFAULT_HEADER_VISIBLE,
+  DEFAULT_SHOW_MICROSCOPIC_VIEW,
+} from '../config/constants';
 import {
   GET_APP_INSTANCE_FAILED,
   GET_APP_INSTANCE_SUCCEEDED,
@@ -12,6 +15,7 @@ import { showErrorToast } from '../utils/toasts';
 
 const DEFAULT_SETTINGS = {
   headerVisible: DEFAULT_HEADER_VISIBLE,
+  showMicroscopicView: DEFAULT_SHOW_MICROSCOPIC_VIEW,
 };
 
 const INITIAL_STATE = {
@@ -61,7 +65,6 @@ export default (state = INITIAL_STATE, { payload, type }) => {
       // show error to user
       showErrorToast(payload);
       return state;
-
     default:
       return state;
   }

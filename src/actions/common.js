@@ -119,10 +119,8 @@ const receiveMessage = (dispatch) => (event) => {
 
 const getSettings = (getState) => {
   const { appInstance } = getState();
-  if (appInstance && appInstance.settings) {
-    return appInstance.settings;
-  }
-  return {};
+  const settings = appInstance?.content?.settings;
+  return settings || {};
 };
 
 export {
