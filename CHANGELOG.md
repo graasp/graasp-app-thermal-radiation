@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.2...v0.1.3) (2021-04-22)
+
+### Features
+
+- add microscopic view default in teacher settings ([0f374e8](https://github.com/graasp/graasp-app-thermal-radiation/commit/0f374e8dcdaed3834a6d4cc85be395bf598e6313))
+
+### Bug Fixes
+
+- use language from app settings ([55c3481](https://github.com/graasp/graasp-app-thermal-radiation/commit/55c3481f46ff775d29480d62c07c805de277b101))
+
+### Build System
+
+- use github actions for automatic deploy ([acf3ca1](https://github.com/graasp/graasp-app-thermal-radiation/commit/acf3ca1328da2c3203bb033ace94a585c65f1732))
+
 ### [0.1.2](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.1...v0.1.2) (2021-03-12)
 
 ### Bug Fixes
