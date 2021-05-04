@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Group, Circle, Text } from 'react-konva';
-import {
-  ELECTRON_RADIUS,
-  ELECTRON_COLOR,
-  ELECTRON_SYMBOL,
-  ELECTRON_SYMBOL_COLOR,
-  ELECTRON_SYMBOL_FONT_SIZE,
-} from '../../config/constants';
+import { Group, Circle } from 'react-konva';
+import { ELECTRON_RADIUS, ELECTRON_COLOR } from '../../config/constants';
+import NegativeChargeSymbol from './NegativeChargeSymbol';
 
 const Electron = ({ xPosition, yPosition }) => {
   return (
@@ -18,17 +13,7 @@ const Electron = ({ xPosition, yPosition }) => {
         radius={ELECTRON_RADIUS}
         fill={ELECTRON_COLOR}
       />
-      <Text
-        x={xPosition - ELECTRON_RADIUS}
-        y={yPosition - ELECTRON_RADIUS}
-        text={ELECTRON_SYMBOL}
-        fontSize={ELECTRON_SYMBOL_FONT_SIZE}
-        fill={ELECTRON_SYMBOL_COLOR}
-        height={ELECTRON_RADIUS * 1.5}
-        width={ELECTRON_RADIUS * 2}
-        align="center"
-        verticalAlign="middle"
-      />
+      <NegativeChargeSymbol x={xPosition} y={yPosition} />
     </Group>
   );
 };

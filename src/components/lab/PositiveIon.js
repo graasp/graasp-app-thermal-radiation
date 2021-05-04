@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Circle, Text, Group } from 'react-konva';
+import { Circle, Group } from 'react-konva';
 import {
   POSITIVE_ION_RADIUS,
   POSITIVE_ION_COLOR,
-  POSITIVE_ION_SYMBOL,
-  POSITIVE_ION_SYMBOL_COLOR,
-  POSITIVE_ION_SYMBOL_FONT_SIZE,
 } from '../../config/constants';
+import PositiveChargeSymbol from './PositiveChargeSymbol';
 
 const PositiveIon = ({ xPosition, yPosition, oscillation, index }) => {
   const xOscillation = index % 2 === 0;
@@ -21,17 +19,7 @@ const PositiveIon = ({ xPosition, yPosition, oscillation, index }) => {
         radius={POSITIVE_ION_RADIUS}
         fill={POSITIVE_ION_COLOR}
       />
-      <Text
-        x={-POSITIVE_ION_RADIUS}
-        y={-POSITIVE_ION_RADIUS}
-        text={POSITIVE_ION_SYMBOL}
-        fontSize={POSITIVE_ION_SYMBOL_FONT_SIZE}
-        fill={POSITIVE_ION_SYMBOL_COLOR}
-        height={POSITIVE_ION_RADIUS * 2}
-        width={POSITIVE_ION_RADIUS * 2}
-        align="center"
-        verticalAlign="middle"
-      />
+      <PositiveChargeSymbol x={0} y={0} />
     </Group>
   );
 };

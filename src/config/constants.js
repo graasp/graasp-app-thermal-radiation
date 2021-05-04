@@ -12,9 +12,6 @@ export const BACKGROUND_COLOR = 'lightgrey';
 // constants used in the lattice of positive ions
 export const POSITIVE_ION_RADIUS = 15;
 export const POSITIVE_ION_COLOR = 'darkred';
-export const POSITIVE_ION_SYMBOL = '+';
-export const POSITIVE_ION_SYMBOL_FONT_SIZE = 20;
-export const POSITIVE_ION_SYMBOL_COLOR = 'white';
 export const NUMBER_OF_ROWS_IN_LATTICE = 3;
 export const VERTICAL_DISTANCE_BETWEEN_POSITIVE_IONS = 30;
 export const HORIZONTAL_DISTANCE_BETWEEN_POSITIVE_IONS = 20;
@@ -28,9 +25,11 @@ export const LATTICE_HEIGHT =
 // constants used in the electrons between positive ions
 export const ELECTRON_RADIUS = 6;
 export const ELECTRON_COLOR = '#0000AF';
-export const ELECTRON_SYMBOL = '-';
-export const ELECTRON_SYMBOL_FONT_SIZE = 15;
-export const ELECTRON_SYMBOL_COLOR = 'white';
+
+export const CANVAS_ATOM_POSITIVE_CHARGE_LENGTH = 4.5;
+export const CANVAS_ATOM_NEGATIVE_CHARGE_LENGTH = 2.5;
+export const CANVAS_ATOM_CHARGE_STROKE_WIDTH = 1.25;
+export const CANVAS_ATOM_CHARGE_STROKE_COLOR = 'white';
 
 export const THERMOMETER_COLOR = 'red';
 export const THERMOMETER_WIDTH = 20;
