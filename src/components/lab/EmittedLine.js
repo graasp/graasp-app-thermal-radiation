@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Line } from 'react-konva';
@@ -33,12 +34,24 @@ class EmittedLine extends Component {
     t: 0,
   };
 
-  componentDidUpdate({ isPaused: prevIsPaused }) {
-    const { isPaused } = this.props;
+  componentDidUpdate(
+    { isPaused: prevIsPaused, showEmittedLines: prevShowEmittedLines },
+    { points: prevPoints },
+  ) {
+    const { isPaused, showEmittedLines } = this.props;
     if (isPaused !== prevIsPaused && isPaused) {
       clearInterval(this.emittedLineInterval);
     } else if (isPaused !== prevIsPaused && !isPaused) {
       this.beginLineInterval();
+    }
+
+    // reset line on show/hide emitted lines
+    if (
+      prevShowEmittedLines !== showEmittedLines &&
+      !_.isEqual(prevPoints, [0, 0])
+    ) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ points: [0, 0] });
     }
   }
 
