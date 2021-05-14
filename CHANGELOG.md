@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.3...v0.1.4) (2021-05-14)
+
+
+### Bug Fixes
+
+* center charges using konva lines rather than text node ([87d592e](https://github.com/graasp/graasp-app-thermal-radiation/commit/87d592e13f77733d947de3ccd3b5b776cb3df497)), closes [#19](https://github.com/graasp/graasp-app-thermal-radiation/issues/19)
+
+
+### Documentation
+
+* update license ([6d13cac](https://github.com/graasp/graasp-app-thermal-radiation/commit/6d13cace96ab78c59ec2b45fbaf4df64c5a13f51)), closes [#20](https://github.com/graasp/graasp-app-thermal-radiation/issues/20)
+* update readme ([1d9c190](https://github.com/graasp/graasp-app-thermal-radiation/commit/1d9c1905e0e0f2416d46d7acb06eec300d41a9b4)), closes [#21](https://github.com/graasp/graasp-app-thermal-radiation/issues/21)
+
 ### [0.1.3](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.2...v0.1.3) (2021-04-22)
 
 ### Features
