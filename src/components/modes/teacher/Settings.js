@@ -13,6 +13,7 @@ import Loader from '../../common/Loader';
 import LanguageSelect from './LanguageSelect';
 import { DEFAULT_HEADER_VISIBLE } from '../../../config/constants';
 import ShowMicroscopicViewSwitch from './ShowMicroscopicViewSwitch';
+import ShowThermometerLabelsSwitch from './ShowThermometerLabelsSwitch';
 
 const modalTopPercent = 50;
 const modalLeftPercent = 50;
@@ -111,6 +112,9 @@ class Settings extends Component {
         </Grid>
         <Grid item xs={12}>
           <ShowMicroscopicViewSwitch />
+        </Grid>
+        <Grid item xs={12}>
+          <ShowThermometerLabelsSwitch />
         </Grid>
       </Grid>
     );

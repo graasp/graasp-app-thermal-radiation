@@ -129,3 +129,4 @@ export const GRID_UNIT_SQUARE_LENGTH = 35;
 export const DEFAULT_SHOW_MICROSCOPIC_VIEW = true;
 export const GRID_SCALE_FONT_SIZE = 14;
 export const GRID_SCALE_TEXT_WIDTH = 60;
+export const DEFAULT_SHOW_THERMOMETER_LABELS = true;

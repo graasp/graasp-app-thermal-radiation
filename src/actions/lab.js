@@ -2,7 +2,6 @@ import {
   SET_TEMPERATURE,
   SET_IS_PAUSED,
   SET_IS_MICROSCOPIC,
-  SET_SHOW_THERMOMETER_LABELS,
   SET_SHOW_EMITTED_LINES,
   SET_SHOW_GRID,
   RESET_SETTINGS,
@@ -27,12 +26,6 @@ const setIsMicroscopic = (isMicroscopic) => (dispatch) =>
   dispatch({
     type: SET_IS_MICROSCOPIC,
     payload: isMicroscopic,
-  });
-
-const setShowThermometerLabels = (showThermometerLabels) => (dispatch) =>
-  dispatch({
-    type: SET_SHOW_THERMOMETER_LABELS,
-    payload: showThermometerLabels,
   });
 
 const setShowGrid = (showGrid) => (dispatch) =>
@@ -77,7 +70,6 @@ export {
   setTemperature,
   setIsPaused,
   setIsMicroscopic,
-  setShowThermometerLabels,
   setShowGrid,
   resetSettings,
   setShowEmittedLines,

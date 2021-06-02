@@ -7,7 +7,6 @@ import {
   SET_TEMPERATURE,
   SET_IS_PAUSED,
   SET_IS_MICROSCOPIC,
-  SET_SHOW_THERMOMETER_LABELS,
   SET_SHOW_EMITTED_LINES,
   SET_SHOW_GRID,
   RESET_SETTINGS,
@@ -24,7 +23,6 @@ const INITIAL_STATE = {
   },
   isPaused: true,
   isMicroscopic: DEFAULT_SHOW_MICROSCOPIC_VIEW,
-  showThermometerLabels: true,
   showEmittedLines: false,
   showGrid: false,
   electrons: true,
@@ -43,8 +41,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return { ...state, isPaused: payload };
     case SET_IS_MICROSCOPIC:
       return { ...state, isMicroscopic: payload };
-    case SET_SHOW_THERMOMETER_LABELS:
-      return { ...state, showThermometerLabels: payload };
     case SET_SHOW_EMITTED_LINES: {
       return { ...state, showEmittedLines: payload };
     }

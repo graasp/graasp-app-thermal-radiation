@@ -156,4 +156,22 @@ const setShowMicroscopicView = (showMicroscopicView) => (
   dispatch(setIsMicroscopic(showMicroscopicView));
 };
 
-export { patchAppInstance, getAppInstance, setShowMicroscopicView };
+const setShowThermometerLabels = (showThermometerLabels) => (
+  dispatch,
+  getState,
+) => {
+  const currentSettings = getSettings(getState);
+  const newSettings = {
+    ...currentSettings,
+    showThermometerLabels,
+  };
+  // first save the settings in the app instance
+  dispatch(patchAppInstance({ data: newSettings }));
+};
+
+export {
+  patchAppInstance,
+  getAppInstance,
+  setShowMicroscopicView,
+  setShowThermometerLabels,
+};

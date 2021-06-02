@@ -21,7 +21,6 @@ import {
   toggleWavelengthDistribution,
   setIsPaused,
   setIsMicroscopic,
-  setShowThermometerLabels,
   setShowGrid,
   setShowEmittedLines,
   resetSettings,
@@ -113,8 +112,6 @@ class SideMenu extends React.Component {
     dispatchSetIsPaused: PropTypes.func.isRequired,
     isMicroscopic: PropTypes.bool.isRequired,
     dispatchSetIsMicroscopic: PropTypes.func.isRequired,
-    dispatchSetShowThermometerLabels: PropTypes.func.isRequired,
-    showThermometerLabels: PropTypes.bool.isRequired,
     showGrid: PropTypes.bool.isRequired,
     dispatchSetShowEmittedLines: PropTypes.func.isRequired,
     showEmittedLines: PropTypes.bool.isRequired,
@@ -233,8 +230,6 @@ class SideMenu extends React.Component {
       dispatchToggleWavelengthDistribution,
       isMicroscopic,
       dispatchSetIsMicroscopic,
-      dispatchSetShowThermometerLabels,
-      showThermometerLabels,
       showGrid,
       showEmittedLines,
       dispatchSetShowGrid,
@@ -281,13 +276,6 @@ class SideMenu extends React.Component {
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Thermometer Labels')}
-                isChecked={showThermometerLabels}
-                onToggle={dispatchSetShowThermometerLabels}
-              />
-            </div>
-            <div className={classes.switchContainer}>
-              <SwitchWithLabel
                 switchLabel={t('Grid')}
                 isChecked={showGrid}
                 onToggle={dispatchSetShowGrid}
@@ -321,7 +309,6 @@ const mapStateToProps = ({ layout, lab }) => ({
   wavelengthDistribution: lab.wavelengthDistribution,
   isPaused: lab.isPaused,
   isMicroscopic: lab.isMicroscopic,
-  showThermometerLabels: lab.showThermometerLabels,
   showGrid: lab.showGrid,
   showEmittedLines: lab.showEmittedLines,
   currentlyShowingKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
@@ -333,7 +320,6 @@ const mapDispatchToProps = {
   dispatchToggleWavelengthDistribution: toggleWavelengthDistribution,
   dispatchSetIsPaused: setIsPaused,
   dispatchSetIsMicroscopic: setIsMicroscopic,
-  dispatchSetShowThermometerLabels: setShowThermometerLabels,
   dispatchSetShowGrid: setShowGrid,
   dispatchSetShowEmittedLines: setShowEmittedLines,
   dispatchResetSettings: resetSettings,
