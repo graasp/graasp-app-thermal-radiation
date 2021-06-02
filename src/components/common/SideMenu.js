@@ -31,7 +31,6 @@ import SwitchWithLabel from './SwitchWithLabel';
 import {
   DRAWER_WIDTH,
   DEFAULT_THEME_DIRECTION,
-  GRID_LEGEND_LABEL_TEXT,
   GRID_UNIT_SQUARE_LENGTH,
   BACKGROUND_COLOR,
   GRID_AXES_COLOR,
@@ -309,14 +308,6 @@ class SideMenu extends React.Component {
                 disabled={!showEmittedLines}
               />
             </div>
-
-            <Divider className={classes.legendDivider} />
-
-            {/* grid legend */}
-            <Typography variant="caption" className={classes.legend}>
-              <div className={classes.gridUnitSquare} />
-              {`= ${GRID_LEGEND_LABEL_TEXT}`}
-            </Typography>
           </div>
         </Drawer>
       </>
