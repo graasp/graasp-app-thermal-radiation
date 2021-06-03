@@ -13,7 +13,7 @@ import {
 
 const SCALE_STROKE_MARGIN = 2;
 
-const Scale = ({ x, y }) => {
+const GridScale = ({ x, y }) => {
   return (
     <Group x={x} y={y}>
       <Rect
@@ -37,9 +37,9 @@ const Scale = ({ x, y }) => {
   );
 };
 
-Scale.propTypes = {
+GridScale.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };
 
-export default Scale;
+export default GridScale;

@@ -8,7 +8,7 @@ import {
   THERMOMETER_TOTAL_WIDTH,
   LATTICE_HEIGHT,
 } from '../../config/constants';
-import Scale from './Scale';
+import GridScale from './GridScale';
 
 const Grid = ({ gridWidth, gridHeight }) => {
   // in return statement below, a VERTICAL line is drawn at each of the points in xTicksArray
@@ -68,7 +68,10 @@ const Grid = ({ gridWidth, gridHeight }) => {
           strokeWidth={GRID_AXES_STROKE_WIDTH}
         />
       ))}
-      <Scale y={yTicksArray[1]} x={THERMOMETER_TOTAL_WIDTH + xTicksArray[0]} />
+      <GridScale
+        y={yTicksArray[1]}
+        x={THERMOMETER_TOTAL_WIDTH + xTicksArray[0]}
+      />
     </>
   );
 };
