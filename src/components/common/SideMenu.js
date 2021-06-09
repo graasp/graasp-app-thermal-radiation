@@ -21,7 +21,6 @@ import {
   toggleWavelengthDistribution,
   setIsPaused,
   setIsMicroscopic,
-  setShowThermometerLabels,
   setShowGrid,
   setShowEmittedLines,
   resetSettings,
@@ -31,7 +30,6 @@ import SwitchWithLabel from './SwitchWithLabel';
 import {
   DRAWER_WIDTH,
   DEFAULT_THEME_DIRECTION,
-  GRID_LEGEND_LABEL_TEXT,
   GRID_UNIT_SQUARE_LENGTH,
   BACKGROUND_COLOR,
   GRID_AXES_COLOR,
@@ -114,8 +112,6 @@ class SideMenu extends React.Component {
     dispatchSetIsPaused: PropTypes.func.isRequired,
     isMicroscopic: PropTypes.bool.isRequired,
     dispatchSetIsMicroscopic: PropTypes.func.isRequired,
-    dispatchSetShowThermometerLabels: PropTypes.func.isRequired,
-    showThermometerLabels: PropTypes.bool.isRequired,
     showGrid: PropTypes.bool.isRequired,
     dispatchSetShowEmittedLines: PropTypes.func.isRequired,
     showEmittedLines: PropTypes.bool.isRequired,
@@ -234,8 +230,6 @@ class SideMenu extends React.Component {
       dispatchToggleWavelengthDistribution,
       isMicroscopic,
       dispatchSetIsMicroscopic,
-      dispatchSetShowThermometerLabels,
-      showThermometerLabels,
       showGrid,
       showEmittedLines,
       dispatchSetShowGrid,
@@ -282,13 +276,6 @@ class SideMenu extends React.Component {
             </div>
             <div className={classes.switchContainer}>
               <SwitchWithLabel
-                switchLabel={t('Thermometer Labels')}
-                isChecked={showThermometerLabels}
-                onToggle={dispatchSetShowThermometerLabels}
-              />
-            </div>
-            <div className={classes.switchContainer}>
-              <SwitchWithLabel
                 switchLabel={t('Grid')}
                 isChecked={showGrid}
                 onToggle={dispatchSetShowGrid}
@@ -309,14 +296,6 @@ class SideMenu extends React.Component {
                 disabled={!showEmittedLines}
               />
             </div>
-
-            <Divider className={classes.legendDivider} />
-
-            {/* grid legend */}
-            <Typography variant="caption" className={classes.legend}>
-              <div className={classes.gridUnitSquare} />
-              {`= ${GRID_LEGEND_LABEL_TEXT}`}
-            </Typography>
           </div>
         </Drawer>
       </>
@@ -330,7 +309,6 @@ const mapStateToProps = ({ layout, lab }) => ({
   wavelengthDistribution: lab.wavelengthDistribution,
   isPaused: lab.isPaused,
   isMicroscopic: lab.isMicroscopic,
-  showThermometerLabels: lab.showThermometerLabels,
   showGrid: lab.showGrid,
   showEmittedLines: lab.showEmittedLines,
   currentlyShowingKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
@@ -342,7 +320,6 @@ const mapDispatchToProps = {
   dispatchToggleWavelengthDistribution: toggleWavelengthDistribution,
   dispatchSetIsPaused: setIsPaused,
   dispatchSetIsMicroscopic: setIsMicroscopic,
-  dispatchSetShowThermometerLabels: setShowThermometerLabels,
   dispatchSetShowGrid: setShowGrid,
   dispatchSetShowEmittedLines: setShowEmittedLines,
   dispatchResetSettings: resetSettings,

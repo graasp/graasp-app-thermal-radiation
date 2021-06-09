@@ -123,7 +123,12 @@ export const GROUND_GRASS_BACKGROUND = '#a14e06';
 export const GRID_AXES_COLOR = '#000';
 export const GRID_AXES_STROKE_WIDTH = 0.5;
 export const GRID_SQUARE_WIDTH_AND_HEIGHT = 33;
-export const GRID_LEGEND_LABEL_TEXT = '1000nm = 1µm';
+export const GRID_LEGEND_LABEL_TEXT = '1000nm\n1µm';
 export const GRID_UNIT_SQUARE_LENGTH = 35;
 
 export const DEFAULT_SHOW_MICROSCOPIC_VIEW = true;
+export const GRID_SCALE_FONT_SIZE = 14;
+export const GRID_SCALE_TEXT_WIDTH = 60;
+export const DEFAULT_SHOW_THERMOMETER_LABELS = true;
+
+export const SCALE_STROKE_MARGIN = 2;

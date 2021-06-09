@@ -2,6 +2,7 @@ import _ from 'lodash';
 import {
   DEFAULT_HEADER_VISIBLE,
   DEFAULT_SHOW_MICROSCOPIC_VIEW,
+  DEFAULT_SHOW_THERMOMETER_LABELS,
 } from '../config/constants';
 import {
   GET_APP_INSTANCE_FAILED,
@@ -16,6 +17,7 @@ import { showErrorToast } from '../utils/toasts';
 const DEFAULT_SETTINGS = {
   headerVisible: DEFAULT_HEADER_VISIBLE,
   showMicroscopicView: DEFAULT_SHOW_MICROSCOPIC_VIEW,
+  showThermometerLabels: DEFAULT_SHOW_THERMOMETER_LABELS,
 };
 
 const INITIAL_STATE = {

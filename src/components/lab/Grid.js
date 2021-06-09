@@ -8,6 +8,7 @@ import {
   THERMOMETER_TOTAL_WIDTH,
   LATTICE_HEIGHT,
 } from '../../config/constants';
+import GridScale from './GridScale';
 
 const Grid = ({ gridWidth, gridHeight }) => {
   // in return statement below, a VERTICAL line is drawn at each of the points in xTicksArray
@@ -15,7 +16,7 @@ const Grid = ({ gridWidth, gridHeight }) => {
   // this ensures that the vertical radiation line emitted by the charge is in line with the grid
   const centralXTick = gridWidth / 2;
   const totalNumberOfXTicks = Math.max(
-    Math.ceil(gridWidth / GRID_SQUARE_WIDTH_AND_HEIGHT),
+    Math.floor(gridWidth / GRID_SQUARE_WIDTH_AND_HEIGHT),
     0,
   );
   const startingXTick =
@@ -67,6 +68,10 @@ const Grid = ({ gridWidth, gridHeight }) => {
           strokeWidth={GRID_AXES_STROKE_WIDTH}
         />
       ))}
+      <GridScale
+        y={yTicksArray[1]}
+        x={THERMOMETER_TOTAL_WIDTH + xTicksArray[0]}
+      />
     </>
   );
 };
