@@ -130,3 +130,5 @@ export const DEFAULT_SHOW_MICROSCOPIC_VIEW = true;
 export const GRID_SCALE_FONT_SIZE = 14;
 export const GRID_SCALE_TEXT_WIDTH = 60;
 export const DEFAULT_SHOW_THERMOMETER_LABELS = true;
+
+export const SCALE_STROKE_MARGIN = 2;

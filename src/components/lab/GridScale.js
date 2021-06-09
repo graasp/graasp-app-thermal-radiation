@@ -8,10 +8,9 @@ import {
   GRID_LEGEND_LABEL_TEXT,
   GRID_SCALE_FONT_SIZE,
   GRID_SCALE_TEXT_WIDTH,
+  SCALE_STROKE_MARGIN,
   GRID_SQUARE_WIDTH_AND_HEIGHT,
 } from '../../config/constants';
-
-const SCALE_STROKE_MARGIN = 2;
 
 const GridScale = ({ x, y }) => {
   return (
