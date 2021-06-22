@@ -132,3 +132,10 @@ export const GRID_SCALE_TEXT_WIDTH = 60;
 export const DEFAULT_SHOW_THERMOMETER_LABELS = true;
 
 export const SCALE_STROKE_MARGIN = 2;
+
+export const MICROSCOPIC_STRING = 'microscopic';
+export const MACROSCOPIC_STRING = 'macroscopic';
+export const KELVIN_STRING = 'kelvin';
+export const CELSIUS_STRING = 'celsius';
+export const PAUSED_STRING = 'paused';
+export const PLAYING_STRING = 'playing';
