@@ -37,7 +37,7 @@ const SwitchWithLabel = ({
     onToggle(!isChecked);
     dispatch(
       postAction({
-        verb: isChecked === true ? toggleOffAction : toggleOnAction,
+        verb: isChecked ? toggleOffAction : toggleOnAction,
         data: { applicationState },
       }),
     );
