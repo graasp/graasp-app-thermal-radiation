@@ -1,8 +1,7 @@
 import { FormControlLabel, makeStyles, Switch } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { setShowThermometerLabels } from '../../../actions';
+import { useSelector } from 'react-redux';
 import {
   DEFAULT_SHOW_THERMOMETER_LABELS,
   FORM_CONTROL_MIN_WIDTH,
@@ -19,14 +18,11 @@ const ShowThermometerLabelsSwitch = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const showThermometerLabels = useSelector(
-    ({ appInstance }) =>
-      appInstance.content.settings?.showThermometerLabels ??
-      DEFAULT_SHOW_THERMOMETER_LABELS,
+    () => DEFAULT_SHOW_THERMOMETER_LABELS,
   );
-  const dispatch = useDispatch();
 
   const onToggle = () => {
-    dispatch(setShowThermometerLabels(!showThermometerLabels));
+    // dispatch(setShowThermometerLabels(!showThermometerLabels));
   };
 
   const control = (

@@ -297,10 +297,9 @@ Scale.propTypes = {
   showKelvinScale: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ lab, appInstance }) => ({
+const mapStateToProps = ({ lab }) => ({
   currentTemperature: lab.temperature,
   scales: lab.scales,
-  showThermometerLabels: appInstance.content?.settings?.showThermometerLabels,
   showKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
 });
 
