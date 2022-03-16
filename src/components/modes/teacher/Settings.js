@@ -59,6 +59,7 @@ class Settings extends Component {
   };
 
   saveSettings = (settingsToChange) => {
+    // todo: adapt for new graasp api
     // eslint-disable-next-line no-console
     console.log('settingsToChange: ', settingsToChange);
     // const { settings, dispatchPatchAppInstance } = this.props;

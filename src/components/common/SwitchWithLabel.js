@@ -23,6 +23,8 @@ const SwitchWithLabel = ({ isChecked, onToggle, switchLabel, disabled }) => {
 
   const onSwitchToggle = () => {
     onToggle(!isChecked);
+
+    // todo: adapt for new graasp api
     //   postAction({
     //     verb: isChecked ? toggleOffAction : toggleOnAction,
     //     data: { applicationState },

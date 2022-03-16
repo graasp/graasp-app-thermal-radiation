@@ -301,6 +301,8 @@ const mapStateToProps = ({ lab }) => ({
   currentTemperature: lab.temperature,
   scales: lab.scales,
   showKelvinScale: lab.scaleUnit === SCALE_UNITS.KELVIN,
+  // todo: adapt for new graasp api
+  // showThermometerLabels: appInstance.content?.settings?.showThermometerLabels,
 });
 
 export default connect(mapStateToProps)(Scale);

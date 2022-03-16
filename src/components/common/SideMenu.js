@@ -160,6 +160,8 @@ class SideMenu extends React.Component {
       radiation: showEmittedLines,
       wavelengthDistribution,
     };
+
+    // todo: adapt for new graasp api
     // if (isPaused) {
     //   dispatchPostAction({ verb: CLICKED_PLAY, data: { ...appSettings } });
     // } else {
@@ -171,6 +173,8 @@ class SideMenu extends React.Component {
   reset = () => {
     const { dispatchResetSettings } = this.props;
     dispatchResetSettings();
+
+    // todo: adapt for new graasp api
     // dispatchPostAction({ verb: CLICKED_RESET });
   };
 
@@ -179,12 +183,16 @@ class SideMenu extends React.Component {
     // const applicationState = isPaused ? PAUSED_STRING : PLAYING_STRING;
     if (currentlyShowingKelvinScale) {
       dispatchSetScaleUnit(SCALE_UNITS.CELSIUS);
+
+      // todo: adapt for new graasp api
       // dispatchPostAction({
       //   verb: TOGGLED_TEMPERATURE_SCALE,
       //   data: { newScale: CELSIUS_STRING, applicationState },
       // });
     } else {
       dispatchSetScaleUnit(SCALE_UNITS.KELVIN);
+
+      // todo: adapt for new graasp api
       // dispatchPostAction({
       //   verb: TOGGLED_TEMPERATURE_SCALE,
       //   data: { newScale: KELVIN_STRING, applicationState },

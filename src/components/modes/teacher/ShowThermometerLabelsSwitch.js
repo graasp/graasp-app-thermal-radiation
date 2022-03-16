@@ -22,6 +22,7 @@ const ShowThermometerLabelsSwitch = () => {
   );
 
   const onToggle = () => {
+    // todo: adapt for new graasp api
     // dispatch(setShowThermometerLabels(!showThermometerLabels));
   };
 

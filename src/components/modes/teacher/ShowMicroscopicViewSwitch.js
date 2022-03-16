@@ -19,6 +19,7 @@ function ShowMicroscopicViewSwitch() {
   const showMicroscopicView = useSelector(() => false);
 
   const onSwitchToggle = () => {
+    // todo: adapt for new graasp api
     // dispatch(setShowMicroscopicView(!showMicroscopicView));
   };
 
