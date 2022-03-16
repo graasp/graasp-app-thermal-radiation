@@ -73,9 +73,8 @@ class LanguageSelect extends Component {
   }
 }
 
-const mapStateToProps = ({ appInstance }) => ({
-  lang: appInstance.content.settings?.lang || DEFAULT_LANG,
-  activity: Boolean(appInstance.activity.length),
+const mapStateToProps = () => ({
+  lang: DEFAULT_LANG,
 });
 
 const mapDispatchToProps = {

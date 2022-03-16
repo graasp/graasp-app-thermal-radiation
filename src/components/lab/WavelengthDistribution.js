@@ -229,9 +229,8 @@ WavelengthDistribution.propTypes = {
   headerVisible: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ lab, appInstance }) => ({
+const mapStateToProps = ({ lab }) => ({
   temperature: lab.temperature,
-  headerVisible: appInstance.content.settings.headerVisible,
 });
 
 const ConnectedComponent = connect(mapStateToProps)(WavelengthDistribution);

@@ -25,7 +25,6 @@ import {
   setShowEmittedLines,
   resetSettings,
   setScaleUnit,
-  postAction,
 } from '../../actions';
 import SwitchWithLabel from './SwitchWithLabel';
 import {
@@ -40,22 +39,15 @@ import {
   MACROSCOPIC_STRING,
   KELVIN_STRING,
   CELSIUS_STRING,
-  PAUSED_STRING,
-  PLAYING_STRING,
 } from '../../config/constants';
 import SwitchWithTwoLabels from './SwitchWithTwoLabels';
 import {
-  CLICKED_PAUSE,
-  CLICKED_PLAY,
-  CLICKED_RESET,
   TOGGLED_ELECTRONS_OFF,
   TOGGLED_ELECTRONS_ON,
   TOGGLED_GRID_OFF,
   TOGGLED_GRID_ON,
   TOGGLED_RADIATION_OFF,
   TOGGLED_RADIATION_ON,
-  TOGGLED_TEMPERATURE_SCALE,
-  TOGGLED_VIEW,
   TOGGLED_WAVELENGTH_DISTRIBUTION_OFF,
   TOGGLED_WAVELENGTH_DISTRIBUTION_ON,
 } from '../../config/verbs';
@@ -141,7 +133,6 @@ class SideMenu extends React.Component {
     dispatchResetSettings: PropTypes.func.isRequired,
     currentlyShowingKelvinScale: PropTypes.bool.isRequired,
     dispatchSetScaleUnit: PropTypes.func.isRequired,
-    dispatchPostAction: PropTypes.func.isRequired,
   };
 
   handleToggleSideMenu = (open) => () => {
@@ -152,7 +143,6 @@ class SideMenu extends React.Component {
   onClickPauseOrPlay = () => {
     const {
       dispatchSetIsPaused,
-      dispatchPostAction,
       isPaused,
       isMicroscopic,
       electrons,
@@ -161,6 +151,7 @@ class SideMenu extends React.Component {
       showEmittedLines,
       wavelengthDistribution,
     } = this.props;
+    // eslint-disable-next-line no-unused-vars
     const appSettings = {
       view: isMicroscopic ? MICROSCOPIC_STRING : MACROSCOPIC_STRING,
       electrons,
@@ -169,40 +160,43 @@ class SideMenu extends React.Component {
       radiation: showEmittedLines,
       wavelengthDistribution,
     };
-    if (isPaused) {
-      dispatchPostAction({ verb: CLICKED_PLAY, data: { ...appSettings } });
-    } else {
-      dispatchPostAction({ verb: CLICKED_PAUSE, data: { ...appSettings } });
-    }
+
+    // todo: adapt for new graasp api
+    // if (isPaused) {
+    //   dispatchPostAction({ verb: CLICKED_PLAY, data: { ...appSettings } });
+    // } else {
+    //   dispatchPostAction({ verb: CLICKED_PAUSE, data: { ...appSettings } });
+    // }
     dispatchSetIsPaused(!isPaused);
   };
 
   reset = () => {
-    const { dispatchResetSettings, dispatchPostAction } = this.props;
+    const { dispatchResetSettings } = this.props;
     dispatchResetSettings();
-    dispatchPostAction({ verb: CLICKED_RESET });
+
+    // todo: adapt for new graasp api
+    // dispatchPostAction({ verb: CLICKED_RESET });
   };
 
   onToggleScaleUnit = () => {
-    const {
-      dispatchSetScaleUnit,
-      currentlyShowingKelvinScale,
-      dispatchPostAction,
-      isPaused,
-    } = this.props;
-    const applicationState = isPaused ? PAUSED_STRING : PLAYING_STRING;
+    const { dispatchSetScaleUnit, currentlyShowingKelvinScale } = this.props;
+    // const applicationState = isPaused ? PAUSED_STRING : PLAYING_STRING;
     if (currentlyShowingKelvinScale) {
       dispatchSetScaleUnit(SCALE_UNITS.CELSIUS);
-      dispatchPostAction({
-        verb: TOGGLED_TEMPERATURE_SCALE,
-        data: { newScale: CELSIUS_STRING, applicationState },
-      });
+
+      // todo: adapt for new graasp api
+      // dispatchPostAction({
+      //   verb: TOGGLED_TEMPERATURE_SCALE,
+      //   data: { newScale: CELSIUS_STRING, applicationState },
+      // });
     } else {
       dispatchSetScaleUnit(SCALE_UNITS.KELVIN);
-      dispatchPostAction({
-        verb: TOGGLED_TEMPERATURE_SCALE,
-        data: { newScale: KELVIN_STRING, applicationState },
-      });
+
+      // todo: adapt for new graasp api
+      // dispatchPostAction({
+      //   verb: TOGGLED_TEMPERATURE_SCALE,
+      //   data: { newScale: KELVIN_STRING, applicationState },
+      // });
     }
   };
 
@@ -295,8 +289,6 @@ class SideMenu extends React.Component {
       showEmittedLines,
       dispatchSetShowGrid,
       currentlyShowingKelvinScale,
-      dispatchPostAction,
-      isPaused,
     } = this.props;
 
     return (
@@ -319,18 +311,18 @@ class SideMenu extends React.Component {
                 rightLabel={t('Microscopic View')}
                 isChecked={isMicroscopic}
                 onSwitchToggle={() => {
-                  const applicationState = isPaused
-                    ? PAUSED_STRING
-                    : PLAYING_STRING;
-                  dispatchPostAction({
-                    verb: TOGGLED_VIEW,
-                    data: {
-                      applicationState,
-                      newView: isMicroscopic
-                        ? MACROSCOPIC_STRING
-                        : MICROSCOPIC_STRING,
-                    },
-                  });
+                  // const applicationState = isPaused
+                  //   ? PAUSED_STRING
+                  //   : PLAYING_STRING;
+                  // dispatchPostAction({
+                  //   verb: TOGGLED_VIEW,
+                  //   data: {
+                  //     applicationState,
+                  //     newView: isMicroscopic
+                  //       ? MACROSCOPIC_STRING
+                  //       : MICROSCOPIC_STRING,
+                  //   },
+                  // });
                   dispatchSetIsMicroscopic(!isMicroscopic);
                 }}
               />
@@ -409,7 +401,6 @@ const mapDispatchToProps = {
   dispatchSetShowEmittedLines: setShowEmittedLines,
   dispatchResetSettings: resetSettings,
   dispatchSetScaleUnit: setScaleUnit,
-  dispatchPostAction: postAction,
 };
 
 const ConnectedComponent = connect(

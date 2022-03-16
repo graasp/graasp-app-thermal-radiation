@@ -108,8 +108,7 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = ({ layout, appInstance }) => ({
-  headerVisible: appInstance.content.settings.headerVisible,
+const mapStateToProps = ({ layout }) => ({
   showSideMenu: layout.showSideMenu,
   themeColor: layout.themeColor,
 });

@@ -1,11 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { FORM_CONTROL_MIN_WIDTH } from '../../../config/constants';
-import { setShowMicroscopicView } from '../../../actions';
 
 const useStyles = makeStyles(() => ({
   formControl: {
@@ -17,13 +16,11 @@ const useStyles = makeStyles(() => ({
 function ShowMicroscopicViewSwitch() {
   const { t } = useTranslation();
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const showMicroscopicView = useSelector(
-    ({ appInstance }) => appInstance.content.settings?.showMicroscopicView,
-  );
+  const showMicroscopicView = useSelector(() => false);
 
   const onSwitchToggle = () => {
-    dispatch(setShowMicroscopicView(!showMicroscopicView));
+    // todo: adapt for new graasp api
+    // dispatch(setShowMicroscopicView(!showMicroscopicView));
   };
 
   const control = (
