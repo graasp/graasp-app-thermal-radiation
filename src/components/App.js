@@ -79,12 +79,11 @@ export class App extends Component {
   }
 }
 
-const mapStateToProps = ({ context, layout }) => ({
+const mapStateToProps = ({ context }) => ({
   lang: context.lang,
   mode: context.mode,
   view: context.view,
   standalone: context.standalone,
-  loading: layout.showLoader,
 });
 
 const mapDispatchToProps = {

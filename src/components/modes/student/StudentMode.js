@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StudentView from './StudentView';
 import { DEFAULT_VIEW, FEEDBACK_VIEW } from '../../../config/views';
-import Loader from '../../common/Loader';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class StudentMode extends Component {
   static propTypes = {
     view: PropTypes.string,
-    activity: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -17,10 +15,7 @@ class StudentMode extends Component {
   };
 
   render() {
-    const { view, activity } = this.props;
-    if (activity) {
-      return <Loader />;
-    }
+    const { view } = this.props;
     switch (view) {
       case FEEDBACK_VIEW:
       case DEFAULT_VIEW:
