@@ -7,7 +7,6 @@ import { getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE, MODES } from '../config/settings';
 import { DEFAULT_VIEW } from '../config/views';
 import TeacherMode from './modes/teacher/TeacherMode';
-import ProgressScreen from './common/LoadingScreen';
 
 export class App extends Component {
   static propTypes = {
@@ -19,14 +18,12 @@ export class App extends Component {
     lang: PropTypes.string,
     mode: PropTypes.string,
     view: PropTypes.string,
-    loading: PropTypes.bool,
   };
 
   static defaultProps = {
     lang: DEFAULT_LANG,
     mode: DEFAULT_MODE,
     view: DEFAULT_VIEW,
-    loading: true,
   };
 
   constructor(props) {
@@ -55,11 +52,7 @@ export class App extends Component {
   };
 
   render() {
-    const { mode, view, loading } = this.props;
-
-    if (loading) {
-      return <ProgressScreen />;
-    }
+    const { mode, view } = this.props;
 
     switch (mode) {
       // show teacher view when in producer (educator) mode
