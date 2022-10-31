@@ -7,7 +7,6 @@ import { getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE, MODES } from '../config/settings';
 import { DEFAULT_VIEW } from '../config/views';
 import TeacherMode from './modes/teacher/TeacherMode';
-import Loader from './common/Loader';
 import ProgressScreen from './common/LoadingScreen';
 
 export class App extends Component {
@@ -20,8 +19,6 @@ export class App extends Component {
     lang: PropTypes.string,
     mode: PropTypes.string,
     view: PropTypes.string,
-    ready: PropTypes.bool.isRequired,
-    standalone: PropTypes.bool.isRequired,
     loading: PropTypes.bool,
   };
 
@@ -58,14 +55,10 @@ export class App extends Component {
   };
 
   render() {
-    const { mode, view, ready, standalone, loading } = this.props;
+    const { mode, view, loading } = this.props;
 
     if (loading) {
       return <ProgressScreen />;
-    }
-
-    if (!standalone && !ready) {
-      return <Loader />;
     }
 
     switch (mode) {
