@@ -21,6 +21,7 @@ import {
   SCALE_UNITS,
   SCALE_TICKS_STROKE_COLOR,
   SCALE_LABELS_LINE_DASH,
+  DEFAULT_SHOW_THERMOMETER_LABELS,
 } from '../../../config/constants';
 import Slider from './Slider';
 import { celsiusToKelvin, kelvinToCelsius } from '../../../utils/utils';
@@ -169,7 +170,6 @@ const Scale = ({
   scales: { from, to },
   thermometerHeight,
   offsetY,
-  showThermometerLabels,
   showKelvinScale,
 }) => {
   const { t } = useTranslation();
@@ -270,7 +270,7 @@ const Scale = ({
       {!showKelvinScale && CelsiusScaleComponents}
 
       {/* label notes: planets, etc */}
-      {showThermometerLabels && LabelNoteComponents}
+      {DEFAULT_SHOW_THERMOMETER_LABELS && LabelNoteComponents}
 
       {/* triangle slider */}
       <Slider
@@ -293,7 +293,6 @@ Scale.propTypes = {
   }).isRequired,
   thermometerHeight: PropTypes.number.isRequired,
   offsetY: PropTypes.number.isRequired,
-  showThermometerLabels: PropTypes.bool.isRequired,
   showKelvinScale: PropTypes.bool.isRequired,
 };
 
