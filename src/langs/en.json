@@ -1,6 +1,5 @@
 {
   "translations": {
-    "Observe": "Observe",
     "Language": "Language",
     "Show Header": "Show Header",
     "Settings": "Settings",
@@ -25,6 +24,8 @@
     "Macroscopic View": "Macroscopic View",
     "Show Microscopic View by default": "Show Microscopic View by default",
     "Kelvin": "Kelvin",
-    "Celsius": "Celsius"
+    "Celsius": "Celsius",
+    "Close side menu": "Close side menu",
+    "Open side menu": "Open side menu"
   }
 }

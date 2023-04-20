@@ -26,7 +26,6 @@ import {
   WAVELENGTH_DISTRIBUTION_LABELS_PADDING_TOP,
   SPEED_OF_LIGHT_CONSTANT,
   PLANCK_CONSTANT,
-  HEADER_HEIGHT,
   WAVELENGTH_DISTRIBUTION_TICK_LINE_LENGTH,
 } from '../../config/constants';
 
@@ -48,11 +47,7 @@ const getSpectralPowerDensityAt = ({ wavelength, temperature }) => {
   );
 };
 
-const WavelengthDistribution = ({
-  stageDimensions,
-  temperature,
-  headerVisible,
-}) => {
+const WavelengthDistribution = ({ stageDimensions, temperature }) => {
   const { t } = useTranslation();
   const { stageWidth } = stageDimensions;
   const wavelengthDistance =
@@ -65,8 +60,7 @@ const WavelengthDistribution = ({
     WAVELENGTH_DISTRIBUTION_WIDTH -
     WAVELENGTH_DISTRIBUTION_MARGIN -
     2 * WAVELENGTH_DISTRIBUTION_PADDING;
-  const wavelengthDistributionInitialYPosition =
-    (headerVisible ? HEADER_HEIGHT : 0) + WAVELENGTH_DISTRIBUTION_MARGIN;
+  const wavelengthDistributionInitialYPosition = WAVELENGTH_DISTRIBUTION_MARGIN;
 
   const wavelengthStep =
     wavelengthDistance / WAVELENGTH_DISTRIBUTION_DISTRIBUTION_POINTS_NUMBER;
@@ -194,11 +188,12 @@ const WavelengthDistribution = ({
           }
         />
         {/* ticks */}
-        {ticks.map((i) => {
+        {ticks.map((i, index) => {
           const x = i * tickDistance;
           const v = i * tickStep + WAVELENGTH_DISTRIBUTION_MIN_WAVELENGTH;
           return (
-            <Group x={x}>
+            // eslint-disable-next-line react/no-array-index-key
+            <Group x={x} key={index}>
               <Line
                 points={[0, 0, 0, WAVELENGTH_DISTRIBUTION_TICK_LINE_LENGTH]}
                 stroke="black"
@@ -226,7 +221,6 @@ WavelengthDistribution.propTypes = {
     stageWidth: PropTypes.number.isRequired,
   }).isRequired,
   temperature: PropTypes.number.isRequired,
-  headerVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ lab }) => ({
