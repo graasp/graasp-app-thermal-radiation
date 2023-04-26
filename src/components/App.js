@@ -12,17 +12,20 @@ export const App = () => {
   const { i18n } = useTranslation();
   const context = useLocalContext();
 
+  // eslint-disable-next-line no-console
+  console.log(context);
+
   const handleChangeLang = (newLang) => {
     i18n.changeLanguage(newLang);
   };
 
   useEffect(() => {
-    const newLang = lang || context?.lang;
+    const newLang = lang || context?.lang || DEFAULT_LANG;
     // set the language on first load
     if (newLang !== i18n.language) {
-      handleChangeLang(newLang || DEFAULT_LANG);
+      handleChangeLang(newLang);
     }
-  }, [context]);
+  }, [context, lang]);
 
   // eslint-disable-next-line react/destructuring-assignment
   const view = context?.context;
