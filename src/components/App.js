@@ -27,7 +27,7 @@ export class App extends Component {
   };
 
   constructor(props) {
-    super(props);
+    super();
     // first thing to do is get the context
     props.dispatchGetContext();
   }

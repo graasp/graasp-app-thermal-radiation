@@ -60,10 +60,10 @@ export const SCALE_LEGEND_PADDING_BOTTOM = 30;
 export const SCALE_TICKS_STROKE_COLOR = 'black';
 export const SCALE_LABEL_NOTES = [
   { name: 'Mars', t: 210 },
-  { name: 'Earth', t: 289 },
+  { name: 'Earth', t: 288 },
   { name: 'Venus', t: 733 },
 ];
-export const INITIAL_TEMPERATURE = 289;
+export const INITIAL_TEMPERATURE = 288;
 export const SCALE_LABEL_NOTES_STROKE_WIDTH = 3;
 // apply dashed stroke that is 6px long and 2 pixels apart
 export const SCALE_LABELS_LINE_DASH = [6, 2];

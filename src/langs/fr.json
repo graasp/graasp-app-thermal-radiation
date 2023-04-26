@@ -1,6 +1,5 @@
 {
   "translations": {
-    "Observe": "Observe",
     "Language": "Langue",
     "Show Header": "Montrer l'en-tête",
     "Settings": "Paramètres",
@@ -26,6 +25,8 @@
     "Show Microscopic View by default": "Montrer la Vue Microscopique par défaut",
     "Kelvin": "Kelvin",
     "Celsius": "Celsius",
-    "Show Thermometer Labels": "Montrer les indications sur le thermomètre"
+    "Show Thermometer Labels": "Montrer les indications sur le thermomètre",
+    "Close side menu": "Fermer le menu latéral",
+    "Open side menu": "Ouvrir le menu latéral"
   }
 }
