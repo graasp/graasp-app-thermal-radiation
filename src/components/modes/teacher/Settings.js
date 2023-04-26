@@ -10,7 +10,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
 import { toggleSettings } from '../../../actions';
 import Loader from '../../common/Loader';
-import LanguageSelect from './LanguageSelect';
 import { DEFAULT_HEADER_VISIBLE } from '../../../config/constants';
 import ShowMicroscopicViewSwitch from './ShowMicroscopicViewSwitch';
 import ShowThermometerLabelsSwitch from './ShowThermometerLabelsSwitch';
@@ -97,9 +96,10 @@ class Settings extends Component {
 
     return (
       <Grid container>
-        <Grid item xs={12}>
+        {/* language is decided given query strings or context */}
+        {/* <Grid item xs={12}>
           <LanguageSelect />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <FormControlLabel control={switchControl} label={t('Show Header')} />
         </Grid>

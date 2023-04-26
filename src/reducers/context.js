@@ -1,16 +1,19 @@
+import qs from 'qs';
 import { GET_CONTEXT_FAILED, GET_CONTEXT_SUCCEEDED } from '../types';
-import {
-  DEFAULT_API_HOST,
-  DEFAULT_LANG,
-  DEFAULT_MODE,
-} from '../config/settings';
+import { DEFAULT_API_HOST, DEFAULT_MODE } from '../config/settings';
 import { showErrorToast } from '../utils/toasts';
 import { DEFAULT_VIEW } from '../config/views';
+
+// get lang from context or query string
+// necessary for standalone setting
+const { lang: prefixLang } = qs.parse(window.location.search, {
+  ignoreQueryPrefix: true,
+});
 
 const INITIAL_STATE = {
   apiHost: DEFAULT_API_HOST,
   // the properties below come from the context via the query string
-  lang: DEFAULT_LANG,
+  lang: prefixLang,
   mode: DEFAULT_MODE,
   view: DEFAULT_VIEW,
   appInstanceId: null,
