@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.6...v0.2.0) (2023-04-27)
+
+
+### Features
+
+* remove Observe header ([223f255](https://github.com/graasp/graasp-app-thermal-radiation/commit/223f255c692fad7615448e09a7fa70b2b8bde895)), closes [#69](https://github.com/graasp/graasp-app-thermal-radiation/issues/69)
+* update yarn, get lang from query string ([7b2a688](https://github.com/graasp/graasp-app-thermal-radiation/commit/7b2a688dcabe4067efb45505d5308fca01c557d9))
+
+
+### Bug Fixes
+
+* add missing French translations ([31ed50e](https://github.com/graasp/graasp-app-thermal-radiation/commit/31ed50ea13e52aa1551d63e98d3a613a8f1c2e74))
+* adjust equilibrium temperature to 15 C ([0ea6e0e](https://github.com/graasp/graasp-app-thermal-radiation/commit/0ea6e0ee7c72601acd65f5cd41c2fb8c6f81917f)), closes [#68](https://github.com/graasp/graasp-app-thermal-radiation/issues/68)
+* make thermometer labels on by default ([f8e5445](https://github.com/graasp/graasp-app-thermal-radiation/commit/f8e54459ebc85658ae36f3c2bb4d9b52f9c1a740)), closes [#70](https://github.com/graasp/graasp-app-thermal-radiation/issues/70)
+
 ### [0.1.6](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.1.5...v0.1.6) (2022-10-31)
 
 ### Features
