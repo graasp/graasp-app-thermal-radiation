@@ -154,7 +154,7 @@ const WavelengthDistribution = ({ stageDimensions, temperature }) => {
         ]}
       />
       <Text
-        text={t('Most Frequent')}
+        text={t('Most Emitted')}
         rotation={-90}
         fill={WAVELENGTH_DISTRIBUTION_PEAK_WAVELENGTH_COLOR}
         fontSize={WAVELENGTH_DISTRIBUTION_AXIS_FONT_SIZE}
