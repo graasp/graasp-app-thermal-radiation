@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.3.0...v0.3.0) (2024-11-20)
+
+
+### chore
+
+* release 0.3.0 ([dc98d90](https://github.com/graasp/graasp-app-thermal-radiation/commit/dc98d9078795111fa474d7b59e77f2038bc393a4))
+
+
+### Bug Fixes
+
+* fix deploy prod ([5913c86](https://github.com/graasp/graasp-app-thermal-radiation/commit/5913c860170ae493edef8912c91f637724414de9))
+* fix deployment ([604ba13](https://github.com/graasp/graasp-app-thermal-radiation/commit/604ba133d69368d89d03e37f9003473515c4afca))
+* fix dev and stage deploy ([da3fe19](https://github.com/graasp/graasp-app-thermal-radiation/commit/da3fe19dd4f78575099f7009c9d015f661c6265d))
+
 ## [0.3.0](https://github.com/graasp/graasp-app-thermal-radiation/compare/v0.2.0...v0.3.0) (2023-08-21)
 
 
