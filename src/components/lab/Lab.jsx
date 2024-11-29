@@ -60,6 +60,7 @@ class Lab extends Component {
     const { dispatchSetStageDimensions } = this.props;
     const stageWidth = this.container?.offsetWidth || 0;
     const stageHeight = this.container?.offsetHeight || 0;
+    console.log(stageHeight, stageWidth);
     dispatchSetStageDimensions({
       stageWidth,
       stageHeight,

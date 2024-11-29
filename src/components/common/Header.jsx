@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
-import { ReactComponent as Logo } from '../../resources/logo.svg';
 import { toggleSideMenu } from '../../actions';
 import { DRAWER_WIDTH, HEADER_HEIGHT, LOGO_SIZE } from '../../config/constants';
 
@@ -79,7 +78,7 @@ class Header extends Component {
         })}
       >
         <Toolbar>
-          <Logo className={classes.logo} />
+          {/* <Logo className={classes.logo} /> */}
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {t('Thermal Radiation App')}
           </Typography>
