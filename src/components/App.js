@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Context, PermissionLevel } from '@graasp/sdk';
 import { useSelector } from 'react-redux';
-import { useLocalContext } from '@graasp/apps-query-client';
 import StudentMode from './modes/student/StudentMode';
 import { DEFAULT_LANG } from '../config/settings';
 import TeacherMode from './modes/teacher/TeacherMode';
@@ -31,10 +29,7 @@ export const App = () => {
   switch (view) {
     // show teacher view when in producer (educator) mode
     case Context.BUILDER:
-      if (
-        permission === PermissionLevel.Admin ||
-        permission === PermissionLevel.Write
-      ) {
+      if (permission === 'admin' || permission === 'write') {
         return <TeacherMode view={view} />;
       }
       return <StudentMode />;
