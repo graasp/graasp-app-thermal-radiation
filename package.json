@@ -10,7 +10,9 @@
     "Kim Lan Phan Hoang",
     "Hagop Taminian"
   ],
-  "homepage": ".",
+  "engines": {
+    "node": ">=20"
+  },
   "license": "AGPL-3.0-only",
   "dependencies": {
     "@babel/eslint-parser": "7.25.9",
