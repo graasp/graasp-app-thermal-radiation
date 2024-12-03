@@ -34,7 +34,7 @@ jobs:
         uses: graasp/graasp-deploy/.github/actions/deploy-s3-app@v1
         # Replace input build-folder or version if needed
         with:
-          build-folder: 'build'
+          build-folder: 'dist'
           graasp-app-id: ${{ secrets.APP_ID }}
           version: 'latest'
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
