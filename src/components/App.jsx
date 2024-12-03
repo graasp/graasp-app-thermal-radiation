@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { DEFAULT_LANG } from '../config/settings';
 import TeacherMode from './modes/teacher/TeacherMode';
+import { DEFAULT_LANG } from '../config/settings';
 
 export const App = () => {
   const lang = useSelector((state) => state.context.lang);
@@ -12,13 +12,11 @@ export const App = () => {
     i18n.changeLanguage(newLang);
   };
 
-  // useEffect(() => {
-  //   const newLang = lang || context?.lang;
-  //   // set the language on first load
-  //   if (newLang !== i18n.language) {
-  //     handleChangeLang(newLang || DEFAULT_LANG);
-  //   }
-  // }, [context]);
+  useEffect(() => {
+    if (lang !== i18n.language) {
+      handleChangeLang(lang || DEFAULT_LANG);
+    }
+  }, [lang]);
 
   return <TeacherMode />;
 };
