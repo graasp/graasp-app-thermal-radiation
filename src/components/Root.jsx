@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactGa from 'react-ga';
 import { I18nextProvider } from 'react-i18next';
 import {
   MuiThemeProvider,
@@ -13,19 +12,6 @@ import orange from '@material-ui/core/colors/orange';
 import 'react-toastify/dist/ReactToastify.css';
 import i18nConfig from '../config/i18n';
 import App from './App';
-import {
-  REACT_APP_APP_ID,
-  REACT_APP_APPS_DEVELOPER_ID,
-  REACT_APP_VERSION,
-  REACT_APP_GOOGLE_ANALYTICS_ID,
-} from '../config/env';
-
-ReactGa.initialize(REACT_APP_GOOGLE_ANALYTICS_ID);
-ReactGa.ga(
-  'send',
-  'pageview',
-  `/${REACT_APP_APPS_DEVELOPER_ID}/${REACT_APP_APP_ID}/${REACT_APP_VERSION}/`,
-);
 
 const styles = {
   root: {

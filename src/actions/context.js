@@ -100,7 +100,7 @@ const changeLanguage = (lang) => (dispatch, getState) => {
     ...currentSettings,
     lang,
   };
-  // eslint-disable-next-line no-console
+
   console.log('newSettings: ', newSettings);
   // todo: adapt for new graasp api
   // first save the settings in the app instance

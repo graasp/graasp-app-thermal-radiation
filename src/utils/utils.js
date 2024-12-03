@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 // function expects a canvas with variable width, a fixed positive ion radius, and a fixed distance between two positive ions
 // it calculates the number of positive ions that can be placed in one row on the canvas
 // it returns an array of numbers, corresponding to the x position of each positive ion (a konva circle with an x={} prop)
