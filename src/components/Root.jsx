@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactGa from 'react-ga';
 import { I18nextProvider } from 'react-i18next';
 import {
   MuiThemeProvider,
